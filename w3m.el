@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.976 $"))
+    (let ((rev "$Revision: 1.977 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -8079,7 +8079,8 @@ Note that this command depends on the value of `w3m-safe-url-regexp'
 \(which see) to consider whether the URL is safe.  You need to keep in
 mind that there may be pages which cause security problems."
   (interactive)
-  (let ((url (w3m-url-valid (w3m-anchor))))
+  (let ((w3m-pop-up-windows nil)
+	(url (w3m-url-valid (w3m-anchor))))
     (cond
      (url (w3m-goto-url url))
      ((w3m-url-valid (w3m-image))
