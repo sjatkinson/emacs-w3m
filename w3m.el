@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1045 $"))
+    (let ((rev "$Revision: 1.1046 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -3460,16 +3460,11 @@ Like `ffap-url-at-point', except that text props will be stripped."
   "Return an active region or a url around the cursor.
 In Transient Mark mode, deactivate the mark."
   (if (w3m-region-active-p)
-      (let ((pos (point))
-	    (end))
-	(goto-char (region-end))
-	(skip-chars-backward "\t\r\f\n 　")
-	(setq end (point))
-	(goto-char (region-beginning))
-	(skip-chars-forward "\t\r\f\n 　" end)
-	(prog1 (buffer-substring-no-properties (point) end)
-	  (goto-char pos)
-	  (w3m-deactivate-region)))
+      (prog1
+	  (w3m-replace-in-string (buffer-substring-no-properties
+				  (region-beginning) (region-end))
+				 "[\t\r\f\n 　]+" "")
+	(w3m-deactivate-region))
     (w3m-url-at-point)))
 
 (defun w3m-input-url (&optional prompt initial default quick-start)
