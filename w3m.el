@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.838 $"))
+    (let ((rev "$Revision: 1.839 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1321,7 +1321,7 @@ way:
 		       (regexp :format "%t: %v\n" :size 0)
 		       (function
 			:format "%t: %v\n" :size 0
-			;; Fixing a bug in Emacs versions prior to 21.3.
+			;; Fixing a bug in Emacs versions prior to 21.4.
 			:value-to-internal
 			(lambda (widget value)
 			  (if (stringp value)
