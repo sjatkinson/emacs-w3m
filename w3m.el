@@ -98,7 +98,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.124 $"))
+    (let ((rev "$Revision: 1.125 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -172,7 +172,13 @@ width using expression (+ (frame-width) VALUE)."
   :group 'w3m
   :type 'boolean)
 
-(defcustom w3m-icon-directory nil
+(defcustom w3m-icon-directory
+  (if (fboundp 'locate-data-directory)
+      (locate-data-directory "w3m")
+    (let ((icons (expand-file-name "w3m/icons/"
+				   data-directory)))
+      (if (file-directory-p icons)
+	  icons)))
   "*Icon directory for w3m (XEmacs or Emacs 21)."
   :group 'w3m
   :type 'directory)
@@ -2306,10 +2312,10 @@ ex.) c:/dir/file => //c/dir/file"
   (autoload 'w3m-weather "w3m-weather"
     "*Display weather report." t)
   (autoload 'w3m-about-weather "w3m-weather"))
-(when (locate-library "w3m-antenna.el")
-  (autoload 'w3m-antenna "w3m-antenna"
-    "*Display antenna report." t)
-  (autoload 'w3m-about-antenna "w3m-antenna"))
+(when (locate-library "w3m-antena.el")
+  (autoload 'w3m-antena "w3m-antena"
+    "*Display antena report." t)
+  (autoload 'w3m-about-antena "w3m-antena"))
 
 (provide 'w3m)
 ;;; w3m.el ends here.
