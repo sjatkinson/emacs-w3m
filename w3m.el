@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1068 $"))
+    (let ((rev "$Revision: 1.1069 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -6990,7 +6990,8 @@ Cannot run two w3m processes simultaneously \
 		    (referer referer)
 		    (name)
 		    (history-position (get-text-property (point)
-							 'history-position)))
+							 'history-position))
+		    (reuse-history w3m-history-reuse-history-elements))
 	(when w3m-current-forms
 	  ;; Store the current forms in the history structure.
 	  (w3m-history-plist-put :forms w3m-current-forms))
@@ -7063,8 +7064,13 @@ Cannot run two w3m processes simultaneously \
 			  (setcar w3m-history
 				  (w3m-history-regenerate-pointers
 				   history-position))))
-		    (w3m-history-push w3m-current-url
-				      (list :title w3m-current-title)))
+		    (let ((w3m-history-reuse-history-elements reuse-history)
+			  (position (when (eq 'reload reuse-history)
+				      (cadar w3m-history))))
+		      (w3m-history-push w3m-current-url
+					(list :title w3m-current-title))
+		      (when position
+			(w3m-history-set-current position))))
 		  (w3m-history-add-properties (list :referer referer
 						    :post-data post-data))
 		  (unless w3m-toggle-inline-images-permanently
@@ -7202,7 +7208,10 @@ session will start afresh."
 If the prefix arg ARG is given, it also clears forms and post data."
   (interactive "P")
   (if w3m-current-url
-      (let (post-data)
+      (let ((w3m-history-reuse-history-elements
+	     ;; Don't move the history position.
+	     'reload)
+	    post-data)
 	(if arg
 	    (progn
 	      (w3m-history-remove-properties '(:forms nil :post-data nil))
