@@ -129,7 +129,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.600 $"))
+    (let ((rev "$Revision: 1.601 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -208,7 +208,7 @@ server for the particular hosts.  The first match made will be used.
 Here is an example of how to set this option:
 
 \(setq w3m-command-arguments-alist
-      '(;; Don't use any additional options to visit local hosts.
+      '(;; Don't use proxy server to visit local hosts.
 	(\".*\\\\.your-company\\\\.com$\" \"-no-proxy\")
 	;; Use the proxy server to visit any foreign hosts.
 	(\"\" \"-o\" \"http://proxy.your-company.com:8080/\")))"
