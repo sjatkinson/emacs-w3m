@@ -98,7 +98,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.123 $"))
+    (let ((rev "$Revision: 1.124 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2185,8 +2185,9 @@ or prefix ARG columns."
     (w3m-goto-url w3m-current-url 'reload)))
 
 
+;;;###autoload
 (defun w3m (url &optional args)
-  "*Interface for w3m on Emacs."
+  "Interface for w3m on Emacs."
   (interactive
    (list (or (w3m-alive-p)
 	     (w3m-input-url))))
