@@ -141,7 +141,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.782 $"))
+    (let ((rev "$Revision: 1.783 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -3201,6 +3201,9 @@ succeed."
 		(cfile (make-temp-name
 			(expand-file-name "w3melck" w3m-profile-directory)))
 		file beg end)
+	    (with-temp-buffer
+	      (insert lcookie)
+	      (write-region (point-min) (point-max) cfile 'nomsg))
 	    (w3m-process-with-environment
 		(list
 		 (cons "LOCAL_COOKIE" lcookie)
