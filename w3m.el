@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1006 $"))
+    (let ((rev "$Revision: 1.1007 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -7924,8 +7924,8 @@ buffer list.  The following command keys are available:
 	(pop-to-buffer buffer)
 	(w3m-scroll-up-or-next-url nil)))
     ;; FIXME: we should use a hook variable for this, maybe.
-    (w3m-static-when (or (featurep 'w3m-e21) (featurep 'w3m-e22))
-      (w3m-e21-wobble-window-size))
+    (w3m-static-when (boundp 'header-line-format)
+      (w3m-force-window-update w3m-select-buffer-window))
     (w3m-message w3m-select-buffer-message)
     buffer))
 
