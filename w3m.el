@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.196 $"))
+    (let ((rev "$Revision: 1.197 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2674,7 +2674,7 @@ works on Emacs.
       (unless (string-match w3m-about-history-except-regex (car element))
 	(push element rest)))
     (setq history (nreverse rest)))
-  (let (element url title children)
+  (let (element url title children child)
     (while history
       (setq element (car history)
 	    history (cdr history)
@@ -2692,9 +2692,12 @@ works on Emacs.
 				   (string-equal "<no-title>" title))
 			       url
 			     title)
-			   "</a>\n"))
-      (when (setq children (caddr element))
-	(setq source (w3m-about-history-1 children source (1+ depth))))))
+			   "</a>\n")
+	    children (cddr element))
+      (while children
+	(setq child (car children)
+	      children (cdr children)
+	      source (w3m-about-history-1 child source (1+ depth))))))
   source)
 
 (defun w3m-about-history (&rest args)
