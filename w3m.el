@@ -73,7 +73,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.95 $"))
+    (let ((rev "$Revision: 1.96 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2157,7 +2157,10 @@ this function returns t.  Otherwise, returns nil."
   (catch 'found-command
     (let (bin)
       (dolist (dir exec-path)
-	(when (file-executable-p (setq bin (expand-file-name command dir)))
+	(when (or (file-executable-p
+		   (setq bin (expand-file-name command dir)))
+		  (file-executable-p
+		   (setq bin (expand-file-name (concat command ".exe") dir))))
 	  (throw 'found-command bin))))))
 
 (defun w3m-external-view (url)
