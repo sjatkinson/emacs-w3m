@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.357 $"))
+    (let ((rev "$Revision: 1.358 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1494,7 +1494,8 @@ half-dumped data."
 	    upper (string= (match-string 1) "IMG_ALT")
 	    start (match-beginning 0))
       (delete-region start (match-end 0))
-      (setq src (w3m-expand-url src w3m-current-url))
+      (setq src (w3m-expand-url (w3m-decode-anchor-string src)
+				w3m-current-url))
       (when (search-forward "</img_alt>" nil t)
 	(delete-region (setq end (match-beginning 0)) (match-end 0))
 	(w3m-add-text-properties start end (list 'w3m-image src
