@@ -1,4 +1,4 @@
-	emacs-w3m FAQ ($Date: 2001-08-07 18:03:12 $)
+	emacs-w3m FAQ ($Date: 2001-08-08 03:21:47 $)
 
 * emacs-w3m 一般
 
@@ -34,11 +34,11 @@ w3m を Emacs 上で動かすインターフェースプログラムです．
 
 ** Q. 認証の必要なページのパスワードが入力できません．
 
-(setq w3m-async-exec nil) という設定を ~/.emacs に追加してください．
+(setq w3m-async-exec t) という設定を ~/.emacs に追加してください．
 
 ** Q. 認証の必要な proxy サーバーのパスワードが入力できません．
 
-(setq w3m-async-exec nil) という設定を ~/.emacs に追加してください．
+(setq w3m-async-exec t) という設定を ~/.emacs に追加してください．
 
 ** Q. リンクが辿れません．
 
