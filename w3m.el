@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1020 $"))
+    (let ((rev "$Revision: 1.1021 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -8247,7 +8247,8 @@ Are you sure you really want to show all images (maybe unsecure)? "))
     (w3m-toggle-inline-image . w3m-safe-toggle-inline-image)
     (w3m-toggle-inline-images . w3m-safe-toggle-inline-images)
     (w3m-view-this-url . w3m-safe-view-this-url)
-    (w3m-mouse-view-this-url . w3m-mouse-safe-view-this-url))
+    (w3m-mouse-view-this-url . w3m-mouse-safe-view-this-url)
+    (w3m-print-this-url))
   "Alist of commands and commands to be defined in `w3m-minor-mode-map'.
 Each element looks like (FROM-COMMAND . TO-COMMAND); those keys which
 are defined as FROM-COMMAND in `w3m-mode-map' are redefined as
