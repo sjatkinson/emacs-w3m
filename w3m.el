@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.216 $"))
+    (let ((rev "$Revision: 1.217 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -242,7 +242,7 @@ width using expression (+ (frame-width) VALUE)."
   (setq file (expand-file-name file directory))
   (if (string-match "^\\(.\\):\\(.*\\)" file)
       (if w3m-use-cygdrive
-	  (concat "/cygdrive/" (match-string 1 file) (match-string 2 file))
+	  (concat "file:///cygdrive/" (match-string 1 file) (match-string 2 file))
 	(concat "file:///" (match-string 1 file) "|" (match-string 2 file)))
     (concat "file://" file)))
 
