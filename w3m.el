@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1062 $"))
+    (let ((rev "$Revision: 1.1063 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -5276,6 +5276,10 @@ point."
       (unless (eq 'quit (setq url (w3m-input-url nil url 'quit)))
 	(w3m-view-this-url-1 url arg new-session)))
      (t (w3m-message "No URL at point")))))
+
+(eval-and-compile
+  (unless (fboundp 'mouse-set-point)
+    (defalias 'mouse-set-point 'ignore)))
 
 (defun w3m-mouse-view-this-url (event &optional arg)
   "Follow the link under the mouse pointer."
