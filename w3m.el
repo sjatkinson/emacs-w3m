@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.454 $"))
+    (let ((rev "$Revision: 1.455 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2838,7 +2838,7 @@ to nil.
 			   (japanese-jisx0212 . lc-jp2)
 			   (katakana-jisx0201 . lc-kana))))
 		    (eval (cdr (assq charset alist))))
-		(eval (list 'charset-id (quote charset))))))
+		(eval '(charset-id charset)))))
       (if (fboundp 'ccl-compile-write-multibyte-character)
 	  (` ((r0 = (, id))
 	      (write-multibyte-character r0 r1)
