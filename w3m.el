@@ -134,7 +134,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.676 $"))
+    (let ((rev "$Revision: 1.677 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -5446,6 +5446,9 @@ field for this request."
 	    (setq default-directory (w3m-current-directory w3m-current-url))
 	    (w3m-update-toolbar)
 	    (run-hook-with-args 'w3m-display-hook (or real-url url))
+	    ;; restore position must call after hooks for localcgi.
+	    (when (or reload redisplay)
+	      (w3m-history-restore-position))
 	    (w3m-refresh-at-time))))))))
 
 (defun w3m-current-directory (url)
@@ -5556,11 +5559,9 @@ If called with '\\[universal-argument]', clear form and post datas"
 (defun w3m-redisplay-this-page (&optional arg)
   "Redisplay current page."
   (interactive "P")
-  (w3m-history-store-position)
   (when arg
     (setq w3m-display-inline-images (not w3m-display-inline-images)))
-  (w3m-goto-url w3m-current-url 'redisplay)
-  (w3m-history-restore-position))
+  (w3m-goto-url w3m-current-url 'redisplay))
 
 (defun w3m-redisplay-and-reset (&optional arg)
   "Redisplay current page and reset of specified charset and content-type."
