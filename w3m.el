@@ -125,7 +125,7 @@ defaults to a proper value only if this file is byte-compiled by make.")
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.389 $"))
+    (let ((rev "$Revision: 1.390 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -758,7 +758,7 @@ will disclose your private informations, for example:
 	w3m-previous-url nil))
 
 (defsubst w3m-copy-local-variables (from-buffer)
-  (let (url title forms cs next prev)
+  (let (url title forms resume cs next prev)
     (save-current-buffer
       (when from-buffer (set-buffer from-buffer))
       (setq url w3m-current-url
