@@ -126,7 +126,7 @@ defaults to a proper value only if this file is byte-compiled by make.")
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.393 $"))
+    (let ((rev "$Revision: 1.394 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2927,10 +2927,10 @@ is performed.  Otherwise, COUNT is treated as 1 by default."
 	(if (string-match "?" path)
 	    ;; scheme://server/path?query (expand only path)
 	    (setq path
-		  (concat (expand-file-name
+		  (concat (w3m-expand-path-name
 			   (substring path 0 (match-beginning 0)))
 			  (substring path (match-beginning 0))))
-	  (setq path (expand-file-name path)))
+	  (setq path (w3m-expand-path-name path)))
 	;; remove drive (for Win32 platform)
 	(if (string-match "^.:" path)
 	    (setq path (substring path (match-end 0))))
