@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.356 $"))
+    (let ((rev "$Revision: 1.357 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -442,8 +442,8 @@ It will be used for the w3m system internal for Emacs 21.")
      '(("text/plain" "\\.\\(txt\\|tex\\|el\\)" nil)
        ("image/jpeg" "\\.jpe?g$" ("xv" file))
        ("image/png" "\\.png$" ("xv" file))
-       ("image/gif" "\\gif$" ("xv" file))
-       ("image/tiff" "\\tif?f$" ("xv" file))
+       ("image/gif" "\\.gif$" ("xv" file))
+       ("image/tiff" "\\.tif?f$" ("xv" file))
        ("image/x-xwd" "\\.xwd$" ("xv" file))
        ("image/x-xbm" "\\.xbm$" ("xv" file))
        ("image/x-xpm" "\\.xpm$" ("xv" file))
