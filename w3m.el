@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.184 $"))
+    (let ((rev "$Revision: 1.185 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -452,6 +452,14 @@ MIME CHARSET and CODING-SYSTEM must be symbol."
 
 (defcustom w3m-mnc nil
   "*When using w3m with M.N.C. patch, set non-nil value."
+  :group 'w3m
+  :type 'boolean)
+
+(defcustom w3m-track-mouse (and (boundp 'emacs-major-version)
+				(>= emacs-major-version 21))
+  "Whether to track the mouse and message the url under the mouse.
+If you are using Emacs or XEmacs versions prior to 21, setting this
+option to non-nil is meaningless."
   :group 'w3m
   :type 'boolean)
 
@@ -1029,15 +1037,19 @@ If N is negative, last N items of LIST is returned."
 	 (href
 	  (when (search-forward "</a>" nil t)
 	    (delete-region (setq end (match-beginning 0)) (match-end 0))
-	    (setq href (w3m-expand-url (w3m-decode-anchor-string href) w3m-current-url))
-	    (put-text-property start end 'face
-			       (if (w3m-arrived-p href)
-				   'w3m-arrived-anchor-face
-				 'w3m-anchor-face))
-	    (put-text-property start end 'w3m-href-anchor href)
-	    (put-text-property start end 'mouse-face 'highlight)
-	    (when name
-	      (put-text-property start end 'w3m-name-anchor name))))
+	    (setq href (w3m-expand-url (w3m-decode-anchor-string href)
+				       w3m-current-url))
+	    (add-text-properties start end
+				 (append
+				  (list 'face (if (w3m-arrived-p href)
+						  'w3m-arrived-anchor-face
+						'w3m-anchor-face)
+					'w3m-href-anchor href
+					'mouse-face 'highlight)
+				  (when name
+				    (list 'w3m-name-anchor name))
+				  (when w3m-track-mouse
+				    (list 'help-echo href))))))
 	 (name
 	  (when (re-search-forward "<\\|\n" nil t)
 	    (setq end (match-beginning 0))
@@ -1064,7 +1076,8 @@ If N is negative, last N items of LIST is returned."
     (defun w3m-update-toolbar ())))
 
 (defun w3m-fontify-images ()
-  "Fontify image alternate strings in this buffer which contains half-dumped data."
+  "Fontify image alternate strings in this buffer which contains
+half-dumped data."
   (goto-char (point-min))
   (while (re-search-forward "<\\(img_alt\\) src=\"\\([^\"]*\\)\">" nil t)
     (let ((src (match-string 2))
@@ -1075,10 +1088,15 @@ If N is negative, last N items of LIST is returned."
       (setq src (w3m-expand-url src w3m-current-url))
       (when (search-forward "</img_alt>" nil t)
 	(delete-region (setq end (match-beginning 0)) (match-end 0))
-	(put-text-property start end 'face 'w3m-image-face)
-	(put-text-property start end 'w3m-image src)
-	(if upper (put-text-property start end 'w3m-image-redundant t))
-	(put-text-property start end 'mouse-face 'highlight)))))
+	(add-text-properties start end
+			     (append
+			      (list 'face 'w3m-image-face
+				    'w3m-image src
+				    'mouse-face 'highlight)
+			      (when upper
+				'(w3m-image-redundant t))
+			      (when w3m-track-mouse
+				(list 'help-echo src))))))))
 
 (defun w3m-toggle-inline-images (&optional force no-cache)
   "Toggle displaying of inline images on current buffer.
