@@ -146,7 +146,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.895 $"))
+    (let ((rev "$Revision: 1.896 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -631,7 +631,12 @@ each time you visit a new page."
 
 (defcustom w3m-broken-proxy-cache nil
   "*Set this variable to t if the proxy server seems not to work properly
-in caching.  It may not be effective if you are using old w3m command."
+in caching.  However, this may be the double-edged sword; setting it
+to t will likely be harmful if the proxy server sends bad requests
+\(e.g. not including the Host header, see RFC2616 section 14.23) to
+foreign servers when the w3m command specifies the \"no-cache\"
+directive.  Also note that it may not be effective if you are using
+old w3m command."
   :group 'w3m
   :type 'boolean)
 
