@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.339 $"))
+    (let ((rev "$Revision: 1.340 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -602,6 +602,11 @@ If nil, use an internal CGI of w3m."
   :type '(choice (const :tag "w3m internal CGI" nil)
 		 (file :tag "path of 'dirlist.cgi'"
 		  "/usr/local/lib/w3m/dirlist.cgi")))
+
+(defcustom w3m-add-referer t
+  "*If non-nil, add refererence information when sending request to HTTP server."
+  :group 'w3m
+  :type 'boolean)
 
 (eval-and-compile
   (defconst w3m-entity-alist		; html character entities and values
@@ -3305,7 +3310,8 @@ the request."
 				 w3m-default-content-type)
 			 w3m-content-type-alist nil t)))
 		 (setq ct (if (string= "" s) w3m-default-content-type s)))))
-	(if (not (w3m-exec url nil reload cs ct post-data referer))
+	(if (not (w3m-exec url nil reload cs ct post-data
+			   (if w3m-add-referer referer nil)))
 	    (w3m-refontify-anchor)
 	  (w3m-history-push w3m-current-url
 			    (list ':title w3m-current-title))
