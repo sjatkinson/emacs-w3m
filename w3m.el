@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.647 $"))
+    (let ((rev "$Revision: 1.648 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -349,7 +349,9 @@ It is valid only when `w3m-treat-image-size' is non-nil."
   "Non-nil means that `w3m-command' accepts Japanese characters.")
 
 (defcustom w3m-coding-system (if (featurep 'mule)
-				 'iso-2022-7bit
+				 (if (eq w3m-type 'w3mmee)
+				     'iso-2022-7bit-ss2
+				   'iso-2022-7bit)
 			       'iso-8859-1)
   "*Basic coding system for `w3m'."
   :group 'w3m
