@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.796 $"))
+    (let ((rev "$Revision: 1.797 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4230,7 +4230,7 @@ argument.  Otherwise, it will be called with nil."
       (insert "\n<br><br><hr><br><br><h2>Header information</h2><br>\n<pre>"
 	      header "</pre>\n"))
   (w3m-prepare-content url "text/html" output-buffer content-charset)))
-	    
+
 (defconst w3m-content-prepare-functions
   '(("\\`text/" . w3m-prepare-text-content)
     ("\\`image/" . w3m-prepare-image-content)

@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.44 $
+;; Version: $Revision: 1.45 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -54,7 +54,7 @@
 ;; (4) You can use emacs-w3m to fetch and/or browse
 ;; `external-body with URL access'. To activate this feaeture,
 ;; add followings also:
-;; 
+;;
 ;; (setq mew-ext-url-alist
 ;;      '(("^application/" "Fetch by emacs-w3m" mew-w3m-ext-url-fetch nil)
 ;;        (t "Browse by emacs-w3m" mew-w3m-ext-url-show nil)))
