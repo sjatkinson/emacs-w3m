@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.566 $"))
+    (let ((rev "$Revision: 1.567 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2895,6 +2895,7 @@ type as a string argument, when retrieve is complete."
 	  nil)))))
 
 (defun w3m-touch-file (file time)
+  "Change the access and/or modification TIME of the specified FILE."
   (and time
        (w3m-which-command w3m-touch-command)
        (file-exists-p file)
