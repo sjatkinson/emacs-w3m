@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.232 $"))
+    (let ((rev "$Revision: 1.233 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1740,7 +1740,7 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 	(list (or type (w3m-local-content-type url))
 	      charset
 	      (let ((v (cdr (assoc "content-length" alist))))
-		(and v (string-to-number v)))
+		(and v (setq v (string-to-number v)) (> v 0) v))
 	      (cdr (assoc "content-encoding" alist))
 	      (let ((v (cdr (assoc "last-modified" alist))))
 		(and v (w3m-time-parse-string v)))
