@@ -125,7 +125,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.404 $"))
+    (let ((rev "$Revision: 1.405 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -248,10 +248,11 @@ reason.  The value will be referred by the function `w3m-load-list'.")
   :type 'coding-system)
 
 (defcustom w3m-default-coding-system
-  (and (boundp 'current-language-environment)
-       (string= "Japanese"
-		(symbol-value 'current-language-environment))
-       'shift_jis)
+  (if (or (and (boundp 'current-language-environment)
+	       (string= "Japanese"
+			(symbol-value 'current-language-environment)))
+	  (boundp 'MULE))
+      'shift_jis)
   "*Default coding system."
   :group 'w3m
   :type 'coding-system)
