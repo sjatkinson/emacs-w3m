@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.331 $"))
+    (let ((rev "$Revision: 1.332 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -939,7 +939,8 @@ cursor position and around there."
 	     (function (lambda (extent)
 			 (if w3m-track-mouse
 			     (get-text-property (extent-start-position extent)
-						(quote (, property))))))))
+						(quote (, property))
+						(extent-object extent)))))))
     (` (if (and (boundp 'emacs-major-version)
 		(>= emacs-major-version 21))
 	   (function (lambda (window object pos)
