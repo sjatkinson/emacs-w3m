@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.968 $"))
+    (let ((rev "$Revision: 1.969 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -4728,7 +4728,9 @@ specified in the `w3m-content-type-alist' variable."
 		  (w3m-rendering-buffer charset))
 	  (or (when (string-match "\\`about://\\(source\\|header\\)/" url)
 		(w3m-arrived-title (substring url (match-end 0))))
-	      (file-name-nondirectory url))))
+	      (file-name-nondirectory (if (string-match "/\\'" url)
+					  (directory-file-name url)
+					url)))))
   (let ((result-buffer (current-buffer)))
     (with-current-buffer page-buffer
       (let (buffer-read-only)
