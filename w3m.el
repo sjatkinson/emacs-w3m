@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1011 $"))
+    (let ((rev "$Revision: 1.1012 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -4622,7 +4622,10 @@ POST-DATA and REFERER will be sent to the web server with a request."
   (goto-char (point-min))
   (or (when (re-search-forward "<title_alt[ \t\n]+title=\"\\([^\"]+\\)\">"
 			       nil t)
-	(prog1 (w3m-decode-entities-string (match-string 1))
+	(prog1 (w3m-decode-entities-string
+		(mapconcat 'identity
+			   (save-match-data (split-string (match-string 1)))
+			   " "))
 	  (delete-region (match-beginning 0) (match-end 0))))
       (when (and (stringp w3m-current-url)
 		 (string-match "/\\([^/]+\\)/?\\'" w3m-current-url))
