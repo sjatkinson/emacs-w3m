@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.355 $"))
+    (let ((rev "$Revision: 1.356 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -423,8 +423,8 @@ It will be used for the w3m system internal for Emacs 21.")
 	("text/html" "\\.s?html?$" w3m-w32-browser-with-fiber)
 	("image/jpeg" "\\.jpe?g$" ("fiber.exe" "-s" file))
 	("image/png" "\\.png$" ("fiber.exe" "-s" file))
-	("image/gif" "\\gif$" ("fiber.exe" "-s" file))
-	("image/tiff" "\\tif?f$" ("fiber.exe" "-s" file))
+	("image/gif" "\\.gif$" ("fiber.exe" "-s" file))
+	("image/tiff" "\\.tif?f$" ("fiber.exe" "-s" file))
 	("image/x-xwd" "\\.xwd$" ("fiber.exe" "-s" file))
 	("image/x-xbm" "\\.xbm$" ("fiber.exe" "-s" file))
 	("image/x-xpm" "\\.xpm$" ("fiber.exe" "-s" file))
