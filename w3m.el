@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.652 $"))
+    (let ((rev "$Revision: 1.653 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -629,8 +629,9 @@ of the original request method. -- RFC2616"
 	(fn (if (featurep 'xemacs)
 		'face-custom-attributes-get
 	      'custom-face-attributes-get));; What a perverseness it is.
-	;; `custom-face-attributes-get' in CUSTOM 1.9962 attempts to require
-	;; `font' in Emacs/w3, and it requires `cl' unconditionally. :-(
+	;; Both `face-custom-attributes-get' in XEmacs and
+	;; `custom-face-attributes-get' in CUSTOM 1.9962 attempt to
+	;; require `font' in Emacs/w3 and `cl' unconditionally. :-(
 	(features (cons 'font features))
 	base-attributes attributes attribute)
     (require 'wid-edit);; Needed for only Emacs 20.
