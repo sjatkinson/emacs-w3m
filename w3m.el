@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.777 $"))
+    (let ((rev "$Revision: 1.778 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5462,6 +5462,7 @@ frame or a window in the frame is succeeded."
     (scroll-up arg)))
 
 (defun w3m-scroll-down-or-previous-url (arg)
+  "Scroll text of current window downward ARG lines; or go to previous url."
   (interactive "P")
   (if (pos-visible-in-window-p (point-min))
       (if w3m-previous-url
