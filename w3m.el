@@ -72,7 +72,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.82 $"))
+    (let ((rev "$Revision: 1.83 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1648,7 +1648,10 @@ are retrieved."
 	  (let ((coding-system-for-read
 		 (w3m-static-if (boundp 'MULE) '*noconv* 'binary))
 		(file-coding-system-for-read
-		 (w3m-static-if (boundp 'MULE) '*noconv* 'binary)))
+		 (w3m-static-if (boundp 'MULE) '*noconv* 'binary))
+		jka-compr-compression-info-list
+		jam-zcat-filename-list
+		format-alist)
 	    (insert-file-contents file)))))
     type))
 
@@ -1757,7 +1760,7 @@ are retrieved."
 		       (= (buffer-size) (+ length buflines -1)))
 		   (while (search-forward "\r\n" nil t)
 		     (delete-region (- (point) 2) (1- (point)))))))
-		(length
+		((and length (> (buffer-size) length))
 		 (delete-region (point-min) (- (point-max) length)))
 		((string= "text/html" type)
 		 ;; Remove cookies.
