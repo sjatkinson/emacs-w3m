@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.638 $"))
+    (let ((rev "$Revision: 1.639 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2279,9 +2279,13 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
     ;; Decode escaped characters (entities).
     (w3m-decode-entities 'reserve-prop)
     (goto-char (point-min))
-    (if w3m-delete-duplicated-empty-lines
-	(while (re-search-forward "^[ \t]*\n\\([ \t]*\n\\)+" nil t)
-	  (replace-match "\n" nil t)))
+    (when w3m-delete-duplicated-empty-lines
+      (while (re-search-forward "^[ \t]*\n\\([ \t]*\n\\)+" nil t)
+	(put-text-property (match-beginning 0) (1- (match-end 0))
+			   'invisible t)
+	(put-text-property (max (1- (match-beginning 0)) (point-min))
+			   (1- (match-end 0))
+			   'intangible t)))
     (w3m-message "Fontifying...done")
     (run-hooks 'w3m-fontify-after-hook)))
 
