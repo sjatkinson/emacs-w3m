@@ -141,7 +141,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.787 $"))
+    (let ((rev "$Revision: 1.788 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -3782,7 +3782,10 @@ type as a string argument, when retrieve is complete."
 			      w3m-home-page))
 	  (basename (file-name-nondirectory (w3m-url-strip-query url))))
      (if (string-match "^[\t ]*$" basename)
-	 (error "You should specify the existing file name")
+	 (list url
+	       (w3m-read-file-name (format "Download %s to: " url)
+				   w3m-default-save-directory "index.html")
+	       current-prefix-arg)
        (list url
 	     (w3m-read-file-name (format "Download %s to: " basename)
 				 w3m-default-save-directory basename)
