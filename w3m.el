@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1071 $"))
+    (let ((rev "$Revision: 1.1072 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4559,10 +4559,11 @@ POST-DATA and REFERER will be sent to the web server with a request."
 
 (defvar w3m-touch-file-available-p 'undecided)
 
-(defun w3m-touch-file (file time)
-  "Change the access and/or modification TIME of the specified FILE."
-  (if (fboundp 'set-file-times)
-      (set-file-times file time)
+
+(if (fboundp 'set-file-times)
+    (defalias 'w3m-touch-file 'set-file-times)
+  (defun w3m-touch-file (file time)
+    "Change the access and/or modification TIME of the specified FILE."
     ;; Check the validity of `touch' command.
     (when (eq w3m-touch-file-available-p 'undecided)
       (let ((file (make-temp-name
