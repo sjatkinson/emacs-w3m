@@ -1,4 +1,4 @@
-	emacs-w3m FAQ ($Date: 2001-12-17 01:05:51 $)
+	emacs-w3m FAQ ($Date: 2001-12-21 08:55:41 $)
 
 * General emacs-w3m questions
 
@@ -36,7 +36,7 @@
 
         w3m-0.2.2
 	w3mmee-p19-6
-	w3m-m17n-0.19 + w3m-m17n-mnc.patch
+	w3m-0.2.3.1-m17n
 
 * Troubleshooting
 
