@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.583 $"))
+    (let ((rev "$Revision: 1.584 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -187,7 +187,7 @@
 					       (save-excursion (end-of-line)
 							       (point)))
 					      ",")
-				(list null))))))))
+				(list nil))))))))
 
 (defcustom w3m-language
   (if (or (and (boundp 'current-language-environment)
