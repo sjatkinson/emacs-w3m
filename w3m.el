@@ -120,7 +120,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.249 $"))
+    (let ((rev "$Revision: 1.250 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1332,6 +1332,22 @@ If second optional argument NO-CACHE is non-nil, cache is not used."
 	      ;; Remove dummy string.
 	      (delete-region point end))
 	     (t (w3m-remove-image point end))))
+	  ;; Restore the hidden faces.
+	  (goto-char (setq end (point-min)))
+	  (let (spec)
+	    (while (if (get-text-property end 'w3m-hidden-face)
+		       (setq point end)
+		     (setq point
+			   (next-single-property-change end
+							'w3m-hidden-face)))
+	      (setq end (or (next-single-property-change point
+							 'w3m-hidden-face)
+			    (point-max))
+		    spec (get-text-property point 'w3m-hidden-face))
+	      (goto-char end)
+	      (add-text-properties (car spec) (cadr spec)
+				   (list 'face (caddr spec)
+					 'w3m-hidden-face nil))))
 	  (setq w3m-display-inline-image-status 'off))))))
 
 (defun w3m-decode-entities (&optional reserve-prop)
