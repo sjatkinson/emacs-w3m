@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.299 $"))
+    (let ((rev "$Revision: 1.300 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2073,6 +2073,8 @@ to nil."
   (w3m-with-work-buffer
     (delete-region (point-min) (point-max))
     (set-buffer-multibyte nil)
+    (when (string-match "#\\([^#]+\\)$" url)
+      (setq url (substring url 0 (match-beginning 0))))
     (let ((type
 	   (or (unless no-cache
 		 (and (w3m-cache-request-contents url)
