@@ -40,9 +40,11 @@
 
 ;;; How to install:
 
-;; In the top level directory of the w3m distribution, run the program
-;; `configure' and then type `make install'.  See README file for more
-;; information.
+;; See README and verify that the latest version of w3m is available.
+;;
+;; In the top level directory of the emacs-w3m distribution, run the
+;; program `configure' and then type `make install'.  See README file
+;; for more information.
 
 
 ;;; Code:
@@ -110,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.318 $"))
+    (let ((rev "$Revision: 1.319 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
