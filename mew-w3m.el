@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>,
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.14 $
+;; Version: $Revision: 1.15 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;;; Commentary:
@@ -47,7 +47,7 @@
 (require 'w3m)
 
 ;;; initializer for mew
-(defgroup mew-w3m
+(defgroup mew-w3m nil
   "mew-w3m - Inline HTML rendering extension of Mew"
   :group 'w3m)
 
