@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.22 $
+;; Version: $Revision: 1.23 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -102,7 +102,7 @@ This variable effected only XEmacs or Emacs 21."
 ;; processing Text/Html contents with w3m.
 (defun mew-mime-text/html-w3m (&rest args)
   "View Text/Html contents with w3m rendering output."
-  (let ((w3m-display-inline-image mew-w3m-auto-insert-image)
+  (let ((w3m-current-image-status mew-w3m-auto-insert-image)
 	w3m-force-redisplay	;; don't redraw
 	charset wcs
 	cache begin end params execute)
