@@ -141,7 +141,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.781 $"))
+    (let ((rev "$Revision: 1.782 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -187,14 +187,15 @@ These values are acceptable: w3m, w3mmee, w3m-m17n.")
 	(with-temp-buffer
 	  (call-process command nil t nil "-version")
 	  (goto-char (point-min))
-	  (when (re-search-forward "version \\(w3m/0\\.3\
-\\(\\.[0-9\\]\\)*\\(-stable\\|\\(\\+cvs\\(-[0-9]+\\.[0-9]+\\)?\\)\\)?\
+	  (when (re-search-forward "version \\(w3m/0\\.[3-9]\
+\\(\\.[0-9\\]\\)*\\(rc[0-9]+\\)?\
+\\(-stable\\|\\(\\+cvs\\(-[0-9]+\\.[0-9]+\\)?\\)\\)?\
 \\(-inu\\|\\(-m17n\\|\\(\\+mee\\)\\)\\)?[^,]*\\)" nil t)
 	    (setq w3m-version (match-string 1))
 	    (setq w3m-type
 		  (cond
-		   ((match-beginning 8) 'w3mmee)
-		   ((match-beginning 7) 'w3m-m17n)
+		   ((match-beginning 9) 'w3mmee)
+		   ((match-beginning 8) 'w3m-m17n)
 		   ((match-beginning 1) 'w3m)
 		   (t 'other))))
 	  (when (re-search-forward "options +" nil t)
