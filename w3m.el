@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.857 $"))
+    (let ((rev "$Revision: 1.858 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6125,7 +6125,12 @@ appropriate buffer and select it."
 		  (w3m-display-inline-images
 		   w3m-modeline-image-status-on
 		   w3m-modeline-status-off))))
-	      " / "
+	      (w3m-static-if (featurep 'xemacs)
+		  '(w3m-use-favicon
+		    (w3m-favicon-converted
+		     ("  " w3m-current-favicon-image) " / ")
+		    " / ")
+		" / ")
 	      'w3m-current-title)))
 
 ;;;###autoload
