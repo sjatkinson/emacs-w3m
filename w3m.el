@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.716 $"))
+    (let ((rev "$Revision: 1.717 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6642,9 +6642,9 @@ w3m-mode buffers."
 	(insert "\n")))))
 
 
+(provide 'w3m)
+
 (load w3m-init-file t t)
 (run-hooks 'w3m-load-hook)
-
-(provide 'w3m)
 
 ;;; w3m.el ends here
