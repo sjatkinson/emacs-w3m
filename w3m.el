@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.715 $"))
+    (let ((rev "$Revision: 1.716 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -300,7 +300,7 @@ width using expression (+ (window-width) VALUE)."
     (error (setq w3m-use-mule-ucs nil))))
 
 (defcustom w3m-use-ange-ftp nil
-  "*Non-nil means that `ange-ftp' of `efs' is used to access FTP servers."
+  "*Non-nil means that `ange-ftp' or `efs' is used to access FTP servers."
   :group 'w3m
   :type 'boolean)
 
