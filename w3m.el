@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.200 $"))
+    (let ((rev "$Revision: 1.201 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2708,6 +2708,7 @@ works on Emacs.
 				     0)))
     (w3m-with-work-buffer
       (erase-buffer)
+      (set-buffer-multibyte t)
       (insert source)
       (goto-char (point-min))
       (when (re-search-forward "\\(иж\\)\\|\\(из\\)" nil t)
