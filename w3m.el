@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.431 $"))
+    (let ((rev "$Revision: 1.432 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -721,10 +721,6 @@ will disclose your private informations, for example:
 			    (w3m-static-if (boundp 'MULE) lc-ltn1 'latin-iso8859-1)
 			    (cdr entity))))))
 		 latin1-entity))))))
-
-;; Required for old Emacsen.  See the file README for details.
-(eval-and-compile
-  (autoload 'regexp-opt "regexp-opt"))
 
 (defconst w3m-entity-regexp
   (eval-when-compile
