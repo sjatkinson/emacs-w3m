@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.327 $"))
+    (let ((rev "$Revision: 1.328 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1378,8 +1378,9 @@ If N is negative, last N items of LIST is returned."
 	(delete-region start (point))
 	(cond
 	 (href
-	  (when (re-search-forward "[ \t\r\f\n]*</a>" nil t)
-	    (delete-region (setq end (match-beginning 0)) (match-end 0))
+	  (when (re-search-forward "[ \t\r\f\n]*\\(</a>\\)" nil t)
+	    (setq end (match-beginning 0))
+	    (delete-region (match-beginning 1) (match-end 1))
 	    (setq href (w3m-expand-url (w3m-decode-anchor-string href)
 				       w3m-current-url))
 	    (w3m-add-text-properties start end
