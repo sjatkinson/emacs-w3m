@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.660 $"))
+    (let ((rev "$Revision: 1.661 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2150,6 +2150,7 @@ If URL is specified, only the image with URL is toggled."
 		    (w3m-process-with-null-handler
 		      (lexical-let ((start (set-marker (make-marker) start))
 				    (end (set-marker (make-marker) end))
+				    (iurl iurl)
 				    (url w3m-current-url))
 			(w3m-process-do
 			    (image (let ((w3m-current-buffer (current-buffer)))
@@ -2162,7 +2163,7 @@ If URL is specified, only the image with URL is toggled."
 			      (if image
 				  (when (equal url w3m-current-url)
 				    (let (buffer-read-only)
-				      (w3m-insert-image start end image))
+				      (w3m-insert-image start end image iurl))
 				    ;; Redisplay
 				    (when w3m-force-redisplay
 				      (sit-for 0)))
