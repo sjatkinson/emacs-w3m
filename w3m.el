@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.960 $"))
+    (let ((rev "$Revision: 1.961 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1076,7 +1076,7 @@ The term `shifting' means a fine level scrolling."
   :group 'w3m
   :type 'boolean)
 
-(defcustom w3m-use-filter nil
+(defcustom w3m-use-filter t
   "*Non-nil means use filter programs to convert web contents.
 See also `w3m-filter-rules'."
   :group 'w3m
