@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.413 $"))
+    (let ((rev "$Revision: 1.414 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3003,10 +3003,12 @@ is performed.  Otherwise, COUNT is treated as 1 by default."
 							 (match-beginning 3))))
 	    (setq path "/"
 		  base (concat base path))))
-	(cond ((eq ?# (aref url 0))
+	(cond ((and (>= (length url) 1)
+		    (eq ?# (aref url 0)))
 	       ;; Maybe a relative URL on the BASE.
 	       (concat base url))
-	      ((eq ?/ (aref url 0))
+	      ((and (>= (length url) 1)
+		    (eq ?/ (aref url 0)))
 	       (if scheme
 		   (if (and (>= (length url) 2)
 			    (eq ?/ (aref url 1)))
