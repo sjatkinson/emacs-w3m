@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.906 $"))
+    (let ((rev "$Revision: 1.907 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -7613,7 +7613,8 @@ menu line."
     ;; The selection buffer will be updated automatically because
     ;; `w3m-copy-buffer' calls `w3m-select-buffer-update' by way of
     ;; `w3m-goto-url'.
-    (w3m-copy-buffer (current-buffer))
+    (let (w3m-pop-up-windows)
+      (w3m-copy-buffer))
     (select-window window)))
 
 (defun w3m-select-buffer-delete-buffer (&optional force)
