@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.562 $"))
+    (let ((rev "$Revision: 1.563 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -339,7 +339,9 @@ reason.  The value will be referred by the function `w3m-load-list'.")
 		 (custom-set-default symbol value)
 	       ;; XEmacs or Emacs 19 does not have `custom-set-default'.
 	       (set-default symbol value))
-	   (if (boundp 'w3m-mode-map)
+	   (if (and (boundp 'w3m-mode-map);; Gnus bind this var for compiling.
+		    (boundp 'w3m-info-like-map)
+		    (boundp 'w3m-lynx-like-map))
 	       ;; It won't be bound at the first time.
 	       (setq w3m-mode-map
 		     (if (eq value 'info)
