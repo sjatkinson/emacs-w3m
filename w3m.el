@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.559 $"))
+    (let ((rev "$Revision: 1.560 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2129,7 +2129,10 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
   (autoload 'thing-at-point "thingatpt")
   (defun w3m-url-at-point ()
     "Return url from around point if it exists, or nil."
-    (thing-at-point 'url)))
+    (let ((url (thing-at-point 'url)))
+      (when url
+	(set-text-properties 0 (length url) nil url)
+	url))))
  (t
   (defalias 'w3m-url-at-point 'ignore)))
 
