@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1069 $"))
+    (let ((rev "$Revision: 1.1070 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4461,6 +4461,7 @@ NO-CACHE specifies whether functions should not use cached contents."
 			 w3m-cid-retrieve-function-alist))))
     (when func (funcall func url no-decode no-cache))))
 
+;;;###autoload
 (defun w3m-retrieve (url &optional no-decode no-cache
 			 post-data referer handler)
   "Retrieve web contents pointed to by URL.
