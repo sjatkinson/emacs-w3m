@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1042 $"))
+    (let ((rev "$Revision: 1.1043 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -5148,7 +5148,8 @@ compatibility which is described in Section 5.2 of RFC 2396.")
 	    (concat (substring base 0 (or (match-end 3) (match-end 1)))
 		    url))
 	;; The hierarchical part of URL has a relative spec.
-	(let ((path-end (match-end 5)))
+	(let ((path-end (match-end 5))
+	      file-name-handler-alist)
 	  (string-match w3m-url-components-regexp base)
 	  (concat
 	   (substring base 0 (match-beginning 5))
