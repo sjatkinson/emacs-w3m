@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.51 $
+;; Version: $Revision: 1.52 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -139,9 +139,7 @@ This variable effected only XEmacs or Emacs 21."
      (save-excursion
        (set-buffer (mew-buffer-message))
        (let* ((image (get-text-property (point-min) 'w3m-images))
-	      (w3m-display-inline-images image)
-	      (w3m-safe-url-regexp (when mew-w3m-use-safe-url-regexp
-				     mew-w3m-safe-url-regexp)))
+	      (w3m-display-inline-images image))
 	 (w3m-toggle-inline-images)
 	 (mew-elet
 	  (put-text-property (point-min) (1+ (point-min))
