@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.350 $"))
+    (let ((rev "$Revision: 1.351 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1877,8 +1877,7 @@ When BUFFER is nil, all data will be inserted in the current buffer."
   "Get user from arrived-user-alist."
   (if (= w3m-process-user-counter 0)
       nil
-    (let ((root (w3m-get-server-root url))
-	  userlst)
+    (let (userlst)
       (setq userlst
 	    (cdr (assoc realm
 			(cdr (assoc (w3m-get-server-root url)
