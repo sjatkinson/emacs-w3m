@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1032 $"))
+    (let ((rev "$Revision: 1.1033 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -5816,7 +5816,8 @@ a page in a new buffer with the correct width."
     (unless empty
       ;; Render a page.
       (let ((positions (copy-sequence (car w3m-history)))
-	    (w3m-history-reuse-history-elements t))
+	    (w3m-history-reuse-history-elements t)
+	    (w3m-prefer-cache t))
 	(w3m-process-with-wait-handler
 	  (w3m-goto-url url nil nil nil nil handler
 			;; Pass the properties of the history elements,
