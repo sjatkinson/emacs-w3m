@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.316 $"))
+    (let ((rev "$Revision: 1.317 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2299,7 +2299,7 @@ to nil."
     (set-buffer-multibyte t)
     (w3m-remove-comments)
     (when w3m-use-form
-      (w3m-form-parse-region (point-min) (point-max)))
+      (w3m-form-parse-region (point-min) (point-max) charset))
     (w3m-message "Rendering...")
     (let ((coding-system-for-read w3m-output-coding-system)
 	  (coding-system-for-write w3m-input-coding-system)
