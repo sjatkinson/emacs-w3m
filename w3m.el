@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1028 $"))
+    (let ((rev "$Revision: 1.1029 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -372,7 +372,7 @@ It can also be any Lisp form that should return a boolean value."
   :group 'w3m
   :type '(sexp :size 0))
 
-(defcustom w3m-treat-image-size nil
+(defcustom w3m-treat-image-size t
   "*Non-nil means let w3m mind the ratio of the size of images and text.
 
 If it is non-nil, the w3m command will make a halfdump which reserves
