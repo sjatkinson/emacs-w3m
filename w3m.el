@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.645 $"))
+    (let ((rev "$Revision: 1.646 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -585,11 +585,13 @@ cookies between redirections."
   :group 'w3m
   :type 'integer)
 
-(defcustom w3m-redirect-with-get nil
-  "*If non-nil, use GET method after redirection.
-When automatically redirecting a POST request after receiving a
-302/301 status code, some existing user agents will erroneously change
-it into a GET request. But some broken web sites assume this behavior."
+(defcustom w3m-redirect-with-get t
+  "*If non-nil, use GET method after redirection by 301/302.
+RFC 1945 and RFC 2068 specify that the client is not allowed
+to change the method on the redirected request.  However, most
+existing user agent implementations treat 302 as if it were a 303
+response, performing a GET on the Location field-value regardless
+of the original request method. -- RFC2616"
   :group 'w3m
   :type 'boolean)
 
