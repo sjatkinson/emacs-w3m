@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.713 $"))
+    (let ((rev "$Revision: 1.714 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -2437,9 +2437,6 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
     (w3m-message "Fontifying...done")
     (w3m-header-line-insert)
     (run-hooks 'w3m-fontify-after-hook)))
-
-;; To avoid that double header lines are inserted.
-(remove-hook 'w3m-fontify-after-hook 'w3m-header-line-insert)
 
 ;;
 
@@ -4986,6 +4983,23 @@ frame or a window in the frame is succeeded."
 	    w3m-info-like-map
 	  w3m-lynx-like-map)))
 
+(defun w3m-clean-hook-options ()
+  "Remove old stuffs from hook options to avoid redundant function calls."
+  (dolist (elem '((w3m-mode-hook w3m-setup-header-line
+				 w3m-setup-widget-faces
+				 w3m-update-tab-line)
+		  (w3m-fontify-after-hook w3m-header-line-insert
+					  w3m-update-tab-line)
+		  (w3m-display-hook w3m-select-buffer-update
+				    w3m-setup-favicon
+				    w3m-xmas-update-tab-in-gutter)
+		  (w3m-delete-buffer-hook w3m-select-buffer-update
+					  w3m-update-tab-line)))
+    (dolist (func (cdr elem))
+      (when (memq func (symbol-value (car elem)))
+	(message "Remove `%s' from `%s'" func (car elem))
+	(remove-hook (car elem) func)))))
+
 (defun w3m-mode ()
   "\\<w3m-mode-map>
    Major mode to browsing w3m buffer.
@@ -5103,6 +5117,7 @@ frame or a window in the frame is succeeded."
     (when (boundp 'hscroll-mode)
       (set (make-local-variable 'hscroll-mode) nil)))
   (make-local-variable 'list-buffers-directory)
+  (w3m-clean-hook-options)
   (w3m-setup-toolbar)
   (w3m-setup-menu)
   (run-hooks 'w3m-mode-setup-functions)
