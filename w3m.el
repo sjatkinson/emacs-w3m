@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.692 $"))
+    (let ((rev "$Revision: 1.693 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4239,9 +4239,8 @@ Return t if current line has a same anchor sequence."
 	  (while (w3m-highlight-current-anchor-1 seq)
 	    (forward-line 1))
 	  (goto-char pos)
-	  (forward-line -1)
-	  (while (w3m-highlight-current-anchor-1 seq)
-	    (forward-line -1)))))))
+	  (while (and (zerop (forward-line -1))
+		      (w3m-highlight-current-anchor-1 seq))))))))
 
 (defun w3m-edit-url (url)
   "Edit the local file pointed by URL."
