@@ -128,7 +128,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.606 $"))
+    (let ((rev "$Revision: 1.607 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1309,7 +1309,7 @@ for a refresh indication")
 
 (defconst w3m-halfdump-command-arguments
   (cond ((eq w3m-type 'w3mmee)
-	 (list "-dump=half-buffer"
+	 (list "-dump=half-buffer,image"
 	       '(if charset "-I")
 	       'charset
 	       "-o" "concurrent=0"))
