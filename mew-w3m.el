@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.21 $
+;; Version: $Revision: 1.22 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -143,7 +143,9 @@ This variable effected only XEmacs or Emacs 21."
 	 (w3m-region begin end))
 	(t		;; Old Mew
 	 (setq charset (or (mew-syntax-get-param params "charset")
-			   (mew-charset-guess-region begin end)))
+			   (save-excursion
+			     (set-buffer cache)
+			     (mew-charset-guess-region begin end))))
 	 (if charset
 	     (setq wcs (mew-charset-to-cs charset))
 	   (setq wcs mew-cs-text-for-write))
