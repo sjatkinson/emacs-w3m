@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.993 $"))
+    (let ((rev "$Revision: 1.994 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -6857,7 +6857,8 @@ Cannot run two w3m processes simultaneously \
 			(w3m-history-assoc url)))))
 	  ;; Set current forms using the history structure.
 	  (when (setq w3m-current-forms
-		      (when (and (null post-data) ;; If post, always reload.
+		      (when (and (not reload) ; If reloading, ignore history.
+				 (null post-data) ; If post, ignore history.
 				 (w3m-cache-available-p url))
 			;; Don't use `w3m-history-plist-get' here.
 			(plist-get (nthcdr 3 element) :forms)))
