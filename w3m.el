@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1030 $"))
+    (let ((rev "$Revision: 1.1031 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50) ""))))))
@@ -4103,7 +4103,7 @@ If the optional argument NO-CACHE is non-nil, cache is not used."
 	  url (w3m-url-strip-authinfo url))
     (w3m-message "Reading %s...%s"
 		 url
-		 (if w3m-async-exec
+		 (if (and w3m-async-exec (not w3m-process-waited))
 		     (substitute-command-keys "\
  (Type `\\<w3m-mode-map>\\[w3m-process-stop]' to stop asynchronous process)")
 		   ""))
