@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1056 $"))
+    (let ((rev "$Revision: 1.1057 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -5933,10 +5933,7 @@ passed to the `w3m-quit' function (which see)."
 	      ((memq (selected-frame) w3m-initial-frames)
 	       ;; Assume that this frame was created to show this buffer.
 	       (if (one-window-p t)
-		   (progn
-		     (setq w3m-initial-frames
-			   (delq (selected-frame) w3m-initial-frames))
-		     (delete-frame))
+		   (delete-frame)
 		 (delete-window)))
 	      (t
 	       (if (>= num 2)
