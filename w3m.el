@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.306 $"))
+    (let ((rev "$Revision: 1.307 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2297,7 +2297,10 @@ to nil."
 		      (cond
 		       ((stringp x) x)
 		       ((setq x (eval x))
-			(if (stringp x) x (prin1-to-string x)))))
+			(if (stringp x)
+			    x
+			  (let (print-level print-length)
+			    (prin1-to-string x))))))
 		    (append w3m-halfdump-command-arguments
 			    w3m-halfdump-command-common-arguments)))))
     (w3m-message "Rendering... done")
