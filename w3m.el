@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.639 $"))
+    (let ((rev "$Revision: 1.640 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2188,6 +2188,8 @@ If URL is specified, only the image with URL is toggled."
 	     ((get-text-property start 'w3m-image-dummy)
 	      ;; Remove dummy string.
 	      (delete-region start end))
+	     ((get-text-property start 'w3m-bitmap-image)
+	      (setq end (w3m-remove-image start end)))
 	     (t (w3m-remove-image start end)))
 	    (w3m-add-text-properties start end '(w3m-image-status off))))
 	(set-buffer-modified-p nil)))))
