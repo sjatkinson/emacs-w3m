@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1044 $"))
+    (let ((rev "$Revision: 1.1045 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -686,7 +686,21 @@ Otherwise, you will be prompted for that url with the editing form."
   "*This variable specifies the url string to open when emacs-w3m starts.
 Don't say HP, which is the abbreviated name of a certain company. ;-)"
   :group 'w3m
-  :type '(string :size 0))
+  :type '(list :convert-widget
+	       (lambda (widget)
+		 `(radio :args
+			 ,(append
+			   (if (getenv "HTTP_HOME")
+			       (list (list 'const
+					   :format "HTTP_HOME: \"%v\"\n"
+					   (getenv "HTTP_HOME"))))
+			   (if (getenv "WWW_HOME")
+			       (list (list 'const
+					   :format "WWW_HOME: \"%v\"\n"
+					   (getenv "WWW_HOME"))))
+			   '((const :tag "About emacs-w3m" "about:")
+			     (const :tag "Blank page" "about:blank")
+			     (string :format "URL: %v\n" :size 0)))))))
 
 (defcustom w3m-arrived-file
   (expand-file-name ".arrived" w3m-profile-directory)
