@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1054 $"))
+    (let ((rev "$Revision: 1.1055 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -3295,12 +3295,12 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
     (w3m-fontify-bold)
     (w3m-fontify-strike-through)
     (w3m-fontify-underline)
+    (when w3m-use-symbol
+      (w3m-replace-symbol))
     (w3m-fontify-anchors)
     (when w3m-use-form
       (w3m-fontify-forms))
     (w3m-fontify-images)
-    (when w3m-use-symbol
-      (w3m-replace-symbol))
     ;; Remove other markups.
     (goto-char (point-min))
     (while (re-search-forward "</?[A-Za-z_][^>]*>" nil t)
