@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1014 $"))
+    (let ((rev "$Revision: 1.1015 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -2884,7 +2884,8 @@ For example:
 		(setq w (widget-convert-button 'default start end
 					       :button-keymap nil
 					       :help-echo href))
-		(overlay-put (widget-get w :button-overlay) 'evaporate t)))
+		(static-unless (featurep 'xemacs)
+		  (overlay-put (widget-get w :button-overlay) 'evaporate t))))
 	    (when name
 	      (w3m-add-text-properties start (point-max)
 				       (list 'w3m-name-anchor
