@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.985 $"))
+    (let ((rev "$Revision: 1.986 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -821,6 +821,7 @@ is evaluated by the `w3m-goto-url' function."
   "*Hook run each time after the cursor moves in emacs-w3m buffers.
 This hook is called by the `w3m-check-current-position' function by
 way of `post-command-hook'."
+  :group 'w3m
   :type 'hook
   :initialize 'w3m-custom-hook-initialize)
 
