@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.580 $"))
+    (let ((rev "$Revision: 1.581 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1920,7 +1920,7 @@ half-dumped data."
   (let ((help (w3m-make-help-echo w3m-image))
 	(balloon (w3m-make-balloon-help w3m-image))
 	src upper start end)
-b    (while (re-search-forward
+    (while (re-search-forward
 	    "<\\(img_alt\\)[^>]*src=\"\\([^\"]*\\)\"[^>]*>" nil t)
       (setq src (match-string-no-properties 2)
 	    upper (string= (match-string 1) "IMG_ALT")
