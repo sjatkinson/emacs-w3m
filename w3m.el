@@ -155,7 +155,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1122 $"))
+    (let ((rev "$Revision: 1.1123 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7245,7 +7245,7 @@ It currently works only with Emacs 22 and newer."
 			 (> tlen 3))
 		(setq w3m-modeline-title-string
 		      (concat (w3m-replace-in-string
-			       (truncate-string-to-width
+			       (w3m-truncate-string
 				w3m-current-title (max (- tlen excess 3) 2))
 			       "[\t ]+\\'" "")
 			      "...")))
