@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.955 $"))
+    (let ((rev "$Revision: 1.956 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -590,8 +590,8 @@ w3m command, edit the file named \"~/.w3m/config\" normally."
 	(when (string= w3m-language "Japanese")
 	  '("ja" "en"))))
   "*List of acceptable languages in descending order of priority.
-The default value is set based on the accept_language entry of the w3m
-configuration file (normally \"~/.w3m/config\")."
+The default value is set according to the accept_language entry of the
+w3m configuration file (normally \"~/.w3m/config\")."
   :group 'w3m
   :type '(repeat (string :format "Lang: %v\n" :size 0)))
 
