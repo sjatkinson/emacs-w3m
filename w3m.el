@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.315 $"))
+    (let ((rev "$Revision: 1.316 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2338,11 +2338,11 @@ to nil."
 	(goto-char (point-min))
 	(when (re-search-forward regexp nil t)
 	  (setq title (match-string 1))
+	  (delete-region (match-beginning 0) (match-end 0))
 	  (with-temp-buffer
-	    (insert title)
-	    (w3m-decode-entities)
-	    (setq title (buffer-string)))
-	  (delete-region (match-beginning 0) (match-end 0))))
+	      (insert title)
+	      (w3m-decode-entities)
+	      (setq title (buffer-string)))))
       (if (and (null title)
 	       (stringp w3m-current-url)
 	       (< 0 (length (file-name-nondirectory w3m-current-url))))
