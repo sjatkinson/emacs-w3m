@@ -131,7 +131,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.617 $"))
+    (let ((rev "$Revision: 1.618 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4835,7 +4835,8 @@ field for this request."
 	(w3m-history-plist-put :forms w3m-current-forms nil nil t))
       ;; Set current forms using the history structure.
       (when (setq w3m-current-forms
-		  (when (w3m-cache-available-p url)
+		  (when (and (null post-data) ; If post, always reload.
+			     (w3m-cache-available-p url))
 		    (w3m-history-plist-get :forms url nil t)))
 	;; Mark that the form is from history structure.
 	(setq w3m-current-forms (cons t w3m-current-forms)))
