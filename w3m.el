@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1125 $"))
+    (let ((rev "$Revision: 1.1126 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4933,7 +4933,8 @@ POST-DATA and REFERER will be sent to the web server with a request."
 		 ((member "contents" rel) (setq w3m-contents-url href))))))
 	   ((string= tag "base")
 	    (w3m-parse-attributes (href)
-	      (setq w3m-current-base-url href)))))))))
+	      (when (< 0 (length href))
+		(setq w3m-current-base-url href))))))))))
 
 (defun w3m-check-refresh-attribute ()
   "Get REFRESH attribute in META tags."
