@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.807 $"))
+    (let ((rev "$Revision: 1.808 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -3255,13 +3255,13 @@ If the user enters null input, return second argument DEFAULT."
     (let ((encoding
 	   (catch 'encoding-detected
 	     (dolist (elem w3m-encoding-type-alist)
-	       (when (string-match (car elem) url)
+	       (when (and (car elem) (string-match (car elem) url))
 		 (setq url (substring url 0 (match-beginning 0)))
 		 (throw 'encoding-detected (cdr elem)))))))
       (cons (catch 'type-detected
 	      (dolist (elem w3m-content-type-alist)
-		(if (string-match (nth 1 elem) url)
-		    (throw 'type-detected (car elem))))
+		(when (and (cadr elem) (string-match (cadr elem) url))
+		  (throw 'type-detected (car elem))))
 	      "unknown")
 	    encoding))))
 
