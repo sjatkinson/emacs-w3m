@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1084 $"))
+    (let ((rev "$Revision: 1.1085 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -5256,8 +5256,7 @@ compatibility which is described in Section 5.2 of RFC 2396.")
 	      url)))))
 
 (defsubst w3m-view-this-url-1 (url reload new-session)
-  (lexical-let ((origbuffer (current-buffer))
-		pos buffer newbuffer wconfig)
+  (lexical-let (pos buffer newbuffer wconfig)
     (if new-session
 	(let ((empty
 	       ;; If a new url has the #name portion, we simply copy
@@ -5288,16 +5287,10 @@ compatibility which is described in Section 5.2 of RFC 2396.")
 	;; When the buffer's major mode has changed from the w3m-mode
 	;; to another by visiting the new url (possibly a local file,
 	;; a mailto url, etc.), we need to make the new buffer visible.
-	(when (or (and (eq (with-current-buffer buffer major-mode)
-			   'w3m-mode)
-		       (not (eq (with-current-buffer newbuffer major-mode)
-				'w3m-mode)))
-		  ;; If the points of window was treated in w3m-goto-url()
-		  ;; , now reconstruct window configuration.
-		  (eq origbuffer newbuffer)
-		  (and (not w3m-view-this-url-new-session-in-background)
-		       (eq (with-current-buffer newbuffer major-mode)
-			   'w3m-mode)))
+	(when (and (eq (with-current-buffer buffer major-mode)
+		       'w3m-mode)
+		   (not (eq (with-current-buffer newbuffer major-mode)
+			    'w3m-mode)))
 	  (set-window-configuration wconfig))
 	(when pos ;; The new session is created.
 	  ;; Delete useless newly created buffer if it is empty.
