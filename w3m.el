@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.298 $"))
+    (let ((rev "$Revision: 1.299 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1710,9 +1710,9 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 			     (cons
 			      (cons w3m-current-url
 				    (list w3m-process-user w3m-process-passwd))
-			      (delete (assoc w3m-current-url
-					     w3m-arrived-user-list)
-				      w3m-arrived-user-list)))))
+			      (delq (assoc w3m-current-url
+					   w3m-arrived-user-list)
+				    w3m-arrived-user-list)))))
               (delete-process proc)));; Clean up resources of process.
 	;; call-process
 	(setq status (apply 'call-process w3m-command nil t nil args)))
