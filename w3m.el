@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.367 $"))
+    (let ((rev "$Revision: 1.368 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3520,7 +3520,9 @@ the request."
 				       w3m-current-url)
 			 (substring w3m-current-url (match-end 0))
 		       w3m-current-url)))
-    current-prefix-arg))
+    current-prefix-arg
+    (w3m-static-if (fboundp 'universal-coding-system-argument)
+	coding-system-for-read)))
   (set-text-properties 0 (length url) nil url)
   (cond
    ;; process mailto: protocol
