@@ -113,7 +113,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.173 $"))
+    (let ((rev "$Revision: 1.174 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2041,10 +2041,11 @@ this function returns t.  Otherwise, returns nil."
   (kill-new w3m-current-url)
   (message "%s" w3m-current-url))
 
-(defun w3m-print-this-url ()
+(defun w3m-print-this-url (&optional add-kill-ring)
   "*Print the URL of the link under point."
-  (interactive)
+  (interactive (list t))
   (let ((url (w3m-anchor)))
+    (and add-kill-ring url (kill-new url))
     (message "%s" (or url "Not found"))))
 
 (defun w3m-save-this-url ()
