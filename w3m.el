@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.567 $"))
+    (let ((rev "$Revision: 1.568 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2900,8 +2900,8 @@ type as a string argument, when retrieve is complete."
        (w3m-which-command w3m-touch-command)
        (file-exists-p file)
        (call-process w3m-touch-command nil nil nil
-		     "-d"
-		     (format-time-string "%Y-%m-%d %H:%M:%S" time)
+		     "-t"
+		     (format-time-string "%Y%m%d%H%M.%S" time)
 		     file)))
 
 ;;; Retrieve data:
