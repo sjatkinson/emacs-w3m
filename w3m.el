@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.986 $"))
+    (let ((rev "$Revision: 1.987 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -6376,7 +6376,8 @@ Otherwise, it defaults to `w3m-horizontal-shift-columns'."
 
 (defun w3m-auto-show ()
   "Scroll horizontally so that the point is visible."
-  (when (and w3m-auto-show
+  (when (and truncate-lines
+	     w3m-auto-show
 	     (not w3m-horizontal-scroll-done)
 	     (not (and (eq last-command this-command)
 		       (or (eq (point) (point-min))
@@ -6668,8 +6669,7 @@ function is designed as the hook function which is registered to
   "Run `w3m-after-cursor-move-hook' if the point gets away from the window.
 This function is designed as the hook function which is registered to
 `post-command-hook' by `w3m-buffer-setup'."
-  (when (and truncate-lines
-	     (/= (point) (car w3m-current-position)))
+  (when (/= (point) (car w3m-current-position))
     (run-hooks 'w3m-after-cursor-move-hook)))
 
 (defun w3m-buffer-setup ()
