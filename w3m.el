@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.151 $"))
+    (let ((rev "$Revision: 1.152 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1459,8 +1459,10 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 		(and v (string-to-number v)))
 	      (cdr (assoc "content-encoding" alist))
 	      (let ((v (cdr (assoc "last-modified" alist))))
-		(and v (apply (function encode-time)
-			      (w3m-time-parse-string v)))))))
+		(and v (condition-case nil
+			   (apply (function encode-time)
+				  (w3m-time-parse-string v))
+			 (error)))))))
      ;; FIXME: adhoc implementation
      ;; HTTP/1.1 500 Server Error on Netscape-Enterprise/3.6
      ;; HTTP/1.0 501 Method Not Implemented
