@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.820 $"))
+    (let ((rev "$Revision: 1.821 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6503,15 +6503,17 @@ ex.) c:/dir/file => //c/dir/file"
     (let ((w3m-current-buffer (current-buffer)))
       (setq w3m-current-url url
 	    w3m-current-base-url url
-	    w3m-current-coding-system (if charset
-					  (w3m-charset-to-coding-system charset)
-					w3m-coding-system)
-	    w3m-current-title (let (w3m-use-refresh)
-				(w3m-rendering-buffer charset))))
-    (w3m-fontify)
-    (when (w3m-display-inline-images-p)
-      (and w3m-force-redisplay (sit-for 0))
-      (w3m-toggle-inline-images 'force))))
+	    w3m-current-coding-system
+	    (if charset
+		(w3m-charset-to-coding-system charset)
+	      w3m-coding-system)
+	    w3m-current-title
+	    (let (w3m-use-refresh)
+	      (w3m-rendering-buffer charset)))
+      (w3m-fontify)
+      (when (w3m-display-inline-images-p)
+	(and w3m-force-redisplay (sit-for 0))
+	(w3m-toggle-inline-images 'force)))))
 
 
 ;;; About:
