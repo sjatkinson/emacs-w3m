@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.745 $"))
+    (let ((rev "$Revision: 1.746 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5767,9 +5767,10 @@ Cannot run two w3m processes simultaneously \
     ;; Store the current position in the history structure.
     (w3m-history-store-position)
     ;; Access url group
-    (if (string-match "\\`about://group/" url)
-	(let ((urls (read (base64-decode-string
-			   (substring url (match-end 0))))))
+    (if (string-match "\\`group:" url)
+	(let ((urls (split-string
+		     (w3m-url-decode-string (substring url (match-end 0)))
+		     "&")))
 	  (w3m-process-do
 	      (type (prog1
 			(w3m-goto-url (car urls))
