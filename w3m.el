@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.189 $"))
+    (let ((rev "$Revision: 1.190 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -713,16 +713,18 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 
 (defmacro w3m-make-help-echo (property)
   "Make a function for showing a `help-echo' string."
-  (if (and (boundp 'emacs-major-version)
-	   (>= emacs-major-version 21))
-      (if (featurep 'xemacs)
-	  (` (lambda (extent)
-	       (if w3m-track-mouse
-		   (get-text-property (extent-start-position extent)
-				      (quote (, property))))))
-	(` (lambda (window object pos)
-	     (if w3m-track-mouse
-		 (get-text-property pos (quote (, property)))))))))
+  (if (featurep 'xemacs)
+      (` (if (and (boundp 'emacs-major-version)
+		  (>= emacs-major-version 21))
+	     (function (lambda (extent)
+			 (if w3m-track-mouse
+			     (get-text-property (extent-start-position extent)
+						(quote (, property))))))))
+    (` (if (and (boundp 'emacs-major-version)
+		(>= emacs-major-version 21))
+	   (function (lambda (window object pos)
+		       (if w3m-track-mouse
+			   (get-text-property pos (quote (, property))))))))))
 
 (defmacro w3m-make-balloon-help (property)
   "Make a function for showing a `balloon-help' under XEmacs."
