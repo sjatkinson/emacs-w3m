@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.372 $"))
+    (let ((rev "$Revision: 1.373 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2896,6 +2896,13 @@ this function returns t.  Otherwise, returns nil."
 	    (setq server (match-string 1 base)
 		  base (substring base (match-end 1))))
 	(setq path (concat (file-name-directory base) url))
+	(if (string-match "?" path)
+	    ;; scheme://server/path?query (expand only path)
+	    (setq path
+		  (concat (expand-file-name
+			   (substring path 0 (match-beginning 0)))
+			  (substring path (match-beginning 0))))
+	  (setq path (expand-file-name path)))
 	;; remove drive (for Win32 platform)
 	(if (string-match "^.:" path)
 	    (setq path (substring path (match-end 0))))
