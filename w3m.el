@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.208 $"))
+    (let ((rev "$Revision: 1.209 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2829,7 +2829,9 @@ works on Emacs.
 
   (defun w3m-setup-header-line ()
     "Setup header line (emulating Emacs 21)."
-    (when (and w3m-use-header-line w3m-current-url)
+    (when (and w3m-use-header-line
+	       w3m-current-url
+	       (eq 'w3m-mode major-mode))
       (goto-char (point-min))
       (insert "Location: ")
       (put-text-property (point-min) (point)
