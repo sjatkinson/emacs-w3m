@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.328 $"))
+    (let ((rev "$Revision: 1.329 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1968,8 +1968,9 @@ If the user enters null input, return second argument DEFAULT."
     (if (w3m-find-coding-system 'utf-8)
 	(setq args (append args '("-o" "-cs" "utf-8"))
 	      charset 'utf-8)
-      (setq args (append args '("-o" "-cs" "euc-jp")))
-      (setq charset 'euc-jp))
+      (setq args
+	    (append args (list "-o" "-cs" (symbol-name w3m-coding-system))))
+      (setq charset w3m-coding-system))
     (apply 'call-process-region (point-min) (point-max)
 	   w3m-mbconv-command t t nil args)
     charset))
