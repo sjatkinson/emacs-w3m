@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.280 $"))
+    (let ((rev "$Revision: 1.281 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2143,20 +2143,20 @@ to nil."
 
 ;;; Retrieve data:
 (eval-and-compile
-  (if (and (fboundp 'make-ccl-coding-system)
-	   (>= emacs-major-version 20))
-      (condition-case nil
-	  (require 'pccl)
-	(error
-	 (require 'ccl)
-	 ;; from APEL
-	 (defun make-ccl-coding-system
-	   (coding-system mnemonic docstring decoder encoder)
-	   "Define a new CODING-SYSTEM by CCL programs DECODER and ENCODER.
+  (unless (fboundp 'make-ccl-coding-system)
+    (if (>= emacs-major-version 20)
+	(condition-case nil
+	    (require 'pccl)
+	  (error
+	   (require 'ccl)
+	   ;; from APEL
+	   (defun make-ccl-coding-system
+	     (coding-system mnemonic docstring decoder encoder)
+	     "Define a new CODING-SYSTEM by CCL programs DECODER and ENCODER.
 CODING-SYSTEM, DECODER and ENCODER must be symbol."
-	   (make-coding-system coding-system 4 mnemonic docstring
-			       (cons decoder encoder)))))
-    (require 'pccl)))
+	     (make-coding-system coding-system 4 mnemonic docstring
+				 (cons decoder encoder)))))
+      (require 'pccl))))
 
 (define-ccl-program w3m-euc-japan-decoder
   `(2
