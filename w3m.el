@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.767 $"))
+    (let ((rev "$Revision: 1.768 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4353,8 +4353,9 @@ described in Section 5.2 of RFC 2396.")
 	(when (and pos (buffer-name (marker-buffer pos)))
 	  (save-excursion
 	    (set-buffer (marker-buffer pos))
-	    (goto-char pos)
-	    (w3m-refontify-anchor)))))))
+	    (save-excursion
+	      (goto-char pos)
+	      (w3m-refontify-anchor))))))))
 
 (defun w3m-view-this-url (&optional arg new-session)
   "View the URL of the link under point.  If ARG is the number 2 or the
