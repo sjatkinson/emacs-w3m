@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.228 $"))
+    (let ((rev "$Revision: 1.229 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2767,7 +2767,7 @@ works on Emacs.
 				    nil t))
 	(beginning-of-line)
 	(delete-char 1)
-	(insert ">"))))
+	(insert "&gt;"))))
   "text/html")
 
 (defun w3m-about-db-history (&rest args)
