@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>,
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.9 $
+;; Version: $Revision: 1.10 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;;; Commentary:
@@ -78,7 +78,7 @@ This variable effected only XEmacs or Emacs 21.")
     (mew-elet
      (let ((file (format "%s.html" (mew-make-temp-name)))
 	   (w3m-display-inline-image mew-w3m-auto-insert-image)
-	   (pos (window-start))
+	   w3m-force-redisplay	;; don't redraw
 	   charset wcs)
        (setq charset (mew-syntax-get-param params "charset"))
        (if charset 
@@ -89,9 +89,7 @@ This variable effected only XEmacs or Emacs 21.")
 	(w3m-region (point)
 		    (progn (insert-buffer-substring cache begin end) 
 			   (point)))
-	(put-text-property (point-min) (1+ (point-min)) 'w3m t))
-       (set-window-start (selected-window) pos)))))
-
+	(put-text-property (point-min) (1+ (point-min)) 'w3m t))))))
 
 (defvar w3m-mew-support-cid (fboundp 'mew-syntax-get-entry-by-cid))
     
