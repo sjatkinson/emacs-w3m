@@ -129,7 +129,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.597 $"))
+    (let ((rev "$Revision: 1.598 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4110,8 +4110,8 @@ If EMPTY is non-nil, the created buffer has empty content."
     (define-key map "j" 'next-line)
     (define-key map "k" 'previous-line)
     (define-key map "l" 'forward-char)
-    (define-key map "J" (lambda () (interactive) (scroll-down 1)))
-    (define-key map "K" (lambda () (interactive) (scroll-up 1)))
+    (define-key map "J" (lambda () (interactive) (scroll-up 1)))
+    (define-key map "K" (lambda () (interactive) (scroll-down 1)))
     (define-key map "\M-g" 'goto-line)
     (define-key map "\C-?" 'w3m-scroll-down-or-previous-url)
     (define-key map "\t" 'w3m-next-anchor)
