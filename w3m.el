@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.869 $"))
+    (let ((rev "$Revision: 1.870 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1021,7 +1021,7 @@ MIME CHARSET and CODING-SYSTEM must be symbol."
        (or (null (eq w3m-output-coding-system 'utf-8))
 	   (and (charsetp 'mule-unicode-0100-24ff)
 		(charsetp 'mule-unicode-2500-33ff)
-		(or window-system (eq terminal-coding-system 'utf-8))))
+		(or window-system (eq (terminal-coding-system) 'utf-8))))
        t)
   "*Non-nil means replacing symbol."
   :group 'w3m
