@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1124 $"))
+    (let ((rev "$Revision: 1.1125 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4034,16 +4034,15 @@ It supports the encoding types of gzip, bzip2, deflate, etc."
       (setq content-charset (w3m-correct-charset content-charset))
       (setq cs (w3m-charset-to-coding-system content-charset))))
     (setq w3m-current-content-charset content-charset)
-    (decode-coding-region
-     (point-min) (point-max)
-     (setq w3m-current-coding-system
-	   (or cs
-	       (w3m-detect-coding-region
-		(point-min) (point-max)
-		(if (w3m-url-local-p url)
-		    nil
-		  w3m-coding-system-priority-list)))))
-    (set-buffer-multibyte t)))
+    (setq w3m-current-coding-system
+	  (or cs
+	      (w3m-detect-coding-region
+	       (point-min) (point-max)
+	       (if (w3m-url-local-p url)
+		   nil
+		 w3m-coding-system-priority-list))))
+    (set-buffer-multibyte t)
+    (decode-coding-region (point-min) (point-max) w3m-current-coding-system)))
 
 (defun w3m-x-moe-decode-buffer ()
   (let ((args '("-i" "-cs" "x-moe-internal"))
