@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.509 $"))
+    (let ((rev "$Revision: 1.510 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3328,15 +3328,16 @@ session."
     (if url
 	(lexical-let ((pos (point-marker))
 		      (url w3m-current-url))
-	  (w3m-process-do
-	      (success (w3m-download url nil nil handler))
-	    (and success
-		 (buffer-name (marker-buffer pos))
-		 (save-excursion
-		   (set-buffer (marker-buffer pos))
-		   (when (equal url w3m-current-url)
-		     (goto-char pos)
-		     (w3m-refontify-anchor))))))
+	  (w3m-process-with-null-handler
+	    (w3m-process-do
+		(success (w3m-download url nil nil handler))
+	      (and success
+		   (buffer-name (marker-buffer pos))
+		   (save-excursion
+		     (set-buffer (marker-buffer pos))
+		     (when (equal url w3m-current-url)
+		       (goto-char pos)
+		       (w3m-refontify-anchor)))))))
       (message "No URL at point"))))
 
 (defun w3m-print-current-url ()
