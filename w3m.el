@@ -35,7 +35,7 @@
 ;; emacs-w3m is the interface program of w3m on Emacs.  For more
 ;; detail about w3m, see:
 ;;
-;;    http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/
+;;    http://w3m.sourceforge.net/
 
 
 ;;; How to install:
@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.512 $"))
+    (let ((rev "$Revision: 1.513 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4566,7 +4566,7 @@ Welcome to <a href=\"http://emacs-w3m.namazu.org/\">\
 <img src=\"about://emacs-w3m.gif\" alt=\"emacs-w3m\"></a>!
 <br><br>
 emacs-w3m is an interface program of
-<a href=\"http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/\">w3m</a>,
+<a href=\"http://w3m.sourceforge.net/\">w3m</a>,
 works on Emacs.
 </center>
 </body>
