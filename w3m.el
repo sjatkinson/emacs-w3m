@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.239 $"))
+    (let ((rev "$Revision: 1.240 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1193,11 +1193,11 @@ half-dumped data."
       (setq src (w3m-expand-url src w3m-current-url))
       (when (search-forward "</img_alt>" nil t)
 	(delete-region (setq end (match-beginning 0)) (match-end 0))
+	(add-text-properties start end (list 'w3m-image src
+					     'w3m-image-redundant upper))
 	(unless (get-text-property start 'w3m-href-anchor)
 	  (add-text-properties start end (list 'face 'w3m-image-face
-					       'w3m-image src
 					       'mouse-face 'highlight
-					       'w3m-image-redundant upper
 					       'help-echo help
 					       'balloon-help balloon)))))))
 
