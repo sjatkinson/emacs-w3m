@@ -125,7 +125,7 @@ defaults to a proper value only if this file is byte-compiled by make.")
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.380 $"))
+    (let ((rev "$Revision: 1.381 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -650,7 +650,7 @@ will disclose your private informations, for example:
 
 \(setq w3m-add-referer-regexps
       '(\"^http:\"
-	. \"^http://\\\\(server1\\\\|server2\\\\)\\\\.your-company\\\\.com/\"))
+	. \"^http://\\\\([^./]+\\\\.\\\\)*your-company\\\\.com/\"))
 
 See also the documentation for the option `w3m-add-referer'."
   :group 'w3m
