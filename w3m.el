@@ -141,7 +141,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.780 $"))
+    (let ((rev "$Revision: 1.781 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5441,6 +5441,8 @@ frame or a window in the frame is succeeded."
   (setq truncate-lines t
 	w3m-display-inline-images w3m-default-display-inline-images)
   (when w3m-auto-show
+    (when (boundp 'auto-hscroll-mode)
+      (set (make-local-variable 'auto-hscroll-mode) nil))
     (when (boundp 'automatic-hscrolling)
       (set (make-local-variable 'automatic-hscrolling) nil))
     (when (boundp 'auto-show-mode)
