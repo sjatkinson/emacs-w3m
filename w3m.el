@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.452 $"))
+    (let ((rev "$Revision: 1.453 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3702,8 +3702,9 @@ that is affected by `w3m-pop-up-frames'."
     (define-key map "e" 'w3m-edit-current-url)
     (define-key map "E" 'w3m-edit-this-url)
     (define-key map "f" 'undefined) ;; reserved.
-    (define-key map "G" 'w3m-goto-url-new-session)
     (define-key map "g" 'w3m-goto-url)
+    (define-key map "\M-g" 'goto-line)
+    (define-key map "G" 'w3m-goto-url-new-session)
     (define-key map "h" 'describe-mode)
     (define-key map "H" 'w3m-gohome)
     (define-key map "i" (if (w3m-display-graphic-p)
