@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.727 $"))
+    (let ((rev "$Revision: 1.728 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -2470,6 +2470,7 @@ RATE is resize percentage."
 		  (if image
 		      (when (equal url w3m-current-url)
 			(let (buffer-read-only)
+			  (w3m-remove-image start end)
 			  (w3m-insert-image start end image iurl))
 			;; Redisplay
 			(when w3m-force-redisplay
