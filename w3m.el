@@ -121,7 +121,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.265 $"))
+    (let ((rev "$Revision: 1.266 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2986,7 +2986,7 @@ ex.) c:/dir/file => //c/dir/file"
   (save-restriction
     (narrow-to-region start end)
     (encode-coding-region (point-min) (point-max) w3m-input-coding-system)
-    (setq w3m-current-title (w3m-rendering-region start end))
+    (setq w3m-current-title (w3m-rendering-region (point-min) (point-max)))
     (w3m-fontify)
     (setq w3m-display-inline-image-status 'off)
     (when w3m-display-inline-image
