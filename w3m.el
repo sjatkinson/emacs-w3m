@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1059 $"))
+    (let ((rev "$Revision: 1.1060 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -1078,15 +1078,15 @@ Both charsets and coding systems must be symbols."
 (defcustom w3m-correct-charset-alist
   '(("windows-874"  . "tis-620")
     ("cp874"	    . "tis-620")
-    ("windows-1250" . "cp1250")
-    ("windows-1251" . "cp1251")
-    ("windows-1252" . "cp1252")
-    ("windows-1253" . "cp1253")
-    ("windows-1254" . "cp1254")
-    ("windows-1255" . "cp1255")
-    ("windows-1256" . "cp1256")
-    ("windows-1257" . "cp1257")
-    ("windows-1258" . "cp1258")
+    ("cp1250" . "windows-1250")
+    ("cp1251" . "windows-1251")
+    ("cp1252" . "windows-1252")
+    ("cp1253" . "windows-1253")
+    ("cp1254" . "windows-1254")
+    ("cp1255" . "windows-1255")
+    ("cp1256" . "windows-1256")
+    ("cp1257" . "windows-1257")
+    ("cp1258" . "windows-1258")
     ("shift-jis"    . "shift_jis")
     ("sjis"	    . "shift_jis")
     ("x-euc-jp"     . "euc-jp")
