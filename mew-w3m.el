@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.42 $
+;; Version: $Revision: 1.43 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -110,7 +110,6 @@ This variable effected only XEmacs or Emacs 21."
 
 ;; Avoid bytecompile error and warnings.
 (eval-when-compile
-  (defun mew-window-configure (&rest args) ())
   (unless (fboundp 'mew-current-get-fld)
     (autoload 'mew-current-get-fld "mew")
     (autoload 'mew-current-get-msg "mew")
@@ -243,9 +242,7 @@ This variable effected only XEmacs or Emacs 21."
 	w3m-cid-retrieve-function-alist))
 
 (defun mew-w3m-ext-url-show (dummy url)
-  (condition-case nil
-      (mew-window-configure 'message)
-    (error (mew-window-configure (buffer-name) 'message)))
+  (pop-to-buffer (mew-buffer-message))
   (w3m url))
 
 (defun mew-w3m-ext-url-fetch (dummy url)
