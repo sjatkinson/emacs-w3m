@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.476 $"))
+    (let ((rev "$Revision: 1.477 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2356,7 +2356,7 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 	    (goto-char (point-min))
 	    (cond
 	     ((and (looking-at
-		    "\\(\nWrong username or password\n\\)?Proxy Username for \\(.*\\): Proxy Password: ")
+		    "\\(\n?Wrong username or password\n\\)?Proxy Username for \\(.*\\): Proxy Password: ")
 		   (= (match-end 0) (point-max)))
 	      (unless w3m-proxy-passwd
 		(setq w3m-proxy-passwd
@@ -2368,7 +2368,7 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 		    (delete-region (point-min) (point-max)))
 		(error nil)))
 	     ((and (looking-at
-		    "\\(\nWrong username or password\n\\)?Proxy Username for \\(.*\\): ")
+		    "\\(\n?Wrong username or password\n\\)?Proxy Username for \\(.*\\): ")
 		   (= (match-end 0) (point-max)))
 	      (unless w3m-proxy-user
 		(setq w3m-proxy-user
@@ -2380,7 +2380,7 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 				       (concat w3m-proxy-user "\n"))
 		(error nil)))
 	     ((and (looking-at
-		    "\\(\nWrong username or password\n\\)?Username for \\(.*\\)\n?: Password: ")
+		    "\\(\n?Wrong username or password\n\\)?Username for \\(.*\\)\n?: Password: ")
 		   (= (match-end 0) (point-max)))
 	      (setq w3m-process-realm (match-string 2))
 	      (setq w3m-process-passwd
@@ -2395,7 +2395,7 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 		    (delete-region (point-min) (point-max)))
 		(error nil)))
 	     ((and (looking-at
-		    "\\(\nWrong username or password\n\\)?Username for \\(.*\\)\n?: ")
+		    "\\(\n?Wrong username or password\n\\)?Username for \\(.*\\)\n?: ")
 		   (= (match-end 0) (point-max)))
 	      (setq w3m-process-realm (match-string 2))
 	      (setq w3m-process-user
