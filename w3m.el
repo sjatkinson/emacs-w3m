@@ -123,6 +123,7 @@
   (autoload 'w3m-switch-buffer "w3m-tabmenu")
   (autoload 'w3m-cookie-set "w3m-cookie")
   (autoload 'w3m-cookie-get "w3m-cookie")
+  (autoload 'w3m-about-cookie "w3m-cookie")
   (autoload 'w3m-cookie-shutdown "w3m-cookie" t))
 
 ;; Avoid byte-compile warnings.
@@ -131,7 +132,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.621 $"))
+    (let ((rev "$Revision: 1.622 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
