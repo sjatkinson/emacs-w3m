@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.793 $"))
+    (let ((rev "$Revision: 1.794 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4727,10 +4727,11 @@ Return t if current line has a same anchor sequence."
     (save-excursion
       (let ((seq (w3m-anchor-sequence))
 	    (pos (point)))
-	(when (and seq (w3m-highlight-current-anchor-1 seq))
-	  (forward-line 1)
-	  (while (w3m-highlight-current-anchor-1 seq)
-	    (forward-line 1))
+	(when (and seq
+		   (w3m-highlight-current-anchor-1 seq)
+		   (zerop (forward-line 1)))
+	  (while (and (w3m-highlight-current-anchor-1 seq)
+		      (zerop (forward-line 1))))
 	  (goto-char pos)
 	  (while (and (zerop (forward-line -1))
 		      (w3m-highlight-current-anchor-1 seq))))))))
