@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.471 $"))
+    (let ((rev "$Revision: 1.472 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -4240,6 +4240,7 @@ If called with '\\[universal-argument]', clear form and post datas"
       (when form-data
 	(w3m-history-remove-properties '(:forms) nil nil t))
       (when post-data
+	(setq post-data nil)
 	(w3m-history-remove-properties '(:post-data) nil nil t))
       (setq w3m-current-forms nil))
     (if (and post-data (y-or-n-p "Repost form data? "))
