@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.824 $"))
+    (let ((rev "$Revision: 1.825 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6762,7 +6762,7 @@ showing a tree-structured history by the command `w3m-about-history'.")
 	      (setq url (symbol-name sym))
 	      (not (string-match "#" url))
 	      (not (string-match w3m-history-ignored-regexp url))
-	      (push (cons url (w3m-arrived-time sym)) alist)))
+	      (push (cons url (w3m-arrived-time url)) alist)))
        w3m-arrived-db)
       (setq alist (sort alist
 			(lambda (a b)
