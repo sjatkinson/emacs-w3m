@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.335 $"))
+    (let ((rev "$Revision: 1.336 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1496,7 +1496,8 @@ If second optional argument NO-CACHE is non-nil, cache is not used."
 		(save-excursion
 		  (goto-char cur-point)
 		  (when (and url
-			     (setq image (w3m-create-image url no-cache)))
+			     (setq image (w3m-create-image url no-cache
+							   w3m-current-url)))
 		    (w3m-insert-image point end image)
 		    ;; Redisplay
 		    (and w3m-force-redisplay (sit-for 0))))))
