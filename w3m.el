@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.446 $"))
+    (let ((rev "$Revision: 1.447 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -619,6 +619,14 @@ For twm use this in your .twmrc:
    NoTitle { \"balloon-help\" }
 
 See the file balloon-help.el for more information."
+  :group 'w3m
+  :type 'boolean)
+
+(defcustom w3m-pop-up-windows t
+  "Like `pop-up-windows', except that it only affects the command
+`w3m-copy-buffer'.  If this value is non-nil and the value of the
+option `w3m-pop-up-frames' is nil, split the windows when a new
+session is created."
   :group 'w3m
   :type 'boolean)
 
@@ -3503,7 +3511,8 @@ that is affected by `w3m-pop-up-frames'."
 	(w3m-history-copy buf)
 	(goto-char pt)
 	(when and-pop
-	  (let* ((pop-up-frames w3m-pop-up-frames)
+	  (let* ((pop-up-windows w3m-pop-up-windows)
+		 (pop-up-frames w3m-pop-up-frames)
 		 (pop-up-frame-alist (w3m-pop-up-frame-parameters))
 		 (pop-up-frame-plist pop-up-frame-alist)
 		 (oframe (selected-frame)))
