@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.309 $"))
+    (let ((rev "$Revision: 1.310 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1188,6 +1188,8 @@ If N is negative, last N items of LIST is returned."
 	 (mapcar
 	  (lambda (ch)
 	    (cond
+	     ((eq ch ?\n) ; newline
+	      "%0D%0A")
 	     ((string-match "[-a-zA-Z0-9_:/]" (char-to-string ch)) ; xxx?
 	      (char-to-string ch))	; printable
 	     (t
