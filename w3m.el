@@ -98,7 +98,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.132 $"))
+    (let ((rev "$Revision: 1.133 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -194,7 +194,7 @@ width using expression (+ (frame-width) VALUE)."
   (when (string-match "^file://" url)
     (setq url (substring url (match-end 0))))
   ;; Process abs_path part in Windows.
-  (when (string-match "^/\\(\\([A-z]\\)[|:]\\|cygdrive/\\([A-z]\\)\\)/" url)
+  (when (string-match "^/\\(\\([A-z]\\)[|:]?\\|cygdrive/\\([A-z]\\)\\)/" url)
     (setq url (concat
 	       (or (match-string 2 url)
 		   (match-string 3 url))
