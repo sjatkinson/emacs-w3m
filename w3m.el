@@ -96,7 +96,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.147 $"))
+    (let ((rev "$Revision: 1.148 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1321,9 +1321,6 @@ This function is imported from mcharset.el."
     (setq cs (if cs (cdr cs) charset))
     (if (find-coding-system cs)
 	cs)))
-
-(w3m-static-if (not (fboundp 'coding-system-category))
-    (defalias 'coding-system-category 'get-code-mnemonic))
 
 (defun w3m-decode-buffer (type charset)
   (if (and (not charset) (string= type "text/html"))
