@@ -130,6 +130,7 @@
   (autoload 'w3m-fontify-forms "w3m-form")
   (autoload 'w3m-fontify-textareas "w3m-form")
   (autoload 'w3m-form-textarea-file-cleanup "w3m-form")
+  (autoload 'w3m-form-textarea-files-remove "w3m-form")
   (autoload 'w3m-filter "w3m-filter")
   (autoload 'w3m-setup-tab-menu "w3m-tabmenu")
   (autoload 'w3m-switch-buffer "w3m-tabmenu")
@@ -151,7 +152,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1087 $"))
+    (let ((rev "$Revision: 1.1088 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7139,6 +7140,8 @@ Cannot run two w3m processes simultaneously \
 		  (unless w3m-toggle-inline-images-permanently
 		    (setq w3m-display-inline-images
 			  w3m-default-display-inline-images))
+		  (when (and w3m-use-form reload)
+		    (w3m-form-textarea-files-remove))
 		  (cond ((w3m-display-inline-images-p)
 			 (and w3m-force-redisplay (sit-for 0))
 			 (w3m-toggle-inline-images 'force reload))
