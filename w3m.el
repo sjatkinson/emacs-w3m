@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1075 $"))
+    (let ((rev "$Revision: 1.1076 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4678,12 +4678,12 @@ POST-DATA and REFERER will be sent to the web server with a request."
 	      (setq refurl (w3m-decode-entities-string
 			    (match-string-no-properties 2 content)))
 	      (when (string-match "\\`[\"']\\(.*\\)[\"']\\'" refurl)
-		(setq refurl (match-string 1 refurl))
-		(unless (string-match "[^0-9]" sec)
-		  (throw 'found
-			 (setq w3m-current-refresh
-			       (cons (string-to-number sec)
-				     (w3m-expand-url refurl)))))))))))))
+		(setq refurl (match-string 1 refurl)))
+	      (unless (string-match "[^0-9]" sec)
+		(throw 'found
+		       (setq w3m-current-refresh
+			     (cons (string-to-number sec)
+				   (w3m-expand-url refurl))))))))))))
 
 (defun w3m-remove-meta-charset-tags ()
   (let ((case-fold-search t))
