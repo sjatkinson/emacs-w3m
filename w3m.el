@@ -63,6 +63,16 @@
   (unless (dolist (var nil t))
     (load "cl-macs" nil t)))
 
+(defvar w3m-colon-keywords
+  (eval-when-compile
+    (when (boundp 'w3mhack-colon-keywords)
+      (symbol-value 'w3mhack-colon-keywords)))
+  "List of the colon keywords should be bound at run-time.  This variable
+defaults to a proper value only if this file is byte-compiled by make.")
+
+(dolist (keyword w3m-colon-keywords)
+  (set keyword keyword))
+
 (require 'w3m-macro)
 
 (eval-and-compile
@@ -115,7 +125,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.375 $"))
+    (let ((rev "$Revision: 1.376 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
