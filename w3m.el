@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1055 $"))
+    (let ((rev "$Revision: 1.1056 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -226,6 +226,10 @@ The valid values include `w3m', `w3mmee', and `w3m-m17n'.")
 		      (list nil)))
 	    (when (member "m17n" w3m-compile-options)
 	      (setq w3m-type 'w3m-m17n))))))))
+
+(when (not (stringp w3m-command))
+  (error "\
+Install w3m command in `exec-path' or set `w3m-command' variable correctly"))
 
 (defcustom w3m-user-agent (concat "Emacs-w3m/" emacs-w3m-version
 				  " " w3m-version)
