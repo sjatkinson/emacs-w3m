@@ -1,5 +1,5 @@
 ;;; -*- mode: Emacs-Lisp; coding: euc-japan -*-
-;; $Id: w3m.el,v 1.2 2000-07-01 17:48:48 tsuchiya Exp $
+;; $Id: w3m.el,v 1.3 2000-07-01 17:57:12 tsuchiya Exp $
 
 ;; Copyright (C) 2000 TSUCHIYA Masatoshi <tsuchiya@pine.kuee.kyoto-u.ac.jp>
 
@@ -126,9 +126,13 @@
     (run-hooks 'w3m-fontify-before-hook)
     ;; Decode escaped characters.
     (goto-char (point-min))
-    (while (search-forward "&nbsp;" nil t)
+    (while (re-search-forward "&\\(\\(nbsp\\)\\|\\(gt\\)\\|\\(lt\\)\\|\\(amp\\)\\|\\(quot\\)\\|\\(apos\\)\\);" nil t)
       (delete-region (match-beginning 0) (match-end 0))
-      (insert " "))
+      (insert (if (match-beginning 2) " "
+		(if (match-beginning 3) ">"
+		  (if (match-beginning 4) "<"
+		    (if (match-beginning 5) "&"
+		      (if (match-beginning 6) "\"" "'")))))))
     ;; Fontify anchors.
     (goto-char (point-min))
     (while (re-search-forward
