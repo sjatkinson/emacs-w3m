@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.740 $"))
+    (let ((rev "$Revision: 1.741 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5732,7 +5732,10 @@ field for this request."
     (switch-to-buffer (current-buffer))
     (w3m-cancel-refresh-timer (current-buffer))
     (when w3m-current-process
-      (error "%s" "Can not run two w3m processes simultaneously"))
+      (error "%s"
+	     (substitute-command-keys "
+Cannot run two w3m processes simultaneously \
+(Type `\\<w3m-mode-map>\\[w3m-process-stop]' to stop asynchronous process)")))
     (w3m-process-stop (current-buffer))	; Stop all processes retrieving images.
     ;; Store the current position in the history structure.
     (w3m-history-store-position)
