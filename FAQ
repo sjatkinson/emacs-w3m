@@ -1,4 +1,4 @@
-	emacs-w3m FAQ ($Date: 2001-12-03 12:07:37 $)
+	emacs-w3m FAQ ($Date: 2001-12-17 00:55:52 $)
 
 * General emacs-w3m questions
 
@@ -137,6 +137,12 @@
 
    Do you use the old ImageMagick? Please use the newest it, version
    5.4.0 or later.
+
+   If you don't want to use ImageMagick, or if you couldn't use the most
+   recent version of ImageMagick, add the following line in your .emacs
+   file:
+
+   (setq w3m-use-favicon nil)
 
 * shimbun
 
