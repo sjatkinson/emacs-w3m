@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.817 $"))
+    (let ((rev "$Revision: 1.818 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1235,31 +1235,20 @@ way:
 	       '((list :tag "Replacement Using Pattern"
 		       (string :tag "Regexp" :value "")
 		       (function-item :format "" w3m-pattern-uri-replace)
-		       (string :tag "Pattern" :value ""))
-		 (list :tag "Quick Search"
-		       (string :tag "Regexp" :value "")
-		       (function-item :format "" w3m-search-uri-replace)
-		       (string :tag "Engine")))
-	       (delq
-		nil
-		(mapcar
-		 (lambda (elem)
-		   (let ((engine (car elem))
-			 scheme)
-		     (if (rassoc (list 'w3m-search-uri-replace engine)
-				 w3m-uri-replace-alist)
-			 nil
-		       (setq scheme (mapconcat
-				     'identity
-				     (split-string (downcase engine))
-				     "-"))
-		       (list
-			'list :tag (concat "Quick Search: " scheme)
-			(list 'string :tag "Regexp" :value
-			      (concat "\\`" (regexp-quote scheme) ":"))
-			'(function-item :format "" w3m-search-uri-replace)
-			(list 'string :tag "Engine" engine)))))
-		 w3m-search-engine-alist))
+		       (string :tag "Pattern" :value "")))
+	       (mapcar
+		(lambda (elem)
+		  (let ((engine (car elem))
+			scheme)
+		    (setq scheme (mapconcat 'identity
+					    (split-string (downcase engine))
+					    "-"))
+		    (list 'list :tag (concat "Quick Search: " scheme)
+			  (list 'string :tag "Regexp" :value
+				(concat "\\`" (regexp-quote scheme) ":"))
+			  '(function-item :format "" w3m-search-uri-replace)
+			  (list 'string :tag "Engine" engine))))
+		w3m-search-engine-alist)
 	       '((list :tag "User Defined Function"
 		       (string :tag "Regexp" :value "")
 		       (function)
