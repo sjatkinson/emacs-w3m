@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.43 $
+;; Version: $Revision: 1.44 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -122,6 +122,8 @@ This variable effected only XEmacs or Emacs 21."
 			   mew-use-w3m-minor-mode)
 		      0)))
 
+(defvar mew-w3m-use-safe-url-regexp t)
+
 (defun mew-w3m-view-inline-image (&optional allimage)
   "Display the images of Text/Html part.
 \\<mew-summary-mode-map>
@@ -131,7 +133,7 @@ This variable effected only XEmacs or Emacs 21."
   (mew-summary-msg-or-part
    (if allimage
        (let ((mew-w3m-auto-insert-image t)
-	     (mew-w3m-safe-url-regexp nil))
+	     (mew-w3m-use-safe-url-regexp nil))
 	 (mew-summary-display 'force))
      (let ((mew-w3m-auto-insert-image (not mew-w3m-auto-insert-image)))
        (mew-summary-display 'force)))))
@@ -140,7 +142,8 @@ This variable effected only XEmacs or Emacs 21."
 (defun mew-mime-text/html-w3m (&rest args)
   "View Text/Html contents with w3m rendering output."
   (let ((w3m-display-inline-images mew-w3m-auto-insert-image)
-	(w3m-safe-url-regexp mew-w3m-safe-url-regexp)
+	(w3m-safe-url-regexp (when mew-w3m-use-safe-url-regexp
+			       mew-w3m-safe-url-regexp))
 	w3m-force-redisplay	;; don't redraw
 	charset wcs xref
 	cache begin end params execute)
