@@ -128,7 +128,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.612 $"))
+    (let ((rev "$Revision: 1.613 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3632,8 +3632,8 @@ also make a new frame for the copied session."
   (let ((url (w3m-anchor))
 	(act (w3m-action)))
     (cond
-     (url (w3m-view-this-url-1 url arg new-session))
      (act (eval act))
+     (url (w3m-view-this-url-1 url arg new-session))
      ((w3m-image)
       (if (w3m-display-graphic-p)
 	  (w3m-toggle-inline-image)
