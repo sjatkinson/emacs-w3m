@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.778 $"))
+    (let ((rev "$Revision: 1.779 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -3196,16 +3196,22 @@ succeed."
 		  (cons 'binary 'binary))
 		(lcookie (make-temp-name
 			  (format "%s.%d." (user-login-name) (emacs-pid))))
+		(cfile (make-temp-name
+			(expand-file-name "w3melck" w3m-profile-directory)))
 		file beg end)
 	    (w3m-process-with-environment
 		(list
 		 (cons "LOCAL_COOKIE" lcookie)
+		 (cons "LOCAL_COOKIE_FILE" cfile)
 		 (cons "QUERY_STRING"
 		       (format "dir=%s&cookie=%s"
 			       (encode-coding-string (w3m-url-to-file-name url)
 						     w3m-file-name-coding-system)
 			       lcookie)))
 	      (call-process w3m-dirlist-cgi-program nil t nil))
+	    ;; delete local cookie file
+	    (when (and (file-exists-p cfile) (file-writable-p cfile))
+	      (delete-file cfile))
 	    (goto-char (point-min))
 	    (when (re-search-forward "^<html>" nil t)
 	      (delete-region (point-min) (match-beginning 0))
