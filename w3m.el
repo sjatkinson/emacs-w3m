@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.833 $"))
+    (let ((rev "$Revision: 1.834 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -2411,10 +2411,10 @@ should use `w3m-url-encode-string' instead of this."
 (defun w3m-fontify-bold ()
   "Fontify bold characters in this buffer which contains half-dumped data."
   (goto-char (point-min))
-  (while (re-search-forward "<[\t\n ]*b[^>]*>" nil t)
+  (while (search-forward "<b>" nil t)
     (let ((start (match-beginning 0)))
       (delete-region start (match-end 0))
-      (when (re-search-forward "<[\t\n ]*/b[\t\n ]*>" nil t)
+      (when (re-search-forward "</b[ \t\r\f\n]*>" nil t)
 	(delete-region (match-beginning 0) (match-end 0))
 	(w3m-add-text-properties start (match-beginning 0)
 				 '(face w3m-bold-face))))))
@@ -2422,10 +2422,10 @@ should use `w3m-url-encode-string' instead of this."
 (defun w3m-fontify-underline ()
   "Fontify underline characters in this buffer which contains half-dumped data."
   (goto-char (point-min))
-  (while (re-search-forward "<[\t\n ]*u[^>]*>" nil t)
+  (while (search-forward "<u>" nil t)
     (let ((start (match-beginning 0)))
       (delete-region start (match-end 0))
-      (when (re-search-forward "<[\t\n ]*/u[\t\n ]*>" nil t)
+      (when (re-search-forward "</u[ \t\r\f\n]*>" nil t)
 	(delete-region (match-beginning 0) (match-end 0))
 	(w3m-add-text-properties start (match-beginning 0)
 				 '(face w3m-underline-face))))))
