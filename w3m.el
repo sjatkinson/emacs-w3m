@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.654 $"))
+    (let ((rev "$Revision: 1.655 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1371,6 +1371,8 @@ for a refresh indication")
 	       "-o" "ext_halfdump=1"
 	       '(if charset "-I") 'charset
 	       "-O" "ISO-2022-JP-2" "-o" "strict_iso2022=0"))
+	(w3m-accept-japanese-characters
+	 (list "-halfdump" "-I" "e"))
 	(t (list "-halfdump")))
   "Arguments for 'halfdump' execution of w3m.")
 
