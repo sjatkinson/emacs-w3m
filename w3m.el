@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.344 $"))
+    (let ((rev "$Revision: 1.345 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -253,7 +253,13 @@ reason.  The value will be referred by the function `w3m-load-list'.")
   "*Directory where the downloaded files should be saved in.  It defaults
 to the value of the option `w3m-default-save-directory'."
   :group 'w3m
-  :type 'directory)
+  :type '(choice (sexp
+		  :convert-widget
+		  (lambda (widget)
+		    (list 'const :tag
+			  (format "Default (%s)" w3m-default-save-directory)
+			  :value nil)))
+		 directory))
 
 (defcustom w3m-delete-duplicated-empty-lines t
   "*Compactize page by deleting duplicated empty lines."
