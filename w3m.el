@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1035 $"))
+    (let ((rev "$Revision: 1.1036 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4126,10 +4126,10 @@ If the optional argument NO-CACHE is non-nil, cache is not used."
 	      ;; Asahi-shimbun sometimes says gif as jpeg mistakenly.  So,
 	      ;; we cannot help trusting the magic at the beginning of data.
 	      (when (looking-at "\
-\\(GIF8\\)\\|\\(\211PNG\\)\\|\\(\377\330\377\\(\340\356\\)\\)")
+\\(GIF8\\)\\|\\(\377\330\377[\340\356]\\)\\|\\(\211PNG\\)")
 		(setq type (cond ((match-beginning 1) "gif")
-				 ((match-beginning 2) "png")
-				 ((match-beginning 3) "jpeg")))
+				 ((match-beginning 2) "jpeg")
+				 ((match-beginning 3) "png")))
 		(when (re-search-backward "^content-type: image/\\(.+\\)$"
 					  nil t)
 		  (delete-region (goto-char (match-beginning 1))
