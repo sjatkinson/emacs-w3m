@@ -1,5 +1,5 @@
 ;;; -*- mode: Emacs-Lisp; coding: euc-japan -*-
-;; $Id: w3m.el,v 1.5 2000-07-12 08:09:21 tsuchiya Exp $
+;; $Id: w3m.el,v 1.6 2000-07-13 09:02:08 tsuchiya Exp $
 
 ;; Copyright (C) 2000 TSUCHIYA Masatoshi <tsuchiya@pine.kuee.kyoto-u.ac.jp>
 
@@ -27,6 +27,15 @@
 ;; about w3m, see:
 ;;
 ;;    http://ei5nazha.yz.yamagata-u.ac.jp/~aito/w3m/
+
+
+;;; How to install:
+
+;; Please put this file to appropriate directory, and if you want
+;; byte-compile it.  And add following lisp expressions to your
+;; ~/.emacs.
+;;
+;;     (autoload 'w3m "w3m" "Interface for w3m on Emacs." t)
 
 
 ;;; Code:
@@ -546,6 +555,7 @@ if AND-POP is non-nil, the new buffer is shown with `pop-to-buffer'."
 
 
 (defun w3m (url)
+  "Interface for w3m on Emacs."
   (interactive (list (w3m-input-url)))
   (set-buffer (get-buffer-create "*w3m*"))
   (or (eq major-mode 'w3m-mode)
