@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.564 $"))
+    (let ((rev "$Revision: 1.565 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1528,7 +1528,7 @@ which defaults to the value of `w3m-file-coding-system-for-read'."
 	    element print-length print-level)
 	(insert (format "\
 ;;; %s  -*- mode: emacs-lisp%s -*-
-;; This file is generated automatically by Emacs-W3M v%s.
+;; This file is generated automatically by emacs-w3m v%s.
 
 "
 			(file-name-nondirectory file)
@@ -1543,15 +1543,15 @@ which defaults to the value of `w3m-file-coding-system-for-read'."
 	  (if (consp element)
 	      (progn
 		(insert "(")
-		(prin1 (car element))
+		(w3m-prin1 (car element))
 		(insert "\n")
 		(while (setq element (cdr element))
 		  (insert "  ")
-		  (prin1 (car element))
+		  (w3m-prin1 (car element))
 		  (insert "\n"))
 		(backward-delete-char 1)
 		(insert ")\n "))
-	    (prin1 element)
+	    (w3m-prin1 element)
 	    (insert "\n")))
 	(skip-chars-backward "\n ")
 	(delete-region (point) (point-max))
