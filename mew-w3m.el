@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.46 $
+;; Version: $Revision: 1.47 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -214,7 +214,8 @@ This variable effected only XEmacs or Emacs 21."
 		      xref))))
        (put-text-property (point-min) (1+ (point-min)) 'w3m t)))))
 
-(defvar w3m-mew-support-cid (fboundp 'mew-syntax-get-entry-by-cid))
+(defvar w3m-mew-support-cid (and (boundp 'mew-version-number)
+				 (fboundp 'mew-syntax-get-entry-by-cid)))
 
 (defun mew-w3m-cid-retrieve (url &rest args)
   (let ((output-buffer (current-buffer)))
@@ -228,7 +229,9 @@ This variable effected only XEmacs or Emacs 21."
 		 (cache (mew-cache-hit fld msg 'must-hit))
 		 (syntax (mew-cache-decode-syntax cache))
 		 cidstx beg end)
-	    (setq cidstx (mew-syntax-get-entry-by-cid syntax url))
+	    (if (string< "4.0.53" mew-version-number)
+		(setq cidstx (mew-syntax-get-entry-by-cid syntax (concat "<" url ">")))
+ 	      (setq cidstx (mew-syntax-get-entry-by-cid syntax url)))
 	    (when cidstx
 	      (setq beg (mew-syntax-get-begin cidstx))
 	      (setq end (mew-syntax-get-end cidstx))
