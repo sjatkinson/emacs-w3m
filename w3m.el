@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.321 $"))
+    (let ((rev "$Revision: 1.322 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -824,6 +824,11 @@ for a charset indication")
 (defvar w3m-halfdump-command nil
   "Name of the executable file of w3m. If nil use 'w3m-command'.")
 
+(defmacro w3m-tag-regexp-of (&rest names)
+  (concat "<\\("
+	  (mapconcat 'identity names "\\|")
+	  "\\)\\([ \t\r\f\n]+[^>]*\\)?/?>"))
+
 (defconst w3m-halfdump-command-arguments
   (cond ((eq w3m-type 'w3mmee)
 	 (list "-dump=half-buffer"
@@ -1215,6 +1220,7 @@ If N is negative, last N items of LIST is returned."
 		(lambda (attr)
 		  (if (listp attr) (car attr) attr))
 		attributes)))
+       (skip-chars-forward " \t\r\f\n")
        (while
 	   (cond
 	    (,@ (mapcar
