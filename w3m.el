@@ -125,7 +125,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.396 $"))
+    (let ((rev "$Revision: 1.397 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3975,12 +3975,21 @@ showing a tree-structured history by the command `w3m-about-history'.")
 	     (insert "&gt;"))))
     "text/html"))
 
+(defsubst w3m-about-db-history-today (old now)
+  (let ((sub (* 65536 (- (nth 0 now) (nth 0 old)))))
+    (if (< sub 0)
+	nil
+      (setq sub (+ sub (- (nth 1 now) (nth 1 old))))
+      (if (< sub 0)
+	  nil
+	(<= sub 64800))))) ;; (* 60 60 18) 18hours ago.
+
 (defun w3m-about-db-history (&rest args)
   (let ((width (- (if (< 0 w3m-fill-column)
 		      w3m-fill-column
 		    (+ (frame-width) (or w3m-fill-column -1)))
 		  18))
-	(today (format-time-string "%Y-%m-%d" (current-time)))
+	(now (current-time))
 	url title time alist date)
     (when w3m-arrived-db
       (mapatoms
@@ -4021,10 +4030,9 @@ showing a tree-structured history by the command `w3m-about-history'.")
 		   "..."))))
 	(insert (format "<tr><td><a href=\"%s\">%s</a></td>" url title))
 	(when (cdr (car alist))
-	  (setq date (format-time-string "%Y-%m-%d" (cdr (car alist))))
-	  (if (and today (string= today date))
+	  (if (w3m-about-db-history-today (cdr (car alist)) now)
 	      (setq date (format-time-string "%H:%M:%S" (cdr (car alist))))
-	    (setq today nil))
+	    (setq date (format-time-string "%Y-%m-%d" (cdr (car alist)))))
 	  (insert "<td>" date "</td>"))
 	(insert "</tr>\n")
 	(setq alist (cdr alist)))
