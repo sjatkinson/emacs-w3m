@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.198 $"))
+    (let ((rev "$Revision: 1.199 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2669,11 +2669,11 @@ works on Emacs.
 
 (defun w3m-about-history-1 (history source depth)
   "Internal function used to `w3m-about-history' for recursive funcall."
-  (let (rest)
-    (dolist (element history)
-      (unless (string-match w3m-about-history-except-regex (car element))
-	(push element rest)))
-    (setq history (nreverse rest)))
+;;  (let (rest)
+;;    (dolist (element history)
+;;      (unless (string-match w3m-about-history-except-regex (car element))
+;;	(push element rest)))
+;;    (setq history (nreverse rest)))
   (let (element url title children)
     (while history
       (setq element (car history)
