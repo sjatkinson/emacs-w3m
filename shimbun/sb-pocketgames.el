@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Keywords: news
-;; Version: $Id: sb-pocketgames.el,v 1.10 2004-01-15 13:56:20 minakaji Exp $
-;; Last Modified: $Date: 2004-01-15 13:56:20 $
+;; Version: $Id: sb-pocketgames.el,v 1.11 2004-05-06 15:22:41 tsuchiya Exp $
+;; Last Modified: $Date: 2004-05-06 15:22:41 $
 
 ;; This file is a part of shimbun.
 
@@ -42,9 +42,6 @@
   "<a class=\"pn-normal\" href=\"modules.php\\?op=modload\&amp;name=Search\\&amp;file=index\\&amp;action=search\\&amp;overview=1\\&amp;active_stories=[0-9]+\\&amp;stories_topics\[[0-9]+\]=\"><b>Older Articles</b></a>")
 (defvar shimbun-pocketgames-content-end
   "</body>")
-
-(luna-define-method shimbun-index-url ((shimbun shimbun-pocketgames))
-  shimbun-pocketgames-url)
 
 (luna-define-method shimbun-reply-to ((shimbun shimbun-pocketgames))
   "Return the mailing list address."
