@@ -128,7 +128,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.615 $"))
+    (let ((rev "$Revision: 1.616 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2530,7 +2530,7 @@ If the user enters null input, return second argument DEFAULT."
 (defun w3m-decode-encoded-contents (encoding)
   "Decode encoded (gzipped, bzipped, deflated, etc) contents in this buffer."
   (let ((x (and (stringp encoding)
-		(assoc encoding w3m-encoding-alist))))
+		(assoc (downcase encoding) w3m-encoding-alist))))
     (or (not (and x (setq x (cdr (assq (cdr x) w3m-decoder-alist)))))
 	(let ((coding-system-for-write 'binary)
 	      (coding-system-for-read 'binary)
