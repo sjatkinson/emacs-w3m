@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.190 $"))
+    (let ((rev "$Revision: 1.191 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -205,12 +205,17 @@ width using expression (+ (frame-width) VALUE)."
   :type 'boolean)
 
 (defcustom w3m-icon-directory
-  (if (fboundp 'locate-data-directory)
-      (locate-data-directory "w3m")
-    (let ((icons (expand-file-name "w3m/icons/"
-				   data-directory)))
-      (if (file-directory-p icons)
-	  icons)))
+  (let ((ldd 'locate-data-directory))
+    ;; Hide the actual function name `locate-data-directory' for old
+    ;; Emacsen, which does not have a new custom package (`defvar' is
+    ;; used for a substitution of `defcustom'), to avoid byte-compile
+    ;; warnings.
+    (if (fboundp ldd)
+	(funcall ldd "w3m")
+      (let ((icons (expand-file-name "w3m/icons/"
+				     data-directory)))
+	(if (file-directory-p icons)
+	    icons))))
   "*Icon directory for w3m (XEmacs or Emacs 21)."
   :group 'w3m
   :type 'directory)
