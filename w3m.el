@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.994 $"))
+    (let ((rev "$Revision: 1.995 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -5974,6 +5974,7 @@ as if the folder command of MH performs with the -pack option."
     (define-key map "\C-c\C-b" 'report-emacs-w3m-bug)
     (define-key map "\C-c\C-c" 'w3m-submit-form)
     (define-key map "\C-c\C-k" 'w3m-process-stop)
+    (define-key map "\C-c\C-i" 'w3m-goto-info-page)
     (setq w3m-lynx-like-map map)))
 
 (defvar w3m-info-like-map nil
@@ -6088,6 +6089,7 @@ as if the folder command of MH performs with the -pack option."
     (define-key map "\C-c\C-b" 'report-emacs-w3m-bug)
     (define-key map "\C-c\C-c" 'w3m-submit-form)
     (define-key map "\C-c\C-k" 'w3m-process-stop)
+    (define-key map "\C-c\C-i" 'w3m-goto-info-page)
     (setq w3m-info-like-map map)))
 
 (defun w3m-alive-p (&optional visible)
