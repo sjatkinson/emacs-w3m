@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.975 $"))
+    (let ((rev "$Revision: 1.976 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -3397,7 +3397,7 @@ Like `ffap-url-at-point', except that text props will be stripped."
   "Return an active region or a url around the cursor.
 In Transient Mark mode, deactivate the mark."
   (if (w3m-region-active-p)
-      (prog1 (buffer-substring-no-properties (mark) (point))
+      (prog1 (buffer-substring-no-properties (region-beginning) (region-end))
 	(w3m-deactivate-region))
     (w3m-url-at-point)))
 
