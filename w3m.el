@@ -146,7 +146,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.939 $"))
+    (let ((rev "$Revision: 1.940 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4578,10 +4578,9 @@ argument.  Otherwise, it will be called with nil."
 					    (w3m-arrived-content-charset url)
 					    (w3m-content-charset url))
 					page-buffer)
-		  (and w3m-verbose
-		       (not (get-buffer-window page-buffer))
-		       (message "The content (%s) has been retrieved in %s"
-				url (buffer-name page-buffer)))))
+		  (unless (get-buffer-window page-buffer)
+		    (w3m-message "The content (%s) has been retrieved in %s"
+				 url (buffer-name page-buffer)))))
 	    (ding)
 	    (when (eq (car w3m-current-forms) t)
 	      (setq w3m-current-forms (cdr w3m-current-forms)))
