@@ -134,7 +134,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.678 $"))
+    (let ((rev "$Revision: 1.679 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3256,6 +3256,7 @@ If this function is called by redirection, ORIG-URL must be set."
 	  (delete-file temp-file))
 	(when attributes
 	  (or no-decode
+	      w3m-current-redirect
 	      (w3m-decode-encoded-contents (nth 3 attributes))
 	      (error "Can't decode encoded contents: %s" url))
 	  (car attributes))))))
