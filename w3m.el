@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.631 $"))
+    (let ((rev "$Revision: 1.632 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1994,7 +1994,7 @@ with ^ as `cat -v' does."
 					   'w3m-href-anchor href
 					   'mouse-face 'highlight
 					   'w3m-name-anchor
-					   (cons name prenames)
+					   (delq nil (cons name prenames))
 					   'w3m-anchor-sequence hseq
 					   'help-echo help
 					   'balloon-help balloon))))
