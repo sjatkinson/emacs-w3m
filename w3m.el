@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.752 $"))
+    (let ((rev "$Revision: 1.753 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6942,7 +6942,7 @@ FROM-COMMAND is defined to `w3m-minor-mode-map' for same keys in
 
 (defun w3m-make-minor-mode-keymap ()
   "Make keymap for w3m-minor-mode"
-  (let ((keymap (make-keymap)))
+  (let ((keymap (make-sparse-keymap)))
     (dolist (pair w3m-minor-mode-command-alist)
       (substitute-key-definition (car pair)
 				 (or (cdr pair) (car pair))
