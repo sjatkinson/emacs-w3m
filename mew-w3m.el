@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.25 $
+;; Version: $Revision: 1.26 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -145,7 +145,8 @@ and its keymap in message buffer."
 			 "-o" "ext_halfdump=1"
 			 "-o" "pre_conv=1"
 			 "-o" "strict_iso2022=0")))
-	   (w3m-region begin end)))
+	   (let ((w3m-safe-url-regexp "\\`cid:"))
+	     (w3m-region begin end))))
 	((null cache)	;; Mew-2 + w3m, w3mmee
 	 (w3m-region begin end))
 	(t		;; Old Mew
