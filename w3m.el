@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.708 $"))
+    (let ((rev "$Revision: 1.709 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -668,11 +668,10 @@ of the original request method. -- RFC2616"
   :group 'w3m-face)
 
 (defcustom w3m-mode-hook
-  (nconc
-   (when (featurep 'w3m-e21)
-     '(w3m-setup-header-line
-       w3m-setup-widget-faces
-       w3m-update-tab-line)))
+  (when (featurep 'w3m-e21)
+    '(w3m-setup-header-line
+      w3m-setup-widget-faces
+      w3m-update-tab-line))
   "*Hook run before `w3m-mode' called."
   :group 'w3m
   :type 'hook)
