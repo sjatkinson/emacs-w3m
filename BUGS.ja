@@ -1,12 +1,10 @@
-$Date: 2003-12-11 13:31:56 $
+$Date: 2003-12-20 15:40:31 $
 
 ■ TODOs stopping release
 
    --> URL の encode 問題の解決 [emacs-w3m:05387], [emacs-w3m:05576]
 
    --> 各種 form 用の face の変更 [emacs-w3m:05490]
-
-   --> shimbun の利用方法に関する留意点の文書を整備
 
    --> xml.el のインストーラの完成 [emacs-w3m:05353]
 
