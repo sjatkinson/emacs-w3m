@@ -90,7 +90,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.112 $"))
+    (let ((rev "$Revision: 1.113 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -347,9 +347,13 @@ In other environment, use 'native."
 	   (x-shift-jis   . shift_jis)
 	   (x-shift_jis   . shift_jis)
 	   (x-sjis        . shift_jis)))
+	(fn (if (fboundp 'find-coding-system)
+		;; It might be unbound at run-time.
+		'find-coding-system
+	      'coding-system-p))
 	dest)
     (while rest
-      (or (find-coding-system (car (car rest)))
+      (or (funcall fn (car (car rest)))
 	  (setq dest (cons (car rest) dest)))
       (setq rest (cdr rest)))
     dest)
