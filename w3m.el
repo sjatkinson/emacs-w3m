@@ -72,7 +72,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.85 $"))
+    (let ((rev "$Revision: 1.86 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1818,6 +1818,8 @@ are retrieved."
 		    (w3m-decode-buffer type charset))
 	       type))))))))
 
+(defvar w3m-cid-retrieve-function-alist nil)
+
 (defun w3m-retrieve (url &optional no-decode accept-type-regexp no-cache)
   "Retrieve content of URL and insert it to the working buffer.
 This function will return content-type of URL as string when retrieval
@@ -1835,6 +1837,10 @@ are retrieved."
 	(w3m-about url no-decode accept-type-regexp no-cache))))
    ((string-match "^\\(file:\\|/\\)" url)
     (w3m-local-retrieve url no-decode accept-type-regexp))
+   ((string-match "^cid:" url)
+    (let ((func (cdr (assq major-mode w3m-cid-retrieve-function-alist))))
+      (when func
+	(funcall func url no-decode accept-type-regexp no-cache))))
    (t
     (w3m-w3m-retrieve url no-decode accept-type-regexp no-cache))))
 
