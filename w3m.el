@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.804 $"))
+    (let ((rev "$Revision: 1.805 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6553,9 +6553,8 @@ works on Emacs.
   (when (string-match "\\`about://header/" url)
     (setq url (substring url (match-end 0)))
     (insert "Page Information\n"
-	    "\nTitle:          " (or (w3m-encode-specials-string
-				      (w3m-arrived-title
-				       (w3m-url-strip-authinfo url)))
+	    "\nTitle:          " (or (w3m-arrived-title
+				      (w3m-url-strip-authinfo url))
 				     "")
 	    "\nURL:            " url
 	    "\nDocument Type:  " (or (w3m-content-type url) "")
