@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.956 $"))
+    (let ((rev "$Revision: 1.957 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -7623,9 +7623,7 @@ splitting windows vertically."
 (defun w3m-select-buffer (&optional toggle nomsg)
   "Pop up the emacs-w3m buffers selection window.
 It provides the feature for switching emacs-w3m buffers using the
-buffer list.  When the selection window has already been popped up,
-it toggles the style of the selection window between horizontal and
-vertical.  The following command keys are available:
+buffer list.  The following command keys are available:
 
 \\{w3m-select-buffer-mode-map}"
   (interactive "P")
