@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.979 $"))
+    (let ((rev "$Revision: 1.980 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -4030,23 +4030,23 @@ If the optional argument NO-CACHE is non-nil, cache is not used."
       (w3m-message "Reading %s...done" url)
       (when success
 	(goto-char (point-min))
-	(when (let ((case-fold-search t))
-		(re-search-forward "^w3m-current-url:" nil t))
-	  (delete-region (point-min) (match-beginning 0))
-	  (when (search-forward "\n\n" nil t)
-	    (let ((header (buffer-substring (point-min) (point))))
-	      (when w3m-use-cookies
-		(w3m-cookie-set url (point-min) (point)))
-	      (unless (prog1 (save-excursion
-			       (or (re-search-backward
-				    "^Pragma:[ \t]+no-cache\n" nil t)
-				   (re-search-backward
-				    "^Cache-control:[ \t]+\\(no-cache\\|max-age=0\\)\n"
-				    nil t)))
-			(delete-region (point-min) (point)))
-		(w3m-cache-header url header)
-		(w3m-cache-contents url (current-buffer)))
-	      (w3m-w3m-parse-header url header))))))))
+	(let ((case-fold-search t))
+	  (when (re-search-forward "^w3m-current-url:" nil t)
+	    (delete-region (point-min) (match-beginning 0))
+	    (when (search-forward "\n\n" nil t)
+	      (let ((header (buffer-substring (point-min) (point))))
+		(when w3m-use-cookies
+		  (w3m-cookie-set url (point-min) (point)))
+		(unless (prog1 (save-excursion
+				 (or (re-search-backward
+				      "^Pragma:[ \t]+no-cache\n" nil t)
+				     (re-search-backward
+				      "^Cache-control:[ \t]+\\(no-cache\\|max-age=0\\)\n"
+				      nil t)))
+			  (delete-region (point-min) (point)))
+		  (w3m-cache-header url header)
+		  (w3m-cache-contents url (current-buffer)))
+		(w3m-w3m-parse-header url header)))))))))
 
 (defun w3m-additional-command-arguments (url)
   "Return a list of additional arguments passed to the w3m command.
