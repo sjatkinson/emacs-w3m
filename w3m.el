@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.337 $"))
+    (let ((rev "$Revision: 1.338 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2226,6 +2226,7 @@ to nil."
     (delete-region (point-min) (point-max))
     (set-buffer-multibyte nil)
     (let ((w3m-command-arguments w3m-command-arguments)
+	  (coding-system-for-write 'binary)
 	  type file modes)
       (and no-cache
 	   w3m-broken-proxy-cache
