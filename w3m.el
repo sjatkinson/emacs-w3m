@@ -141,7 +141,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.786 $"))
+    (let ((rev "$Revision: 1.787 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1085,6 +1085,34 @@ allows a kludge that it can also be a plist of frame properties."
   "*Command name for \"mbconv\" be supplied with \"libmoe\"."
   :group 'w3m
   :type 'string)
+
+(defcustom w3m-local-find-file-regexps '(nil . "\\.html?\\'")
+  "*Cons of two regexps matching and not matching local file names which
+will be opened by the function specified by the
+`w3m-local-find-file-function' variable.  Nil matches any file names,
+for instance, the value `(nil . \"\\\\.html?\\\\'\")' does not match
+\"file:///any/where/index.html\" but \"file:///some/where/w3m.el\".  It
+only affects when the `w3m-local-find-file-function' variable is set
+properly (see also the documentation for that variable)."
+  :group 'w3m
+  :type '(cons (radio :tag "Match"
+		      (const :format "All " nil) regexp)
+	       (radio :tag "Nomatch"
+		      (const :format "All " nil) regexp)))
+
+(defcustom w3m-local-find-file-function
+  '(if (or (and (featurep 'xemacs)
+		(device-on-window-system-p))
+	   window-system)
+       'find-file-other-frame
+     'find-file-other-window)
+  "*Function used to open local files whose name matches the
+`w3m-local-find-file-regexps' variable.  Function should take one
+argument, the string naming the local file.  It can also be any Lisp
+form that should return a function.  Set this to nil if you want to
+always use emacs-w3m to see local files."
+  :group 'w3m
+  :type 'sexp)
 
 (defcustom w3m-local-directory-view-method 'w3m-cgi
   "*View method in local directory.
@@ -5929,6 +5957,20 @@ the `w3m-search' function and the variable
 	 (string-match "\\`ftp://" url)
 	 (not (string= "text/html" (w3m-local-content-type url))))
     (w3m-goto-ftp-url url))
+   ((condition-case nil
+	(and (string-match "\\`file://" url)
+	     w3m-local-find-file-function
+	     (string-match (or (car w3m-local-find-file-regexps) "")
+			   url)
+	     (not (string-match (or (cdr w3m-local-find-file-regexps) "")
+				url))
+	     (prog1
+		 t
+	       (funcall (if (functionp w3m-local-find-file-function)
+			    w3m-local-find-file-function
+			  (eval w3m-local-find-file-function))
+			(substring url 7))))
+      (error nil)))
    ((w3m-url-valid url)
     (w3m-buffer-setup)			; Setup buffer.
     (w3m-arrived-setup)			; Setup arrived database.
