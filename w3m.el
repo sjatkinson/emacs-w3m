@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.768 $"))
+    (let ((rev "$Revision: 1.769 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6962,6 +6962,8 @@ w3m-mode buffers."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map w3m-mode-map)
     (define-key map [mouse-2] 'w3m-goto-url)
+    ;; Prevent tool-bar from being doubled under Emacs 21.
+    (define-key map [tool-bar] 'undefined)
     (setq w3m-header-line-map map)))
 
 (defun w3m-header-line-insert ()
