@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1001 $"))
+    (let ((rev "$Revision: 1.1002 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -3409,7 +3409,7 @@ In Transient Mark mode, deactivate the mark."
 	(goto-char (region-beginning))
 	(skip-chars-forward "\t\n 　" limit)
 	(prog1
-	    (w3m-url-at-point)
+	    (buffer-substring-no-properties limit (point))
 	  (goto-char pt)
 	  (w3m-deactivate-region)))
     (w3m-url-at-point)))
