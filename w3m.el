@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.873 $"))
+    (let ((rev "$Revision: 1.874 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1830,8 +1830,7 @@ for a refresh indication")
 	 (list "-halfdump"
 	       "-o" "ext_halfdump=1"
 	       "-o" "strict_iso2022=0"
-	       '(if (eq w3m-output-coding-system 'utf-8) "-o")
-	       '(if (eq w3m-output-coding-system 'utf-8) "ucs_conv=1")
+	       "-o" "ucs_conv=1"
 	       '(if charset "-I") 'charset
 	       "-O"
 	       '(if (eq w3m-output-coding-system 'utf-8)
