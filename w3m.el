@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.231 $"))
+    (let ((rev "$Revision: 1.232 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2751,6 +2751,7 @@ works on Emacs.
 	(current w3m-current-url)
 	element url about title hierarchy)
     (w3m-with-work-buffer
+      (set-buffer-multibyte t)
       (erase-buffer)
       (insert "\
 <head><title>URL history</title></head><body>
