@@ -57,7 +57,7 @@
     (require 'w3m-om))))
 
 (require 'thingatpt)
-(require 'parse-time)
+(require 'w3m-time)
 
 ;; this package using a few CL macros
 (eval-when-compile
@@ -98,7 +98,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.121 $"))
+    (let ((rev "$Revision: 1.122 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1388,7 +1388,7 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 	      (cdr (assoc "content-encoding" alist))
 	      (let ((v (cdr (assoc "last-modified" alist))))
 		(and v (apply (function encode-time)
-			      (parse-time-string v)))))))))
+			      (w3m-time-parse-string v)))))))))
 
 (defun w3m-pretty-length (n)
   ;; This function imported from url.el.
