@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.734 $"))
+    (let ((rev "$Revision: 1.735 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4910,8 +4910,9 @@ The optional argument BUFFER will be used exclusively by the command
     (define-key map "g" 'w3m-goto-url)
     (define-key map "T" 'w3m-toggle-inline-images)
     (define-key map "t" 'w3m-toggle-inline-image)
-    (define-key map "\M-[" 'w3m-zoom-out-image)
-    (define-key map "\M-]" 'w3m-zoom-in-image)
+    (when (w3m-display-graphic-p)
+      (define-key map "\M-[" 'w3m-zoom-out-image)
+      (define-key map "\M-]" 'w3m-zoom-in-image))
     (define-key map "U" 'w3m-goto-url)
     (define-key map "V" 'w3m-goto-url)
     (define-key map "v" 'w3m-bookmark-view)
@@ -5013,8 +5014,9 @@ The optional argument BUFFER will be used exclusively by the command
 			    'w3m-toggle-inline-image
 			  'w3m-view-image))
     (define-key map "I" 'w3m-toggle-inline-images)
-    (define-key map "\M-[" 'w3m-zoom-out-image)
-    (define-key map "\M-]" 'w3m-zoom-in-image)
+    (when (w3m-display-graphic-p)
+      (define-key map "\M-[" 'w3m-zoom-out-image)
+      (define-key map "\M-]" 'w3m-zoom-in-image))
     (define-key map "\M-i" 'w3m-save-image)
     (define-key map "l" 'w3m-view-previous-page)
     (define-key map "\C-l" 'recenter)
