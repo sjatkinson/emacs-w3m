@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.31 $
+;; Version: $Revision: 1.32 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -154,7 +154,7 @@ This variable effected only XEmacs or Emacs 21."
 	    (when (and (re-search-forward "^X-Shimbun-Id: " eoh t)
 		       (goto-char (point-min))
 		       (re-search-forward "^Xref: \\(.+\\)\n" eoh t))
-	      (setq xref (mew-match 1))))))
+	      (setq xref (match-string 1))))))
       (mew-elet
        (cond
 	((and (null cache) (eq w3m-type 'w3m-m17n))
