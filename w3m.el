@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.823 $"))
+    (let ((rev "$Revision: 1.824 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1236,6 +1236,10 @@ way:
 		       (string :tag "Regexp" :value "")
 		       (function-item :format "" w3m-pattern-uri-replace)
 		       (string :tag "Pattern" :value "")))
+	       '((list :format "Quick Search:\n%v" :tag "Quick Search"
+		       (regexp :tag "Prefix URL Regexp")
+		       (function-item :format "" w3m-search-uri-replace)
+		       (string :tag "Quick Search Engine")))
 	       (mapcar
 		(lambda (elem)
 		  (let ((engine (car elem))
