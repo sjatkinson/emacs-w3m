@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.722 $"))
+    (let ((rev "$Revision: 1.723 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5115,7 +5115,7 @@ frame or a window in the frame is succeeded."
 	If called with '\\[universal-argument]', this command displays arrived-DB history.
 \\[w3m-antenna]	Display the report change of WEB sites.
 	If called with '\\[universal-argument]', this command reloads report.
-\\[w3m-antenna-add-this-url]	Add link under cursor to antenna.
+\\[w3m-antenna-add-current-url]	Add link under cursor to antenna.
 \\[w3m-search]	Search query.
 	If called with '\\[universal-argument]', you can choose search engine.
 \\[w3m-weather]	Display weather report.
