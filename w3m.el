@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.330 $"))
+    (let ((rev "$Revision: 1.331 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -944,7 +944,9 @@ cursor position and around there."
 		(>= emacs-major-version 21))
 	   (function (lambda (window object pos)
 		       (if w3m-track-mouse
-			   (get-text-property pos (quote (, property))))))))))
+			   (get-text-property pos
+					      (quote (, property))
+					      (window-buffer window)))))))))
 
 (defmacro w3m-make-balloon-help (property)
   "Make a function for showing a `balloon-help' under XEmacs."
