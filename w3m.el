@@ -153,7 +153,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1095 $"))
+    (let ((rev "$Revision: 1.1096 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -3428,7 +3428,7 @@ It replaces the faces on the arrived anchors from `w3m-anchor-face' to
   "Return a url that indicates the thread page in Gmane.
 This function works only when the cursor stays in the References header
 or the Message-ID header, otherwise returns nil.  That it returns an
-invalid url if Gmane doesn't handle the group is natural."
+invalid url if Gmane doesn't handle the group cannot be helped."
   (save-excursion
     (let ((fmt "http://news.gmane.org/group/thread=%s/force_load=t")
 	  (start (point))
