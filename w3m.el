@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.572 $"))
+    (let ((rev "$Revision: 1.573 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1165,7 +1165,7 @@ for a charset indication")
 
 (defconst w3m-meta-charset-content-type-regexp
   (eval-when-compile
-    (concat "<meta[ \t]+content=\"\\([^;]+\\)"
+    (concat "<meta[ \t]+content=\"?\\([^;]+\\)"
 	    ";[ \t]*charset=\"?\\([^\"]+\\)\"?"
 	    "[ \t]+http-equiv=\"?Content-type\"?[ \t]*/?>"))
   "Regexp used in parsing `<META content=\"...;charset=...\" HTTP-EQUIV=\"Content-Type\">
@@ -1182,7 +1182,7 @@ for a refresh indication")
 
 (defconst w3m-meta-content-refresh-regexp
   (eval-when-compile
-    (concat "<meta[ \t]+content=\"\\([^;]+\\)"
+    (concat "<meta[ \t]+content=\"?\\([^;]+\\)"
 	    ";[ \t]*url=\"?\\([^\"]+\\)\"?"
 	    "[ \t]+http-equiv=\"?refresh\"?[ \t]*/?>"))
   "Regexp used in parsing `<META content=\"n;url=...\" HTTP-EQUIV=\"Refresh\">
