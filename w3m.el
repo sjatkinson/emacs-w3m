@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.417 $"))
+    (let ((rev "$Revision: 1.418 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3065,7 +3065,7 @@ described in Section 5.2 of RFC 2396.")
 	       (w3m-expand-path-name
 		(concat (file-name-directory (match-string 5 base))
 			(substring url 0 path-end)))
-	     (concat (file-name-directory (match-string 5 base))
+	     (concat (match-string 5 base)
 		     (substring url 0 path-end)))
 	   (substring url path-end)))))
      ((match-beginning 6)
