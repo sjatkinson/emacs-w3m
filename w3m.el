@@ -136,7 +136,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.487 $"))
+    (let ((rev "$Revision: 1.488 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3344,7 +3344,7 @@ described in Section 5.2 of RFC 2396.")
      ((match-beginning 6)
       ;; URL has a query part.
       (string-match w3m-url-components-regexp base)
-      (concat (substring base 0 (or (match-beginning 6) (match-beginning 8)))
+      (concat (file-name-directory (substring base 0 (match-end 5)))
 	      url))
      (t
       ;; URL has only fragment part.
