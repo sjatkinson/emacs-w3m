@@ -77,9 +77,9 @@
 (require 'w3m-macro)
 
 ;; The following variables will be referred by the version specific
-;; modules which bind such variables only when compiling themselves
-;; and some module(s) use `defadvice' which will byte-compile at the
-;; run-time.
+;; modules which bind such variables only when compiling themselves.
+;; And some module(s) use `defadvice' which will do byte-compile at
+;; the run-time.
 (defvar w3m-current-title nil "Title of this buffer.")
 (defvar w3m-current-url nil "URL of this buffer.")
 
@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.480 $"))
+    (let ((rev "$Revision: 1.481 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
