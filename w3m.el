@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.630 $"))
+    (let ((rev "$Revision: 1.631 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3564,8 +3564,7 @@ argument.  Otherwise, it will be called with nil."
       (while (setq pos (next-single-property-change pos 'w3m-name-anchor))
 	(when (member name (get-text-property pos 'w3m-name-anchor))
 	  (goto-char pos)
-	  (throw 'found t))
-	(setq pos (next-single-property-change pos 'w3m-name-anchor)))
+	  (throw 'found t)))
       (unless quiet
 	(message "No such anchor: %s" name))
       nil)))
