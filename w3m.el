@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.215 $"))
+    (let ((rev "$Revision: 1.216 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1927,7 +1927,8 @@ this function returns t.  Otherwise, returns nil."
 			t)
 		    (setq w3m-current-title (file-name-nondirectory url))
 		    nil)
-		(w3m-history-push url (list ':title w3m-current-title)))))
+		(w3m-history-push w3m-current-url
+				  (list ':title w3m-current-title)))))
 	   ((and (w3m-image-type-available-p (w3m-image-type type))
 		 (string-match "^image/" type))
 	    (let (buffer-read-only)
@@ -1939,7 +1940,8 @@ this function returns t.  Otherwise, returns nil."
 				   (list 'face 'w3m-image-face
 					 'w3m-image url
 					 'mouse-face 'highlight))
-	      (w3m-history-push url (list ':title w3m-current-title))
+	      (w3m-history-push w3m-current-url
+				(list ':title w3m-current-title))
 	      t))
 	   (t (w3m-external-view url)
 	      nil))
