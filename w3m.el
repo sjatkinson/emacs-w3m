@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.657 $"))
+    (let ((rev "$Revision: 1.658 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2883,7 +2883,8 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 			      (substring type 0 (match-beginning 0))))
 		(setq type (w3m-remove-redundant-spaces type))
 		(when (string-match ";\\'" type)
-		  (setq type (substring type 0 (match-beginning 0))))))
+		  (setq type (substring type 0 (match-beginning 0)))))
+	      (setq type (downcase type)))
 	    (when moved
 	      (setq w3m-current-redirect
 		    (cons (string-to-number moved)
