@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.536 $"))
+    (let ((rev "$Revision: 1.537 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4936,10 +4936,11 @@ If called with 'prefix argument', display arrived-DB history."
   (let ((proc (start-process "w3m-w32-browser-with-fiber"
 			     (current-buffer)
 			     "fiber.exe" "-s"
-			     (w3m-url-to-file-name url))))
+			     (if (w3m-url-local-p url)
+				 (w3m-url-to-file-name url)
+			       url))))
     (set-process-filter proc 'ignore)
     (set-process-sentinel proc 'ignore)))
-
 
 ;;; Interactive select buffer.
 (defcustom w3m-select-buffer-horizontal-window t
