@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1025 $"))
+    (let ((rev "$Revision: 1.1026 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -5043,10 +5043,12 @@ COUNT is treated as 1 by default if it is omitted."
 	(let ((inhibit-file-name-handlers '(cygwin-mount-name-hook-function
 					    cygwin-mount-map-drive-hook-function))
 	      (inhibit-file-name-operation 'expand-file-name)
-	      ;; It is ?\ by default in XEmacs on Windows (native, not Cygwin).
-	      (directory-sep-char ?/)
 	      path)
-	  (setq path (expand-file-name name base))
+	  (setq path (w3m-static-if (featurep 'xemacs)
+			 ;; It is ?\ by default in XEmacs on Windows native.
+			 (let ((directory-sep-char ?/))
+			   (expand-file-name name base))
+		       (expand-file-name name base)))
 	  (if (string-match "\\`.:" path)
 	      (substring path (match-end 0))
 	    path)))
