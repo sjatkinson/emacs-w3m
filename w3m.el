@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.462 $"))
+    (let ((rev "$Revision: 1.463 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -4168,7 +4168,8 @@ the current session.  Otherwise, the new session will start afresh."
       (setq w3m-current-image-status (not w3m-current-image-status)))
     (if (and post-data (y-or-n-p "Repost form data? "))
 	(w3m-goto-url w3m-current-url 'reload nil post-data referer)
-      (when (and (or form-data w3m-current-forms)
+      (when (and (or form-data
+		     (and w3m-current-forms (eq t (car w3m-current-forms))))
 		 (not (y-or-n-p "Reuse form data? ")))
 	(w3m-history-remove-properties '(:forms) nil nil t)
 	(setq w3m-current-forms nil))
