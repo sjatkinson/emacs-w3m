@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.154 $"))
+    (let ((rev "$Revision: 1.155 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2088,7 +2088,7 @@ if AND-POP is non-nil, the new buffer is shown with `pop-to-buffer'."
 \\[w3m-previous-anchor]	Jump to previous anchor.
 \\[w3m-view-previous-page]	Back to previous page.
 \\[w3m-view-next-page]	Forward to next page.
-\\[w3m-view-parent-page]	Forward to next page.
+\\[w3m-view-parent-page]	Upward to parent page.
 
 \\[w3m-download-this-url]	Download this url.
 \\[w3m-print-this-url]	Print this url.
