@@ -128,7 +128,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.610 $"))
+    (let ((rev "$Revision: 1.611 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2796,7 +2796,7 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 	    (setq w3m-current-ssl (cdr (assoc "w3m-ssl-certificate" alist)))
 	    (list (or type (w3m-local-content-type url))
 		  (or charset
-		      (and (memq w3m-type '(w3mmee w3m-m17n))
+		      (and (eq w3m-type 'w3mmee)
 			   (setq charset
 				 (cdr (assoc "w3m-document-charset" alist)))
 			   (car (split-string charset))))
