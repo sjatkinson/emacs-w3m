@@ -155,7 +155,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1104 $"))
+    (let ((rev "$Revision: 1.1105 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4222,7 +4222,7 @@ If the optional argument NO-CACHE is non-nil, cache is not used."
 			  nil nil nil url)
 		  (list (w3m-local-content-type url) nil nil nil nil url)))
 	    (w3m-cache-header url header)
-	    (if (memq (car attr) '(300 301 302 303 304 305 306 307))
+	    (if (memq (car attr) '(301 302 303 304 305 306 307))
 		(if (zerop counter)
 		    ;; Redirect counter exceeds `w3m-follow-redirection'.
 		    nil
@@ -4438,7 +4438,7 @@ It will put the retrieved contents into the current buffer.  See
 		(set-buffer-multibyte nil)
 		(w3m-w3m-retrieve-1 url post-data referer no-cache
 				    (or w3m-follow-redirection 0) handler)))
-      (when (eq (car attr) 200)
+      (when (memq (car attr) '(200 300))
 	(if (or no-decode
 		(w3m-decode-encoded-contents (nth 4 attr)))
 	    (let ((temp-buffer (current-buffer)))
@@ -4495,7 +4495,7 @@ It will put the retrieved contents into the current buffer.  See
 	(and temp-file
 	     (file-exists-p temp-file)
 	     (delete-file temp-file))
-	(if (memq (car attr) '(300 301 302 303 304 305 306 307))
+	(if (memq (car attr) '(301 302 303 304 305 306 307))
 	    (if (zerop counter)
 		;; Redirect counter exceeds `w3m-follow-redirection'.
 		nil
