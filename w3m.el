@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.463 $"))
+    (let ((rev "$Revision: 1.464 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -664,7 +664,8 @@ See the file balloon-help.el for more information."
   :group 'w3m
   :type 'boolean)
 
-(defcustom w3m-pop-up-windows t
+(defcustom w3m-pop-up-windows
+  (if (boundp 'w3m-use-tab) (not (symbol-value 'w3m-use-tab)) t)
   "Like `pop-up-windows', except that it only affects the command
 `w3m-copy-buffer'.  If this value is non-nil and the value of the
 option `w3m-pop-up-frames' is nil, split the windows when a new
