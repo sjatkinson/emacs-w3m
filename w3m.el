@@ -153,7 +153,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1100 $"))
+    (let ((rev "$Revision: 1.1101 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -6213,6 +6213,9 @@ as if the folder command of MH performs with the -pack option."
 	  (define-key map [(shift button2)]
 	    'w3m-mouse-view-this-url-new-session))
       (define-key map [mouse-2] 'w3m-mouse-view-this-url)
+      ;; Support for mouse-1 on Emacs 22.
+      (when (boundp 'mouse-1-click-follows-link)
+	(define-key map [follow-link] 'mouse-face))
       (define-key map [S-mouse-2] 'w3m-mouse-view-this-url-new-session))
     (define-key map "\C-c\C-@" 'w3m-history-store-position)
     (if (featurep 'xemacs)
@@ -6313,6 +6316,9 @@ as if the folder command of MH performs with the -pack option."
 	  (define-key map [(shift button2)]
 	    'w3m-mouse-view-this-url-new-session))
       (define-key map [mouse-2] 'w3m-mouse-view-this-url)
+      ;; Support for mouse-1 on Emacs 22.
+      (when (boundp 'mouse-1-click-follows-link)
+	(define-key map [follow-link] 'mouse-face))
       (define-key map [S-mouse-2] 'w3m-mouse-view-this-url-new-session))
     (define-key map "\C-c\C-@" 'w3m-history-store-position)
     (define-key map [?\C-c?\C- ] 'w3m-history-store-position)
