@@ -72,7 +72,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.73 $"))
+    (let ((rev "$Revision: 1.74 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1918,8 +1918,8 @@ this function returns t.  Otherwise, returns nil."
   (interactive)
   (let ((url (w3m-anchor)))
     (or url
-	(y-or-n-p (format "Browse <%s> ? " w3m-current-url))
-	(setq url w3m-current-url))
+	(and (y-or-n-p (format "Browse <%s> ? " w3m-current-url))
+	     (setq url w3m-current-url)))
     (when url
       (message "Browse <%s>" url)
       (w3m-external-view url))))
