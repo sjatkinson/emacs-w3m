@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.433 $"))
+    (let ((rev "$Revision: 1.434 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3070,7 +3070,8 @@ described in Section 5.2 of RFC 2396.")
      ((match-beginning 1)
       ;; URL has a scheme part. => URL may have an absolute spec.
       (if (or (match-beginning 3)
-	      (eq ?/ (aref url (match-beginning 5))))
+	      (and (< (match-beginning 5) (length url))
+		   (eq ?/ (aref url (match-beginning 5)))))
 	  ;; URL has a net-location part or a absolute hierarchical
 	  ;; part. => URL has an absolute spec.
 	  url
