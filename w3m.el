@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.203 $"))
+    (let ((rev "$Revision: 1.204 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2835,8 +2835,7 @@ works on Emacs.
       (insert "Location: ")
       (put-text-property (point-min) (point)
 			 'face 'w3m-header-line-location-title-face)
-      (let ((start (point))
-	    (help "mouse-2 prompts to input URL"))
+      (let ((start (point)))
 	(insert w3m-current-url)
 	(add-text-properties start (point)
 			     (list 'face
