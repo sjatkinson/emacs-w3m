@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1060 $"))
+    (let ((rev "$Revision: 1.1061 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -3739,6 +3739,7 @@ It supports the encoding types of gzip, bzip2, deflate, etc."
 	(w3m-parse-attributes ((http-equiv :case-ignore) 
 			       (content :case-ignore))
 	  (when (and (string= http-equiv "content-type")
+		     content
 		     (string-match ";[ \t\n]*charset=\\([^\"]+\\)" content))
 	    (throw 'found (match-string 1 content))))))))
 
