@@ -120,7 +120,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.251 $"))
+    (let ((rev "$Revision: 1.252 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2804,7 +2804,9 @@ or prefix ARG columns."
 	(set-buffer-modified-p nil))
       (setq default-directory
 	    (file-name-as-directory
-	     (if (w3m-url-local-p url)
+	     (if (and (w3m-url-local-p url)
+		      (file-directory-p (file-name-directory
+					 (w3m-url-to-file-name url))))
 		 (file-name-directory (w3m-url-to-file-name url))
 	       w3m-profile-directory)))
       (w3m-arrived-add orig w3m-current-title nil nil cs)
