@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1022 $"))
+    (let ((rev "$Revision: 1.1023 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -1099,6 +1099,7 @@ See also `w3m-filter-rules'."
        (eq w3m-type 'w3m-m17n)
        (or (not (eq w3m-output-coding-system 'utf-8))
 	   (and (w3m-mule-unicode-p)
+		(>= emacs-major-version 21)
 		(or window-system (eq (terminal-coding-system) 'utf-8))))
        t)
   "*Non-nil means replace symbols that the <_SYMBOL> tags lead into.
