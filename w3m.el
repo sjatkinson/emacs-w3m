@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.834 $"))
+    (let ((rev "$Revision: 1.835 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -2472,8 +2472,10 @@ should use `w3m-url-encode-string' instead of this."
     (while (re-search-forward "<a[ \t\r\f\n]+" nil t)
       (setq start (match-beginning 0))
       (setq prenames (get-text-property start 'w3m-name-anchor))
-      (w3m-parse-attributes (href name charset
+      (w3m-parse-attributes (href name id charset
 				  (rel :case-ignore) (hseq :integer))
+	(unless name
+	  (setq name id))
 	(when rel
 	  (setq rel (split-string rel))
 	  (cond
