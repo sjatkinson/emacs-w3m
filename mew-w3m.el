@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.53 $
+;; Version: $Revision: 1.54 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -110,6 +110,7 @@ This variable effected only XEmacs or Emacs 21."
 
 ;; Avoid bytecompile error and warnings.
 (eval-when-compile
+  (defvar mew-use-text/html)
   (unless (fboundp 'mew-current-get-fld)
     (autoload 'mew-coding-system-p "mew")
     (autoload 'mew-current-get-fld "mew")
@@ -133,7 +134,8 @@ This variable effected only XEmacs or Emacs 21."
   (interactive "P")
   (mew-summary-msg-or-part
    (if allimage
-       (let ((mew-w3m-auto-insert-image t)
+       (let ((mew-use-text/html t)
+	     (mew-w3m-auto-insert-image t)
 	     (mew-w3m-use-safe-url-regexp nil))
 	 (mew-summary-display 'force))
      (save-excursion
