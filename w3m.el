@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.710 $"))
+    (let ((rev "$Revision: 1.711 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -729,7 +729,7 @@ of the original request method. -- RFC2616"
   :type 'hook)
 
 (defcustom w3m-change-buffer-hook
-  (when (featurep 'w3m-e21) '(w3m-update-tab-line)))
+  (when (featurep 'w3m-e21) '(w3m-update-tab-line))
   "*Hook run when w3m buffer is changed."
   :group 'w3m
   :type 'hook)
