@@ -125,7 +125,7 @@ defaults to a proper value only if this file is byte-compiled by make.")
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.387 $"))
+    (let ((rev "$Revision: 1.388 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3817,7 +3817,7 @@ ex.) c:/dir/file => //c/dir/file"
     path))
 
 
-(defun w3m-region (start end)
+(defun w3m-region (start end &optional url)
   "Render region in current buffer and replace with result."
   (interactive "r")
   (save-restriction
@@ -3826,6 +3826,7 @@ ex.) c:/dir/file => //c/dir/file"
       (encode-coding-region (point-min) (point-max) w3m-coding-system))
     (w3m-clear-local-variables)
     (setq w3m-current-buffer (current-buffer)
+	  w3m-current-url url
 	  w3m-current-title
 	  (w3m-rendering-region (point-min) (point-max)))
     (w3m-fontify)
