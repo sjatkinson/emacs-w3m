@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.969 $"))
+    (let ((rev "$Revision: 1.970 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -2044,7 +2044,7 @@ Those are in the order of:
 	  '(if w3m-accept-languages
 	       '("-o"
 		 (concat "accept_language="
-			 (mapconcat 'identity w3m-accept-languages " "))))
+			 (mapconcat 'identity w3m-accept-languages ","))))
 	  "-dump_extra")))
   "Arguments passed to the w3m command to run \"dump_extra\".")
 
