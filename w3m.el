@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1009 $"))
+    (let ((rev "$Revision: 1.1010 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -4219,6 +4219,7 @@ Third optional CONTENT-TYPE is the Content-Type: field content."
 			(list "-header" (concat "Cookie: " cookie)))))
     (when (and (string= method "post") temp-file)
       (with-temp-buffer
+	(set-buffer-multibyte nil)
 	(when body (insert body))
 	(unwind-protect
 	    (let ((coding-system-for-write 'binary))
