@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.553 $"))
+    (let ((rev "$Revision: 1.554 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -5299,6 +5299,7 @@ w3m-mode buffers."
 (defvar w3m-header-line-map nil)
 (unless w3m-header-line-map
   (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map w3m-mode-map)
     (define-key map [mouse-2] 'w3m-goto-url)
     (setq w3m-header-line-map map)))
 
