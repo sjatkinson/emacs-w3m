@@ -1,6 +1,12 @@
-$Date: 2003-05-27 11:01:28 $
+$Date: 2003-08-29 11:49:32 $
 
 ■ TODO
+
+   --> w3m-copy-buffer() で、history に格納されている buffer-local
+       properties (form data などを含む) を捨てずにコピーする。--ky
+
+   --> about: で始まる url のページを既存の history とは別扱いにする。
+       [emacs-w3m:05670] -- ky
 
    --> https なページの閲覧に関わる諸問題の解明と対策。
        [emacs-w3m:04901, 04857]
