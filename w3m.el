@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1052 $"))
+    (let ((rev "$Revision: 1.1053 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7367,14 +7367,12 @@ command in the batch mode."
 		      ;; Unlikely but this function was called with no url.
 		      "about:")
 	      nofetch nil)))
-    (unless (prog1
-		buffer
-	      (w3m-popup-buffer (or buffer
-				    (setq buffer
-					  (generate-new-buffer "*w3m*")))))
+    (unless buffer
       ;; It means `new-session' is non-nil or there's no emacs-w3m buffer.
       ;; At any rate, we create a new emacs-w3m buffer in this case.
-      (w3m-mode))
+      (with-current-buffer (setq buffer (generate-new-buffer "*w3m*"))
+	(w3m-mode)))
+    (w3m-popup-buffer buffer)
     (unless nofetch
       ;; `unwind-protect' is needed since a process may be terminated by C-g.
       (unwind-protect
