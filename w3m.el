@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.359 $"))
+    (let ((rev "$Revision: 1.360 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2288,7 +2288,8 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 	      (cdr (assoc "content-encoding" alist))
 	      (let ((v (cdr (assoc "last-modified" alist))))
 		(and v (w3m-time-parse-string v)))
-	      (or (cdr (assoc "w3m-current-url" alist))
+	      (or (cdr (assoc "w3m-base-url" alist))
+		  (cdr (assoc "w3m-current-url" alist))
 		  url))))
      ;; FIXME: adhoc implementation
      ;; HTTP/1.1 500 Server Error on Netscape-Enterprise/3.6
