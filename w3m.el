@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.329 $"))
+    (let ((rev "$Revision: 1.330 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -3626,10 +3626,12 @@ If called with 'prefix argument', display arrived-DB history."
   (w3m-goto-url "about://db-history/"))
 
 (defun w3m-w32-browser-with-fiber (url)
-  (start-process "w3m-w32-browser-with-fiber"
-		 (current-buffer)
-		 "fiber.exe"
-		 (w3m-url-to-file-name url)))
+  (let ((proc (start-process "w3m-w32-browser-with-fiber"
+			     (current-buffer)
+			     "fiber.exe"
+			     (w3m-url-to-file-name url))))
+    (set-process-filter proc 'ignore)
+    (set-process-sentinel proc 'ignore)))
 
 
 ;;; Header line (emulating Emacs 21).
