@@ -115,7 +115,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.343 $"))
+    (let ((rev "$Revision: 1.344 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -246,6 +246,12 @@ reason.  The value will be referred by the function `w3m-load-list'.")
 (defcustom w3m-default-save-directory
   (concat "~/." (file-name-nondirectory w3m-command))
   "*Default directory for save file."
+  :group 'w3m
+  :type 'directory)
+
+(defcustom w3m-download-save-directory nil
+  "*Directory where the downloaded files should be saved in.  It defaults
+to the value of the option `w3m-default-save-directory'."
   :group 'w3m
   :type 'directory)
 
@@ -2377,7 +2383,7 @@ to nil.
 
 (defun w3m-download (url &optional filename no-cache)
   (unless filename
-    (setq filename (w3m-read-file-name nil nil url)))
+    (setq filename (w3m-read-file-name nil w3m-download-save-directory url)))
   (if (w3m-retrieve url t no-cache)
       (with-current-buffer (get-buffer w3m-work-buffer-name)
 	(let ((buffer-file-coding-system 'binary)
@@ -3267,7 +3273,8 @@ or prefix ARG columns."
 	 (file (file-name-nondirectory ftp)))
     (if (file-directory-p ftp)
 	(dired-other-window ftp)
-      (copy-file ftp (w3m-read-file-name nil nil file)))))
+      (copy-file ftp (w3m-read-file-name nil w3m-download-save-directory
+					 file)))))
 
 ;;;###autoload
 (defun w3m-goto-url (url &optional reload charset post-data referer)
