@@ -96,7 +96,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.144 $"))
+    (let ((rev "$Revision: 1.145 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2262,6 +2262,10 @@ or prefix ARG columns."
 	       w3m-profile-directory)))
       (w3m-arrived-put-title url w3m-current-title)
       (w3m-arrived-put-arrived-time url)
+      (w3m-static-if (featurep 'xemacs)
+	  (when w3m-use-toolbar
+	    (set-specifier default-toolbar
+			   (cons (current-buffer) w3m-toolbar))))
       (switch-to-buffer (current-buffer))))))
 
 
