@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.561 $"))
+    (let ((rev "$Revision: 1.562 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -331,7 +331,7 @@ reason.  The value will be referred by the function `w3m-load-list'.")
   :type '(choice
 	  (const :tag "Use Info-like key mapping." info)
 	  (other :tag "Use Lynx-like key mapping." nil))
-  ;; Though the following form won't be byte-compiled, you developers
+  ;; Since the following form won't be byte-compiled, you developers
   ;; should never use CL macros like `caaaar', `when', `unless' ...
   :set (lambda (symbol value)
 	 (prog1
