@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.481 $"))
+    (let ((rev "$Revision: 1.482 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -406,6 +406,13 @@ encoded in the optimized animated gif format and base64.")
 This feature should be enabled only if the caching configuration of
 your proxy server is broken.  In order to use this feature, you must
 apply the patch posted in [emacs-w3m:01119]."
+  :group 'w3m
+  :type 'boolean)
+
+(defcustom w3m-quick-start t
+  "*This switch controls the action when `w3m' is interactively called.
+When it is equal to the value other than nil, `w3m' displays no prompt
+to input URL when URL-like string is not detected under the cursor."
   :group 'w3m
   :type 'boolean)
 
@@ -2050,11 +2057,13 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
 		       (append minibuffer-setup-hook '(beginning-of-line))))
 		  (completing-read
 		   (or prompt
-		       (format "URL (default %s): "
-			       (if (stringp default)
-				   (if (eq default w3m-home-page)
-				       "HOME" default)
-				 (prin1-to-string default))))
+		       (if default
+			   (format "URL (default %s): "
+				   (if (stringp default)
+				       (if (eq default w3m-home-page)
+					   "HOME" default)
+				     (prin1-to-string default)))
+			 "URL: "))
 		   'w3m-url-completion nil nil initial
 		   'w3m-input-url-history)))
       (if (string= "" url) (setq url default))
@@ -4318,7 +4327,7 @@ for neither the interactive use nor the batch mode."
      (list
       (if current-prefix-arg
 	  default
-	(w3m-input-url nil nil default t)))))
+	(w3m-input-url nil nil default w3m-quick-start)))))
   (let ((nofetch (eq url 'popup))
 	(buffer (unless new-session
 		  (w3m-alive-p)))
