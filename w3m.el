@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.158 $"))
+    (let ((rev "$Revision: 1.159 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -658,14 +658,14 @@ If optional argument NO-CACHE is non-nil, cache is not used."
 	       (y (w3m-time-parse-string
 		   (format-time-string "%A, %d-%b-%y %T %Z" x))))
 	  (and (eq (car x) (car y)) (eq (nth 1 x) (nth 1 y))))
-  (eval-and-compile
-    (ignore-errors
-      (require 'parse-time)))
+  (ignore-errors
+    (require 'parse-time))
   (defun w3m-time-parse-string (string)
     "Parse the time-string STRING and return its time as Emacs style."
-    (ignore-errors
-      (apply (function encode-time)
-	     (parse-time-string string)))))
+    (let ((fn (when (fboundp 'parse-time-string)
+		'parse-time-string)))
+      (when fn
+	(apply (function encode-time) (funcall fn string))))))
 
 (defsubst w3m-time-newer-p (a b)
   "Return t, if A is newer than B.  Otherwise return nil.
