@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.304 $"))
+    (let ((rev "$Revision: 1.305 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -805,8 +805,8 @@ for a charset indication")
     "\\(\"\\([^\"]+\\)\"\\|'\\([^\']+\\)'\\|[^\"\'<> \t\r\f\n]*\\)"
     "Regexp used in parsing to detect string."))
 
-(defconst w3m-dump-head-source-command-arguments
-  (if (eq w3m-type 'w3mmee) '("-dump=extra,head,source") '("-dump_extra"))
+(defconst w3m-dump-head-source-command-argument
+  (if (eq w3m-type 'w3mmee) "-dump=extra,head,source" "-dump_extra")
   "Arguments for 'dump_extra' execution of w3m.")
 
 (defvar w3m-halfdump-command nil
@@ -2049,7 +2049,7 @@ If optional argument NO-CACHE is non-nil, cache is not used."
   (and (let ((w3m-current-url url))
 	 (w3m-message "Reading...")
 	 (prog1
-	     (w3m-exec-process w3m-dump-head-source-command-arguments url)
+	     (w3m-exec-process w3m-dump-head-source-command-argument url)
 	   (w3m-message "Reading... done")))
        (goto-char (point-min))
        (let ((case-fold-search t))
