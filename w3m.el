@@ -125,7 +125,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.399 $"))
+    (let ((rev "$Revision: 1.400 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -779,8 +779,7 @@ will disclose your private informations, for example:
 
 (defsubst w3m-copy-local-variables (from-buffer)
   (let (url base title forms cs next prev)
-    (save-current-buffer
-      (when from-buffer (set-buffer from-buffer))
+    (with-current-buffer from-buffer
       (setq url w3m-current-url
 	    base w3m-current-base-url
 	    title w3m-current-title
@@ -3866,6 +3865,7 @@ ex.) c:/dir/file => //c/dir/file"
       (encode-coding-region (point-min) (point-max) w3m-coding-system))
     (w3m-clear-local-variables)
     (setq w3m-current-url url
+	  w3m-current-base-url url
 	  w3m-current-title
 	  (w3m-rendering-region (point-min) (point-max)))
     (w3m-fontify)
