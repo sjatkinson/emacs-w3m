@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.776 $"))
+    (let ((rev "$Revision: 1.777 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1912,11 +1912,8 @@ interactively."
 
 ;; When buggy timezone.el is loaded, parse-time.el will be used
 ;; instead of timezone.el.
-(unless (let* ((x (current-time))
-	       (system-time-locale "C")
-	       (y (w3m-time-parse-string
-		   (format-time-string "%A, %d-%b-%y %T %Z" x))))
-	  (and (eq (car x) (car y)) (eq (nth 1 x) (nth 1 y))))
+(unless (equal (w3m-time-parse-string "Thursday, 01-Jan-1970 00:00:00 GMT")
+	       '(0 0))
   (ignore-errors
     (require 'parse-time))
   (defun w3m-time-parse-string (string)
