@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.591 $"))
+    (let ((rev "$Revision: 1.592 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -613,8 +613,12 @@ to input URL when URL-like string is not detected under the cursor."
   :group 'w3m
   :type 'hook)
 
-(defcustom w3m-async-exec t
-  "*If non-nil, w3m is executed as an asynchronous process."
+(defcustom w3m-async-exec (not (memq system-type '(macos)))
+  "*If non-nil, w3m is executed as an asynchronous process.  Note that
+setting this option to t is harmful on some platforms.  As far as we
+know, Emacs 20/21 under MacOS X might not handle the asynchronous
+processes correctly that the final kilobyte or so gets cut off when
+downloading something from a url."
   :group 'w3m
   :type 'boolean)
 
