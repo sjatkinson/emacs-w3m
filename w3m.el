@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.830 $"))
+    (let ((rev "$Revision: 1.831 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4248,6 +4248,7 @@ argument.  Otherwise, it will be called with nil."
      (t ""))))
 
 (defun w3m-create-text-page (url type charset page-buffer)
+  (w3m-safe-decode-buffer url charset type)
   (setq w3m-current-url (w3m-real-url url)
 	w3m-current-title
 	(if (string= "text/html" type)
