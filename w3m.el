@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.319 $"))
+    (let ((rev "$Revision: 1.320 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2010,8 +2010,10 @@ to nil."
 (defun w3m-remove-redundant-spaces (str)
   "Remove spaces/tabs at the front of a string and at the end of a string"
   (save-match-data
-    (substring str
-	       (if (string-match "^[ \t\r\f\n]+" str) (match-end 0) 0)
+    (setq str
+	  (substring str 
+		     (if (string-match "^[ \t\r\f\n]+" str) (match-end 0) 0)))
+    (substring str 0
 	       (and (string-match "[ \t\r\f\n]+$" str) (match-beginning 0)))))
 
 (defun w3m-w3m-get-header (url &optional no-cache)
