@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.862 $"))
+    (let ((rev "$Revision: 1.863 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6625,10 +6625,7 @@ Optional NEW-SESSION is intended to be used by the command
       (if buffer
 	  (setq nofetch t)
 	;; It may be called non-interactively.
-	(setq url (or (when (= 1 (length command-line-args-left))
-			(pop command-line-args-left))
-		      w3m-home-page
-		      "about:")
+	(setq url (w3m-examine-command-line-args)
 	      nofetch nil)))
     (if (bufferp buffer)
 	(progn
