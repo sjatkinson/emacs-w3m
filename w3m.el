@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.408 $"))
+    (let ((rev "$Revision: 1.409 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -258,6 +258,16 @@ reason.  The value will be referred by the function `w3m-load-list'.")
   "*Default coding system."
   :group 'w3m
   :type 'coding-system)
+
+(defcustom w3m-coding-system-priority-list
+  (if (or (and (boundp 'current-language-environment)
+	       (string= "Japanese"
+			(symbol-value 'current-language-environment)))
+	  (boundp 'MULE))
+      (list 'shift_jis))
+  "*Priority for detect coding-system."
+  :group 'w3m
+  :type '(repeat coding-system))
 
 (defcustom w3m-key-binding
   nil
@@ -2269,7 +2279,10 @@ If the user enters null input, return second argument DEFAULT."
    (setq w3m-current-coding-system
 	 (if content-charset
 	     (w3m-charset-to-coding-system content-charset)
-	   (w3m-detect-coding-region (point-min) (point-max) t))))
+	   (w3m-detect-coding-region (point-min) (point-max)
+				     (if (w3m-url-local-p url)
+					 nil
+				       w3m-coding-system-priority-list)))))
   (set-buffer-multibyte t))
 
 (defun w3m-x-moe-decode-buffer ()
