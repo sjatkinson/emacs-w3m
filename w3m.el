@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.289 $"))
+    (let ((rev "$Revision: 1.290 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1820,7 +1820,10 @@ If the user enters null input, return second argument DEFAULT."
    (point-min) (point-max)
    (if content-charset
        (w3m-charset-to-coding-system content-charset)
-     (car (detect-coding-region (point-min) (point-max)))))
+     (let ((codesys (detect-coding-region (point-min) (point-max))))
+       (if (consp codesys)
+	   (car codesys)
+	 codesys))))
   (set-buffer-multibyte t))
 
 
