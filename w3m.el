@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.737 $"))
+    (let ((rev "$Revision: 1.738 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -243,7 +243,7 @@ Here is an example of how to set this option:
 	 \"-no-proxy\")
 	;; Use the proxy server to visit any foreign urls.
 	(\"\"
-	 \"-o\" \"http://proxy.your-company.com:8080/\")))
+	 \"-o\" \"http_proxy=http://proxy.your-company.com:8080/\")))
 
 Where the first element matches the url that the scheme is \"http\" and
 the hostname is either \"your-company.com\" or a name ended with
