@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1074 $"))
+    (let ((rev "$Revision: 1.1075 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4603,7 +4603,8 @@ POST-DATA and REFERER will be sent to the web server with a request."
 			(and (boundp 'default-file-name-coding-system)
 			     (symbol-value 'default-file-name-coding-system))
 			;; Some versions of X*macsen seem touched.
-			coding-system-for-write)))
+			(and (boundp 'coding-system-for-write)
+			     (symbol-value 'coding-system-for-write)))))
 		  (call-process w3m-touch-command nil nil nil
 				"-t" (format-time-string "%Y%m%d%H%M.%S" time)
 				file))))))
