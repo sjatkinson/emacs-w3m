@@ -121,7 +121,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.268 $"))
+    (let ((rev "$Revision: 1.269 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1596,7 +1596,6 @@ Return symbol to identify its cache data."
       (set-buffer w3m-cache-buffer)
       (let (buffer-read-only)
 	(goto-char (point-max))
-	(unless (bolp) (insert "\n"))
 	(let ((b (point)))
 	  (insert-buffer-substring buffer)
 	  ;; Tag the beginning of the article with the ident.
