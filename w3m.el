@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.879 $"))
+    (let ((rev "$Revision: 1.880 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1112,6 +1112,8 @@ If it is nil, also the favicon won't be shown in the mode-line even if
 	 (prog1
 	     (set-default symbol value)
 	   (if (and (not noninteractive)
+		    ;; Make sure it is not the first time.
+		    (featurep 'w3m)
 		    (fboundp 'w3m-initialize-graphic-icons))
 	       (w3m-initialize-graphic-icons))))
   :group 'w3m
