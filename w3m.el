@@ -143,7 +143,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.792 $"))
+    (let ((rev "$Revision: 1.793 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4364,7 +4364,7 @@ is performed.  Otherwise, COUNT is treated as 1 by default."
   (w3m-view-previous-page (if (integerp count) (- count) -1)))
 
 (unless (fboundp 'w3m-expand-path-name)
-  (if (string-match "\\`.:" (expand-file-name "/"))
+  (if w3m-treat-drive-letter
       ;; Avoid incompatibility of drive letter.
       (defun w3m-expand-path-name (name &optional base)
 	"Convert path string NAME to the canonicalized one."
