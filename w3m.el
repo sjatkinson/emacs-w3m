@@ -150,10 +150,10 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1005 $"))
+    (let ((rev "$Revision: 1.1006 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
-	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
-	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
+	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
+	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
   "Version number of this package.")
 
 (defgroup w3m nil
