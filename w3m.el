@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.996 $"))
+    (let ((rev "$Revision: 1.997 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -5403,7 +5403,8 @@ Return t if highlighting is successful."
 		      (w3m-highlight-current-anchor-1 seq))))))))
 
 (defun w3m-edit-url (url)
-  "A subroutine for `w3m-edit-current-url' and `w3m-edit-this-url'."
+  "Edit the page pointed by URL."
+  (interactive (list (w3m-input-url)))
   (when (string-match "\\`about://\\(header\\|source\\)/" url)
     (setq url (substring url (match-end 0))))
   (catch 'found
@@ -5423,7 +5424,7 @@ Return t if highlighting is successful."
     (w3m-message "No URL")))
 
 (defun w3m-edit-this-url ()
-  "Edit the page which is pointed to by URL under point."
+  "Edit the page linked from the anchor under the cursor."
   (interactive)
   (let ((url (w3m-url-valid (w3m-anchor))))
     (if url
