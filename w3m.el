@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1024 $"))
+    (let ((rev "$Revision: 1.1025 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1006))
 	   (concat "1.3.85" (if (> rev 0) (format ".%d" rev) "")))))
@@ -1934,9 +1934,6 @@ nil value means it has not been initialized.")
   "Hook functions run after setting up the arrived URLs database.")
 (defvar w3m-arrived-shutdown-functions nil
   "Hook functions run after saving the arrived URLs database.")
-(when (featurep 'w3m-favicon)
-  (add-hook 'w3m-arrived-setup-functions 'w3m-favicon-load-cache-file)
-  (add-hook 'w3m-arrived-shutdown-functions 'w3m-favicon-save-cache-file))
 
 (defconst w3m-image-type-alist
   '(("image/jpeg" . jpeg)
