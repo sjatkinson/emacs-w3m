@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1058 $"))
+    (let ((rev "$Revision: 1.1059 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -3458,19 +3458,18 @@ In Transient Mark mode, deactivate the mark."
     (w3m-url-at-point)))
 
 (defsubst w3m-canonicalize-url (url)
-  (when (stringp url)
-    ;; An URL must include a scheme part.
-    (unless (and (string-match w3m-url-components-regexp url)
-		 (match-beginning 1))
-      (setq url (concat (if (and (file-name-absolute-p url)
-				 (file-exists-p url))
-			    "file://"
-			  "http://")
-			url)))
-    ;; A server part must be ended with a slash.
-    (if (string-match "\\`\\(ht\\|f\\)tps?://[^/]+\\'" url)
-	(concat url "/")
-      url)))
+  ;; URL must include the scheme part.
+  (unless (and (string-match w3m-url-components-regexp url)
+	       (match-beginning 1))
+    (setq url (concat (if (and (file-name-absolute-p url)
+			       (file-exists-p url))
+			  "file://"
+			"http://")
+		      url)))
+  ;; The server part must be ended with a slash.
+  (if (string-match "\\`\\(ht\\|f\\)tps?://[^/]+\\'" url)
+      (concat url "/")
+    url))
 
 (defun w3m-input-url (&optional prompt initial default quick-start)
   "Read a url from the minibuffer, prompting with string PROMPT."
@@ -3499,11 +3498,14 @@ In Transient Mark mode, deactivate the mark."
 		   'w3m-input-url-history)))
       (when (string= "" url)
 	(setq url default))
-      ;; remove duplication
-      (when (stringp url)
-	(setq w3m-input-url-history
-	      (cons url (delete url w3m-input-url-history))))
-      (w3m-canonicalize-url url))))
+      (if (stringp url)
+	  (progn
+	    ;; remove duplication
+	    (setq w3m-input-url-history
+		  (cons url (delete url w3m-input-url-history)))
+	    (w3m-canonicalize-url url))
+	;; It may be `popup'.
+	url))))
 
 
 ;;; Cache:
