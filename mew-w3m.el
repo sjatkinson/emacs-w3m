@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>,
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.10 $
+;; Version: $Revision: 1.11 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;;; Commentary:
@@ -56,10 +56,18 @@ and its keymap in message buffer.")
 (defvar mew-w3m-auto-insert-image t
   "*If t, an image inserts automatic in Multipart/Related message.
 This variable effected only XEmacs or Emacs 21.")
-  
+
 ;; these are defined here.
 ;; It's not reasonable to merge into w3m.el, i think
 (defvar mew-w3m-minor-mode nil)
+
+(unless w3m-mode-map
+  (cond
+   ((eq w3m-key-binding 'info)
+    (setq w3m-mode-map w3m-info-like-map))
+   (t
+    (setq w3m-mode-map w3m-lynx-like-map))))
+
 (make-variable-buffer-local 'mew-w3m-minor-mode)
 (add-to-list 'minor-mode-alist '(mew-w3m-minor-mode " w3m"))
 (add-to-list 'minor-mode-map-alist (cons 'mew-w3m-minor-mode w3m-mode-map))
