@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.477 $"))
+    (let ((rev "$Revision: 1.478 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3637,7 +3637,7 @@ If EMPTY is non-nil, the created buffer has empty content."
 			(lambda (x y)
 			  (string< (buffer-name x)
 				   (buffer-name y)))))
-    (switch-to-buffer 
+    (switch-to-buffer
      (if (setq next (cadr (memq (current-buffer) buffers)))
 	 next
        (car buffers)))))
@@ -3654,7 +3654,7 @@ If EMPTY is non-nil, the created buffer has empty content."
 			(lambda (x y)
 			  (not (string< (buffer-name x)
 					(buffer-name y))))))
-    (switch-to-buffer 
+    (switch-to-buffer
      (if (setq next (cadr (memq (current-buffer) buffers)))
 	 next
        (car buffers)))))
