@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.629 $"))
+    (let ((rev "$Revision: 1.630 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1963,7 +1963,7 @@ with ^ as `cat -v' does."
 	    (setq end (min (1+ end) (point-max))))
 	  (w3m-add-text-properties start end
 				   (list 'w3m-name-anchor
-					 (append (list id) prenames))))))
+					 (cons id prenames))))))
     (goto-char (point-min))
     (while (re-search-forward "<a[ \t\r\f\n]+" nil t)
       (setq start (match-beginning 0))
@@ -1994,7 +1994,7 @@ with ^ as `cat -v' does."
 					   'w3m-href-anchor href
 					   'mouse-face 'highlight
 					   'w3m-name-anchor
-					   (append (list name) prenames)
+					   (cons name prenames)
 					   'w3m-anchor-sequence hseq
 					   'help-echo help
 					   'balloon-help balloon))))
@@ -2005,7 +2005,7 @@ with ^ as `cat -v' does."
 	      (setq end (min (1+ end) (point-max))))
 	    (w3m-add-text-properties start end
 				     (list 'w3m-name-anchor
-					   (append (list name) prenames))))))))
+					   (cons name prenames))))))))
     (when w3m-icon-data
       (setq w3m-icon-data (cons (w3m-expand-url (car w3m-icon-data))
 				(w3m-image-type (cdr w3m-icon-data)))))
