@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.850 $"))
+    (let ((rev "$Revision: 1.851 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1630,10 +1630,14 @@ in the optimized interlaced endlessly animated gif format and base64.")
 
 (defconst w3m-arrived-db-size 1023)
 (defvar w3m-arrived-db nil)		; nil means un-initialized.
+
 (defvar w3m-arrived-setup-functions nil
   "Internal functions run at the end of `w3m-arrived-setup'.")
 (defvar w3m-arrived-shutdown-functions nil
   "Functions run at the end of `w3m-arrived-shutdown'.")
+(when (featurep 'w3m-favicon)
+  (add-hook 'w3m-arrived-setup-functions 'w3m-favicon-load-cache-file)
+  (add-hook 'w3m-arrived-shutdown-functions 'w3m-favicon-save-cache-file))
 
 (defconst w3m-image-type-alist
   '(("image/jpeg" . jpeg)
