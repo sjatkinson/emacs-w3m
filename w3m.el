@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.758 $"))
+    (let ((rev "$Revision: 1.759 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1214,8 +1214,7 @@ Here is an example of how to set this option:
 				       'greek-iso8859-7)
 				     (cdr entity))))))
 		greek-entity))))
-   (when (and (w3m-charsetp 'mule-unicode-0100-24ff)
-	      (w3m-charsetp 'mule-unicode-2500-33ff))
+   (when (w3m-mule-unicode-p)
      (let ((latin-extended-a
 	    '((32 . (("OElig" . 114) ("oelig" . 115)))
 	      (33 . (("Scaron" . 32) ("scaron" . 33) ("Yuml" . 56)))))
