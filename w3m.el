@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.703 $"))
+    (let ((rev "$Revision: 1.704 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4695,7 +4695,7 @@ The optional argument BUFFER will be used exclusively by the command
     (define-key map "\C-c\C-p" 'w3m-previous-buffer)
     (define-key map "\C-c\C-n" 'w3m-next-buffer)
     (define-key map "\C-c\C-w" 'w3m-delete-buffer)
-    (define-key map "\C-cw" 'w3m-delete-other-buffers)
+    (define-key map "\C-c\M-w" 'w3m-delete-other-buffers)
     (define-key map "\C-c\C-s" 'w3m-select-buffer)
     (define-key map "\C-c\C-a" 'w3m-switch-buffer)
     (define-key map "r" 'w3m-redisplay-this-page)
@@ -4800,7 +4800,7 @@ The optional argument BUFFER will be used exclusively by the command
     (define-key map "\C-c\C-p" 'w3m-previous-buffer)
     (define-key map "\C-c\C-n" 'w3m-next-buffer)
     (define-key map "\C-c\C-w" 'w3m-delete-buffer)
-    (define-key map "\C-cw" 'w3m-delete-other-buffers)
+    (define-key map "\C-c\M-w" 'w3m-delete-other-buffers)
     (define-key map "\C-c\C-s" 'w3m-select-buffer)
     (define-key map "\C-c\C-a" 'w3m-switch-buffer)
     (define-key map "o" 'w3m-history)
