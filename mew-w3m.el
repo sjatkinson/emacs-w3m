@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.30 $
+;; Version: $Revision: 1.31 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -214,7 +214,7 @@ This variable effected only XEmacs or Emacs 21."
 	      (setq end (mew-syntax-get-end cidstx))
 	      (with-current-buffer output-buffer
 		(insert-buffer-substring cache beg end))
-	      (car (mew-syntax-get-ct cidstx)))))))))
+	      (downcase (car (mew-syntax-get-ct cidstx))))))))))
 
 (push (cons 'mew-message-mode 'mew-w3m-cid-retrieve)
       w3m-cid-retrieve-function-alist)
