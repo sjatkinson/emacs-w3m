@@ -155,7 +155,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1110 $"))
+    (let ((rev "$Revision: 1.1111 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7116,7 +7116,8 @@ frequently, set by the function itself and cleared by a timer.")
 
 (eval-when-compile
   (unless (fboundp 'format-mode-line)
-    (defalias 'format-mode-line 'ignore)
+    (defalias 'format-mode-line 'ignore))
+  (unless (fboundp 'w3m-force-window-update)
     (defalias 'w3m-force-window-update 'ignore)))
 
 (defun w3m-modeline-title ()
