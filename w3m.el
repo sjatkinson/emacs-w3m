@@ -138,7 +138,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.835 $"))
+    (let ((rev "$Revision: 1.836 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -389,10 +389,8 @@ It is valid only when `w3m-treat-image-size' is non-nil."
 		 (call-process-region (point-min) (point-max) w3m-command
 				      t t nil "-T" "text/html" "-halfdump")
 		 (goto-char (point-min))
-		 (skip-chars-forward "a-zA-Z<>/_ \n")
-		 (string= (buffer-substring (point) (min (+ 4 (point))
-							 (point-max)))
-			  (string ?\264 ?\301 ?\273 ?\372)))))))
+		 (and (re-search-forward (string ?\264 ?\301 ?\273 ?\372))
+		      t))))))
   "Non-nil means that `w3m-command' accepts Japanese characters.")
 
 (defcustom w3m-coding-system (if (featurep 'mule)
