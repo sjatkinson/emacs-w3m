@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.642 $"))
+    (let ((rev "$Revision: 1.643 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2934,11 +2934,11 @@ complete."
 	      (w3m-cookie-set url (point-min) (point)))
 	    (delete-region (point-min) (point))
 	    (prog1 (w3m-w3m-attributes url nil handler)
-	      (if (and w3m-current-redirect
-		       (or (eq (car w3m-current-redirect) 302)
-			   (eq (car w3m-current-redirect) 303)
-			   (eq (car w3m-current-redirect) 307)))
-		  (w3m-cache-contents url (current-buffer))))))))))
+	      (unless (and w3m-current-redirect
+			   (or (eq (car w3m-current-redirect) 302)
+			       (eq (car w3m-current-redirect) 303)
+			       (eq (car w3m-current-redirect) 307)))
+		(w3m-cache-contents url (current-buffer))))))))))
 
 (defun w3m-additional-command-arguments (url)
   "Return a list of additional arguments passed to the w3m command.
@@ -3114,11 +3114,11 @@ argument, when retrieve is complete."
 		  (if sync
 		      (condition-case nil
 			  (w3m-process-with-wait-handler
-			    (w3m-w3m-retrieve-1 url no-decode 'no-cache
+			    (w3m-w3m-retrieve-1 url no-decode no-cache
 						post-data nil
 						redirect-handler))
 			(w3m-process-timeout nil))
-		    (w3m-w3m-retrieve-1 url no-decode 'no-cache post-data
+		    (w3m-w3m-retrieve-1 url no-decode no-cache post-data
 					nil redirect-handler)))))))
     ;; The first retrieval.
     (prog1 (setq return (w3m-w3m-retrieve-1 
