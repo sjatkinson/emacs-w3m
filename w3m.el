@@ -125,7 +125,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.403 $"))
+    (let ((rev "$Revision: 1.404 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -244,6 +244,15 @@ reason.  The value will be referred by the function `w3m-load-list'.")
   (if (memq system-type '(windows-nt OS/2 emx))
       'shift_jis 'euc-japan)
   "*Coding system for encoding file names of `w3m'."
+  :group 'w3m
+  :type 'coding-system)
+
+(defcustom w3m-default-coding-system
+  (and (boundp 'current-language-environment)
+       (string= "Japanese"
+		(symbol-value 'current-language-environment))
+       'shift_jis)
+  "*Default coding system."
   :group 'w3m
   :type 'coding-system)
 
@@ -2244,10 +2253,7 @@ If the user enters null input, return second argument DEFAULT."
    (setq w3m-current-coding-system
 	 (if content-charset
 	     (w3m-charset-to-coding-system content-charset)
-	   (let ((codesys (detect-coding-region (point-min) (point-max))))
-	     (if (consp codesys)
-		 (car codesys)
-	       codesys)))))
+	   (w3m-detect-coding-region (point-min) (point-max) t))))
   (set-buffer-multibyte t))
 
 (defun w3m-x-moe-decode-buffer ()
@@ -2698,15 +2704,6 @@ to nil.
 (unless (get 'w3m-euc-japan-encoder 'ccl-program-idx)
   (define-ccl-program w3m-euc-japan-encoder
     `(1 (loop (read r0) (write-repeat r0)))))
-
-(eval-and-compile
-  (unless (fboundp 'w3m-make-ccl-coding-system)
-    (defun w3m-make-ccl-coding-system
-      (coding-system mnemonic docstring decoder encoder)
-      "Define a new CODING-SYSTEM by CCL programs DECODER and ENCODER.
-CODING-SYSTEM, DECODER and ENCODER must be symbol."
-      (make-coding-system coding-system 4 mnemonic docstring
-			  (cons decoder encoder)))))
 
 (w3m-make-ccl-coding-system
  'w3m-euc-japan ?E
