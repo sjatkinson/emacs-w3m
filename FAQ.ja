@@ -1,4 +1,4 @@
-	emacs-w3m FAQ ($Date: 2001-10-02 17:11:43 $)
+	emacs-w3m FAQ ($Date: 2001-10-15 06:15:17 $)
 
 * emacs-w3m 一般
 
@@ -20,7 +20,8 @@ w3m を Emacs 上で動かすインターフェースプログラムです．
 	XEmacs-21.5 with Mule 
 	Meadow
 
-なお，Mule-2.3 及び XEmacs では APEL が必要となります．
+なお，Mule-2.3 及び XEmacs では APEL が必要となります．APEL は
+ftp://ftp.m17n.org/pub/mule/apel/ から入手できます。
 
 ** Q. 動作する w3m は?
 
