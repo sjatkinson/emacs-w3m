@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.185 $"))
+    (let ((rev "$Revision: 1.186 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -460,6 +460,13 @@ MIME CHARSET and CODING-SYSTEM must be symbol."
   "Whether to track the mouse and message the url under the mouse.
 If you are using Emacs or XEmacs versions prior to 21, setting this
 option to non-nil is meaningless."
+  :get (function (lambda (symbol) (and (boundp 'emacs-major-version)
+				       (>= emacs-major-version 21)
+				       (default-value symbol))))
+  :set (function (lambda (symbol value)
+		   (set-default symbol (and (boundp 'emacs-major-version)
+					    (>= emacs-major-version 21)
+					    value))))
   :group 'w3m
   :type 'boolean)
 
