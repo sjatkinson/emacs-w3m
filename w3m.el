@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.981 $"))
+    (let ((rev "$Revision: 1.982 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 968))
 	   (concat "1.3.80" (if (> rev 0) (format ".%d" rev) "")))))
@@ -3416,10 +3416,13 @@ In Transient Mark mode, deactivate the mark."
 	(setq w3m-input-url-history
 	      (cons url (delete url w3m-input-url-history))))
       ;; The return value of this function must contain a scheme part.
-      (if (and (string-match w3m-url-components-regexp url)
-	       (match-beginning 1))
-	  url
-	(concat "http://" url)))))
+      (cond ((eq url 'popup)
+	     url)
+	    ((and (string-match w3m-url-components-regexp url)
+		  (match-beginning 1))
+	     url)
+	    (t
+	     (concat "http://" url))))))
 
 
 ;;; Cache:
