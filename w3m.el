@@ -112,7 +112,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.155 $"))
+    (let ((rev "$Revision: 1.156 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2192,7 +2192,7 @@ or prefix ARG columns."
 (defun w3m-goto-url (url &optional reload)
   "*Retrieve contents of URL."
   (interactive
-   (list (w3m-input-url) current-prefix-arg))
+   (list (w3m-input-url nil w3m-current-url) current-prefix-arg))
   (cond
    ;; process mailto: protocol
    ((string-match "^mailto:\\(.*\\)" url)
