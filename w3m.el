@@ -118,7 +118,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.274 $"))
+    (let ((rev "$Revision: 1.275 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2927,6 +2927,7 @@ or prefix ARG columns."
 	(dired-other-window ftp)
       (copy-file ftp (w3m-read-file-name nil nil file)))))
 
+;;;###autoload
 (defun w3m-goto-url (url &optional reload charset)
   "Retrieve contents of URL."
   (interactive
