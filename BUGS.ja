@@ -1,8 +1,6 @@
-$Date: 2003-12-01 11:21:39 $
+$Date: 2003-12-10 14:40:13 $
 
 ■ TODOs stopping release
-
-   --> w3m-prepare-content() / w3m-filter() の整理 [emacs-w3m:05526]
 
    --> URL の encode 問題の解決 [emacs-w3m:05387], [emacs-w3m:05576]
 
