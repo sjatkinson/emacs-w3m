@@ -72,7 +72,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.80 $"))
+    (let ((rev "$Revision: 1.81 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1235,7 +1235,7 @@ If optional argument NO-CACHE is non-nil, cache is not used."
     (w3m-fontify-images)
     ;; Remove other markups.
     (goto-char (point-min))
-    (while (re-search-forward "</?[A-z][^>]*>" nil t)
+    (while (re-search-forward "</?[A-z_][^>]*>" nil t)
       (delete-region (match-beginning 0) (match-end 0)))
     ;; Decode escaped characters (entities).
     (goto-char (point-min))
