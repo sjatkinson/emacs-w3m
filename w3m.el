@@ -125,7 +125,7 @@ defaults to a proper value only if this file is byte-compiled by make.")
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.379 $"))
+    (let ((rev "$Revision: 1.380 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2477,7 +2477,12 @@ to nil."
 			  (list "-header" (concat "Content-Type: "
 						  (car post-data))))
 		      (list "-post" file))))
-      (when referer
+      (when (and referer
+		 (not (and (cdr w3m-add-referer-regexps)
+			   (string-match (cdr w3m-add-referer-regexps)
+					 referer)))
+		 (car w3m-add-referer-regexps)
+		 (string-match (car w3m-add-referer-regexps) referer))
 	(setq w3m-command-arguments
 	      (append w3m-command-arguments
 		      (list "-header" (concat "Referer: " referer)))))
