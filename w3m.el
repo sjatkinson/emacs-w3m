@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.312 $"))
+    (let ((rev "$Revision: 1.313 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -783,6 +783,7 @@ If nil, use an internal CGI of w3m."
   (condition-case nil
       :symbol-for-testing-whether-colon-keyword-is-available-or-not
     (void-variable
+     (eval '(defconst :bool ':bool))
      (eval '(defconst :case-ignore ':case-ignore))
      (eval '(defconst :integer ':integer)))))
 
