@@ -37,11 +37,9 @@
 
 ;;; How to install:
 
-;; Please put this file to appropriate directory, and if you want
-;; byte-compile it.  And add following lisp expressions to your
-;; ~/.emacs.
-;;
-;;     (autoload 'w3m "w3m" "Interface for w3m on Emacs." t)
+;; In the top level directory of the w3m distribution, run the program
+;; `configure' and then type `make install'.  See README file for more
+;; information.
 
 
 ;;; Code:
@@ -98,7 +96,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.142 $"))
+    (let ((rev "$Revision: 1.143 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
