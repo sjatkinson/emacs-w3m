@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.310 $"))
+    (let ((rev "$Revision: 1.311 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -2273,11 +2273,22 @@ to nil."
 	     'w3m-euc-japan-decoder
 	     'w3m-euc-japan-encoder)))
 
+(defun w3m-remove-comments ()
+  "Remove HTML comments in the current buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (let (beg)
+      (while (search-forward "<!--" nil t)
+	(setq beg (match-beginning 0))
+	(if (search-forward "-->" nil t)
+	    (delete-region beg (point)))))))
+
 (defun w3m-rendering-region (start end &optional charset)
   "Do rendering of contents in this buffer as HTML and return title."
   (save-restriction
     (narrow-to-region start end)
     (set-buffer-multibyte t)
+    (w3m-remove-comments)
     (when w3m-use-form
       (w3m-form-parse-region (point-min) (point-max)))
     (w3m-message "Rendering...")
