@@ -134,7 +134,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.671 $"))
+    (let ((rev "$Revision: 1.672 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4929,7 +4929,8 @@ Return t if deleting current frame or window is succeeded."
   (use-local-map w3m-mode-map)
   (setq truncate-lines t
 	w3m-display-inline-images w3m-default-display-inline-images)
-  (when (and (boundp 'auto-show-mode) auto-show-mode)
+  (when (and (boundp 'auto-show-mode)
+	     (symbol-value 'auto-show-mode))
     (set (make-local-variable 'auto-show-mode) nil))
   (w3m-setup-toolbar)
   (w3m-setup-menu)
