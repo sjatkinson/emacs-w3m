@@ -146,7 +146,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.929 $"))
+    (let ((rev "$Revision: 1.930 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -5476,7 +5476,7 @@ a page in a new buffer with the correct width."
 	;; Pop up a window or a frame because `w3m-goto-url' is not called.
 	(w3m-popup-buffer new)
       ;; Need to change to the `new' buffer in which `w3m-goto-url' runs.
-      (set-buffer buffer))
+      (set-buffer new))
     (unless empty
       ;; Render a page.
       (w3m-process-with-wait-handler
