@@ -117,7 +117,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.212 $"))
+    (let ((rev "$Revision: 1.213 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -591,7 +591,7 @@ See the file balloon-help.el for more information."
 
 (defconst w3m-toolbar-buttons
   '("back" "parent" "forward" "reload" "open" "home" "search" "image"
-    "weather" "antenna")
+    "weather" "antenna" "history")
   "Toolbar button list for w3m.")
 
 (defconst w3m-toolbar
@@ -613,6 +613,7 @@ See the file balloon-help.el for more information."
     [w3m-toolbar-image-icon w3m-toggle-inline-images t "画像の表示をトグルする"]
     [w3m-toolbar-weather-icon w3m-weather t "天気予報を見る"]
     [w3m-toolbar-antenna-icon w3m-antenna t "アンテナで受信する"]
+    [w3m-toolbar-history-icon w3m-history t "ヒストリー"]
     )
   "Toolbar definition for w3m.")
 
