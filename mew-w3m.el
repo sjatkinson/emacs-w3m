@@ -5,7 +5,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.47 $
+;; Version: $Revision: 1.48 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -111,6 +111,7 @@ This variable effected only XEmacs or Emacs 21."
 ;; Avoid bytecompile error and warnings.
 (eval-when-compile
   (unless (fboundp 'mew-current-get-fld)
+    (autoload 'mew-coding-system-p "mew")
     (autoload 'mew-current-get-fld "mew")
     (autoload 'mew-current-get-msg "mew")
     (autoload 'mew-syntax-get-entry-by-cid "mew")
