@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Keywords: news
-;; Version: $Id: sb-pocketgames.el,v 1.11 2004-05-06 15:22:41 tsuchiya Exp $
-;; Last Modified: $Date: 2004-05-06 15:22:41 $
+;; Version: $Id: sb-pocketgames.el,v 1.12 2005-03-09 15:29:43 cho Exp $
+;; Last Modified: $Date: 2005-03-09 15:29:43 $
 
 ;; This file is a part of shimbun.
 
@@ -98,7 +98,7 @@
 	  (insert subject)
 	  (shimbun-remove-markup)
 	  (setq subject (buffer-string)))
-	(setq url (w3m-expand-url
+	(setq url (shimbun-expand-url
 		   (w3m-decode-anchor-string url)
 		   (concat (shimbun-index-url shimbun) "/")))
 	(push (shimbun-make-header
@@ -107,7 +107,8 @@
 	      headers)))
     headers))
 
-(luna-define-method shimbun-make-contents ((shimbun shimbun) header)
+(luna-define-method shimbun-make-contents ((shimbun shimbun-pocketgames)
+					   header)
   (when (shimbun-clear-contents shimbun header)
     (goto-char (point-min))
     (insert "<html>\n<head>\n<base href=\""
