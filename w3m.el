@@ -148,7 +148,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.916 $"))
+    (let ((rev "$Revision: 1.917 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -1269,8 +1269,9 @@ This feature works with the specially made program in emacs-w3m; usual
   :type 'boolean)
 
 (defcustom w3m-horizontal-scroll-division 4
-  "*Integer used by the program making the point visible when it is out
-of the window.
+  "*Integer used by the program making the point visible when it has been
+driven out of the window while wandering around anchors and forms in
+an emacs-w3m buffer.
 
 Suppose that the value of this variable is N.  When the point is
 outside the left of the window, emacs-w3m scrolls the window so that
