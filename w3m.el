@@ -107,7 +107,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.290 $"))
+    (let ((rev "$Revision: 1.291 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -3006,12 +3006,12 @@ or prefix ARG columns."
 			       (w3m-url-dtree-p url))
 			   (w3m-url-to-file-name url)))
       (setq default-directory
-	    (if (and localpath (file-exists-p localpath))
-		(file-name-as-directory
+	    (file-name-as-directory
+	     (if (and localpath (file-exists-p localpath))
 		 (if (file-directory-p localpath)
 		     localpath
-		   (file-name-directory localpath)))
-	      w3m-profile-directory))
+		   (file-name-directory localpath))
+	       w3m-profile-directory)))
       (w3m-update-toolbar)
       (switch-to-buffer (current-buffer))
       (when localcgi (w3m-goto-url-localcgi-movepoint))))))
@@ -3185,8 +3185,9 @@ works on Emacs.
 
 (defun w3m-about-source (url &optional no-decode no-cache)
   (when (string-match "^about://source/" url)
-    (let ((type (w3m-retrieve (substring url (match-end 0))
+    (let ((type (w3m-retrieve (setq url (substring url (match-end 0)))
 			      no-decode no-cache)))
+      (w3m-decode-buffer url)
       (and type "text/plain"))))
 
 (defun w3m-view-source ()
