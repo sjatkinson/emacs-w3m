@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.519 $"))
+    (let ((rev "$Revision: 1.520 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4105,7 +4105,7 @@ Return t if deleting current frame or window is succeeded."
 
 (defun w3m-scroll-left (arg)
   "Scroll to left.
-Scroll size is `w3m-horizontal-scroll-size' columns
+Scroll size is `w3m-horizontal-scroll-columns' columns
 or prefix ARG columns."
   (interactive "P")
   ;; When `scroll-left' is called non-interactively in Emacs21, it
@@ -4118,7 +4118,7 @@ or prefix ARG columns."
 
 (defun w3m-scroll-right (arg)
   "Scroll to right.
-Scroll size is `w3m-horizontal-scroll-size' columns
+Scroll size is `w3m-horizontal-scroll-columns' columns
 or prefix ARG columns."
   (interactive "P")
   ;; When `scroll-right' is called non-interactively in Emacs21, it
