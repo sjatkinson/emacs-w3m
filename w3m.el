@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.511 $"))
+    (let ((rev "$Revision: 1.512 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -912,7 +912,8 @@ encoded in the optimized animated gif format and base64.")
 	w3m-next-url nil
 	w3m-previous-url nil
 	w3m-start-url nil
-	w3m-contents-url nil))
+	w3m-contents-url nil
+	w3m-max-anchor-sequence nil))
 
 (defsubst w3m-copy-local-variables (from-buffer)
   (let (url base title forms cs next prev start toc hseq)
