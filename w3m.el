@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.558 $"))
+    (let ((rev "$Revision: 1.559 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -2756,7 +2756,8 @@ to this buffer."
 			       post-data referer handler)
 		    (w3m-about url no-decode no-cache))))
 	(when type
-	  (encode-coding-region (point-min) (point-max) w3m-coding-system)
+	  (when (string-match "\\`text/" type)
+	    (encode-coding-region (point-min) (point-max) w3m-coding-system))
 	  (set-buffer-multibyte nil)
 	  (when (buffer-name output-buffer)
 	    (let ((temp-buffer (current-buffer)))
