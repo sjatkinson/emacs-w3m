@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.704 $"))
+    (let ((rev "$Revision: 1.705 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -4619,7 +4619,7 @@ The optional argument BUFFER will be used exclusively by the command
       ;; Delete all windows and frames related to a buffer.
       (while (setq window (get-buffer-window buffer t))
 	(if (eq window (next-window window))
-	    ;; If there isn't another windows on a frame, delete it.
+	    ;; If there aren't another windows on a frame, delete it.
 	    (delete-frame (window-frame window))
 	  ;; Otherwise, delete a window.
 	  (delete-window window)))
