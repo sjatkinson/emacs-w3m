@@ -98,7 +98,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.127 $"))
+    (let ((rev "$Revision: 1.128 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2282,7 +2282,7 @@ ex.) c:/dir/file => //c/dir/file"
       (delete-region (point-min) (point-max))
       (insert "<head><title>URL history</title></head><body>\n")
       (dolist (url history)
-	(unless (string-match "^about://\\(header\\|source\\|history\\)/" url)
+	(unless (string-match "^about://\\(header\\|source\\|history\\|antenna\\)/" url)
 	  (insert (format "<a href=\"%s\">%s</a><br>\n" url url))))
       (insert "</body>")))
   "text/html")
