@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.548 $"))
+    (let ((rev "$Revision: 1.549 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -4719,6 +4719,12 @@ ex.) c:/dir/file => //c/dir/file"
 	  w3m-current-url url
 	  w3m-current-base-url url
 	  w3m-current-title (w3m-rendering-multibyte-buffer))
+    (unless w3m-current-base-url
+      (let ((case-fold-search t))
+	(goto-char (point-min))
+	(when (re-search-forward "<base[ \t\r\f\n]+" nil t)
+	  (w3m-parse-attributes (href)
+	    (setq w3m-current-base-url href)))))
     (w3m-fontify)
     (when (w3m-display-inline-images-p)
       (and w3m-force-redisplay (sit-for 0))
