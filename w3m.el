@@ -129,7 +129,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.596 $"))
+    (let ((rev "$Revision: 1.597 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -701,8 +701,8 @@ downloading something from a url."
 	   (string :tag "Encoding Type"))))
 
 (defcustom w3m-decoder-alist
-  (` ((gzip "gunzip" nil)
-      (bzip "bunzip2" nil)
+  (` ((gzip "gzip" ("-d"))	;; Don't use "gunzip" and "bunzip2"
+      (bzip "bzip2" ("-d"))	;; for broken OS & environment
       (deflate
 	(, (let ((file
 		  (expand-file-name
