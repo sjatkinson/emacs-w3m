@@ -155,7 +155,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1109 $"))
+    (let ((rev "$Revision: 1.1110 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7097,7 +7097,7 @@ generate a new buffer."
 	  (w3m-current-process
 	   "Loading..." ,(if (fboundp 'format-mode-line)
 			     '(:eval (w3m-modeline-title))
-			   w3m-current-title))))
+			   'w3m-current-title))))
   (unless (assq 'w3m-current-process mode-line-process)
     (setq mode-line-process
 	  (cons (list 'w3m-current-process 'w3m-process-modeline-string)
@@ -7130,7 +7130,7 @@ It currently works only with Emacs 22 and newer."
 	    (let ((excess (- (string-width
 			      (condition-case nil
 				  (format-mode-line mode-line-format 1)
-				(error 0)))
+				(error "")))
 			     (window-width)))
 		  (tlen (string-width w3m-current-title)))
 	      (when (and (> excess 0)
