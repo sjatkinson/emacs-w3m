@@ -116,7 +116,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.181 $"))
+    (let ((rev "$Revision: 1.182 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -2194,7 +2194,7 @@ if AND-POP is non-nil, the new buffer is shown with `pop-to-buffer'."
     (define-key map "\C-?" 'scroll-down)
     (define-key map "\t" 'w3m-next-anchor)
     (define-key map [(shift tab)] 'w3m-previous-anchor)
-    (define-key map [S-iso-lefttab] 'w3m-previous-anchor)
+    (define-key map [(shift iso-lefttab)] 'w3m-previous-anchor)
     (define-key map [down] 'w3m-next-anchor)
     (define-key map "\M-\t" 'w3m-previous-anchor)
     (define-key map [up] 'w3m-previous-anchor)
@@ -2244,7 +2244,7 @@ if AND-POP is non-nil, the new buffer is shown with `pop-to-buffer'."
     (define-key map "\C-?" 'scroll-down)
     (define-key map "\t" 'w3m-next-anchor)
     (define-key map [(shift tab)] 'w3m-previous-anchor)
-    (define-key map [S-iso-lefttab] 'w3m-previous-anchor)
+    (define-key map [(shift iso-lefttab)] 'w3m-previous-anchor)
     (define-key map "\M-\t" 'w3m-previous-anchor)
     (define-key map "\C-m" 'w3m-view-this-url)
     (if (featurep 'xemacs)
