@@ -96,7 +96,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.146 $"))
+    (let ((rev "$Revision: 1.147 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -609,8 +609,11 @@ If N is negative, last N items of LIST is returned."
   (when (and list (file-writable-p file))
     (with-temp-buffer
       (let ((file-coding-system coding)
-	    (coding-system-for-write coding))
-	(print list (current-buffer))
+	    (coding-system-for-write coding)
+	    print-length print-level)
+	(w3m-static-if (fboundp 'pp)
+	    (pp list (current-buffer))
+	  (print list (current-buffer)))
 	(write-region (point-min) (point-max)
 		      file nil 'nomsg)))))
 
