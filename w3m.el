@@ -127,7 +127,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.419 $"))
+    (let ((rev "$Revision: 1.420 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -1942,12 +1942,14 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
   "Store up URL's HEADER in cache."
   (w3m-cache-setup)
   (let ((ident (intern url w3m-cache-hashtb)))
-    (and (boundp ident)
-	 (not (string=
-	       (w3m-cache-header-delete-variable-part header)
-	       (w3m-cache-header-delete-variable-part (symbol-value ident))))
-	 (w3m-cache-remove url))
-    (set ident header)))
+    (if (boundp ident)
+	(if (string=
+	     (w3m-cache-header-delete-variable-part header)
+	     (w3m-cache-header-delete-variable-part (symbol-value ident)))
+	    (symbol-value ident)
+	  (w3m-cache-remove url)
+	  (set ident header))
+      (set ident header))))
 
 (defun w3m-cache-request-header (url)
   "Return the URL's header string, when it is stored in cache."
