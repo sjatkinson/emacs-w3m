@@ -172,12 +172,13 @@
 (eval-when-compile
   (autoload 'rfc2368-parse-mailto-url "rfc2368")
   (autoload 'widget-convert-button "wid-edit")
+  (autoload 'widget-get "wid-edit")
   (unless (fboundp 'char-to-int)
     (defalias 'char-to-int 'identity)))
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1126 $"))
+    (let ((rev "$Revision: 1.1127 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -7796,7 +7797,6 @@ command in the batch mode."
       (not url))))
   (let ((nofetch (eq url 'popup))
 	(buffer (unless new-session (w3m-alive-p t)))
-	(popup-frame-p (and (not interactive-p) (w3m-popup-frame-p)))
 	(w3m-pop-up-frames (and interactive-p w3m-pop-up-frames))
 	(w3m-pop-up-windows (and interactive-p w3m-pop-up-windows)))
     (unless (and (stringp url)
