@@ -73,7 +73,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.97 $"))
+    (let ((rev "$Revision: 1.98 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "0.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 28)))))
@@ -1595,6 +1595,10 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 		  (funcall w3m-process-message))
 	      (sit-for 0.2)
 	      (discard-input))
+	    (unless (zerop (process-exit-status proc))
+	      (error "Error: %s" (buffer-substring (point-min)
+						   (max (- (point-max) 1)
+							(point-min)))))
 	    (and w3m-current-url
 		 w3m-process-user
 		 (setq w3m-arrived-user-list
@@ -1604,7 +1608,10 @@ When BUFFER is nil, all data will be inserted in the current buffer."
 			(delete (assoc w3m-current-url w3m-arrived-user-list)
 				w3m-arrived-user-list)))))
 	;; call-process
-	(apply 'call-process w3m-command nil t nil args)))))
+	(unless (zerop (apply 'call-process w3m-command nil t nil args))
+	  (error "Error: %s" (buffer-substring (point-min)
+					       (max (- (point-max) 1)
+						    (point-min)))))))))
 
 (defun w3m-exec-get-user (url)
   (if (= w3m-process-user-counter 0)
