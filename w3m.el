@@ -124,7 +124,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.531 $"))
+    (let ((rev "$Revision: 1.532 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -1173,7 +1173,7 @@ When URL does not point any local files, it returns nil."
 		":/"
 		(substring url (match-end 0)))
       url))
-   ((string-match "\\`\\([~/]\\|\\.\\.?/\\)" url) url)
+   ((string-match "\\`\\([~/]\\|[a-zA-Z]:/\\|\\.\\.?/\\)" url) url)
    (t
     (catch 'found-file
       (dolist (pair w3m-url-local-directory-alist)
