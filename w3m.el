@@ -87,9 +87,10 @@
   (cond
    ((featurep 'xemacs)
     (require 'w3m-xmas))
-   ((>= emacs-major-version 22)
+   ((and (>= emacs-major-version 22)
+	 (fboundp 'define-coding-system))
     (require 'w3m-e22))
-   ((= emacs-major-version 21)
+   ((>= emacs-major-version 21)
     (require 'w3m-e21))
    ((= emacs-major-version 20)
     (require 'w3m-e20))
@@ -153,7 +154,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1096 $"))
+    (let ((rev "$Revision: 1.1097 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
