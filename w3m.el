@@ -126,7 +126,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.469 $"))
+    (let ((rev "$Revision: 1.470 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.1.%d"
 		   (- (string-to-number (match-string 1 rev)) 233)))))
@@ -4102,6 +4102,9 @@ field for this request."
     (when w3m-current-forms
       ;; Store the current forms in the history structure.
       (w3m-history-plist-put :forms w3m-current-forms nil nil t))
+    (when (and post-data (w3m-history-assoc url))
+      ;; Remove processing url's forms from the history structure.
+      (w3m-history-remove-properties '(:forms) url nil t))
     ;; Retrieve.
     (let ((orig url) name localpath localcgi)
       ;; local directory URL check
