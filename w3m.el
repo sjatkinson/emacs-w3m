@@ -133,7 +133,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.643 $"))
+    (let ((rev "$Revision: 1.644 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3114,11 +3114,11 @@ argument, when retrieve is complete."
 		  (if sync
 		      (condition-case nil
 			  (w3m-process-with-wait-handler
-			    (w3m-w3m-retrieve-1 url no-decode no-cache
+			    (w3m-w3m-retrieve-1 url no-decode 'no-cache
 						post-data nil
 						redirect-handler))
 			(w3m-process-timeout nil))
-		    (w3m-w3m-retrieve-1 url no-decode no-cache post-data
+		    (w3m-w3m-retrieve-1 url no-decode 'no-cache post-data
 					nil redirect-handler)))))))
     ;; The first retrieval.
     (prog1 (setq return (w3m-w3m-retrieve-1 
