@@ -150,7 +150,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1072 $"))
+    (let ((rev "$Revision: 1.1073 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -6883,7 +6883,8 @@ generate a new buffer."
 	     w3m-modeline-separator)
 	    w3m-modeline-separator)
 	   w3m-modeline-separator)
-	  w3m-current-title))
+	  (w3m-current-process
+	   "Loading..." w3m-current-title)))
   (unless (assq 'w3m-current-process mode-line-process)
     (setq mode-line-process
 	  (cons (list 'w3m-current-process 'w3m-process-modeline-string)
