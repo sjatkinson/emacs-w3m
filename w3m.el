@@ -137,7 +137,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.683 $"))
+    (let ((rev "$Revision: 1.684 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.2.%d"
 		   (- (string-to-number (match-string 1 rev)) 426)))))
@@ -3246,7 +3246,8 @@ argument, when retrieve is complete."
 If this function is called by redirection, ORIG-URL must be set."
   (let ((w3m-command-arguments
 	 (append w3m-command-arguments
-		 (list "-no-cookie")
+		 (when (member "cookie" w3m-compile-options)
+		   (list "-no-cookie"))
 		 ;; Don't follow redirection within w3m command.
 		 (when w3m-follow-redirection
 		   (list "-o" "follow_redirection=0"))
