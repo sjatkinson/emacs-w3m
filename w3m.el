@@ -155,7 +155,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1115 $"))
+    (let ((rev "$Revision: 1.1116 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -2859,14 +2859,14 @@ a decoding scheme."
 	   (if (and (listp w3m-show-decoded-url)
 		    (consp (car w3m-show-decoded-url)))
 	       (catch 'found-rule
-		 (dolist (elem w3m-show-decoded-url)
-		   (when (cond ((stringp (car elem))
-				(string-match (car elem) w3m-current-url))
-			       ((functionp (car elem))
-				(funcall (car elem)))
-			       (t
-				(eval (car elem))))
-		     (throw 'found-rule (cdr elem)))))
+		 (save-match-data
+		   (dolist (elem w3m-show-decoded-url)
+		     (when (if (stringp (car elem))
+			       (string-match (car elem) w3m-current-url)
+			     (if (functionp (car elem))
+				 (funcall (car elem))
+			       (eval (car elem))))
+		       (throw 'found-rule (cdr elem))))))
 	     w3m-show-decoded-url)))
       (if rule
 	  (w3m-url-decode-string
