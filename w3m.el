@@ -140,7 +140,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.763 $"))
+    (let ((rev "$Revision: 1.764 $"))
       (and (string-match "\\.\\([0-9]+\\) \$$" rev)
 	   (format "1.3.%d"
 		   (- (string-to-number (match-string 1 rev)) 642)))))
@@ -6221,7 +6221,7 @@ Optional NEW-SESSION is intended to be used by the command
       (w3m-mode))
     (unwind-protect
 	(unless nofetch
-	  (w3m-goto-url url))
+	  (w3m-goto-url url nil nil nil nil nil (interactive-p)))
       (unless w3m-current-url
 	(erase-buffer)
 	(set-buffer-modified-p nil))
