@@ -178,7 +178,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1133 $"))
+    (let ((rev "$Revision: 1.1134 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1030))
 	   (concat "1.4.0" (if (>= rev 0) (format ".%d" (+ rev 50)) "")))))
@@ -4062,7 +4062,7 @@ for decoding when the cdr that the data specify is not available.")
 		    (delete-region (match-beginning 0) (match-end 0)))))
 	(goto-char (point-min))
 	(while (re-search-forward "\240\\|&#160;\\|&#xa0;" nil t)
-	  (replace-match " "))))
+	  (replace-match "&nbsp;"))))
     (set-buffer-multibyte t)
     (decode-coding-region (point-min) (point-max) w3m-current-coding-system)))
 
