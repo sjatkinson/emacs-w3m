@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1137 $"))
+    (let ((rev "$Revision: 1.1138 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5607,7 +5607,7 @@ If Transient Mark mode, deactivate the mark."
       (goto-char start)
       (setq all (not (and (bolp)
 			  w3m-current-url
-			  (string-match "\\`http://\\(?[^/]+\\.\\)*google\\."
+			  (string-match "\\`http://\\(?:[^/]+\\.\\)*google\\."
 					w3m-current-url))))
       (while (progn
 	       (w3m-next-anchor)
