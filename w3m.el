@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1138 $"))
+    (let ((rev "$Revision: 1.1139 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2200,6 +2200,8 @@ nil value means it has not been initialized.")
       (> (safe-length (w3m-list-buffers)) 1)]
      "----" ;; separator
      ["Close This Session" w3m-delete-buffer
+      (> (safe-length (w3m-list-buffers)) 1)]
+     ["Close Other Sessions" w3m-delete-other-buffers
       (> (safe-length (w3m-list-buffers)) 1)]
      ) ;; end session
     ["Download This URL" w3m-download-this-url t]
@@ -6315,7 +6317,8 @@ as if the folder command of MH performs with the -pack option."
       (when w3m-use-form
 	(w3m-form-kill-buffer buffer))))
   (run-hooks 'w3m-delete-buffer-hook)
-  (w3m-select-buffer-update))
+  (w3m-select-buffer-update)
+  (w3m-force-window-update))
 
 (defvar w3m-lynx-like-map nil
   "Lynx-like keymap used in emacs-w3m buffers.")
