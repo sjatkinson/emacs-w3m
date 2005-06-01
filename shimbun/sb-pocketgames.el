@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Keywords: news
-;; Version: $Id: sb-pocketgames.el,v 1.14 2005-03-10 08:59:28 yamaoka Exp $
-;; Last Modified: $Date: 2005-03-10 08:59:28 $
+;; Version: $Id: sb-pocketgames.el,v 1.15 2005-06-01 10:00:14 yamaoka Exp $
+;; Last Modified: $Date: 2005-06-01 10:00:14 $
 
 ;; This file is a part of shimbun.
 
@@ -25,9 +25,6 @@
 ;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
 
 ;;; Code:
-
-(eval-when-compile
-  (require 'cl))
 
 (require 'shimbun)
 
