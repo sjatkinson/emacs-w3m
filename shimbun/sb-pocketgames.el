@@ -4,8 +4,8 @@
 
 ;; Author: NAKAJIMA Mikio <minakaji@namazu.org>
 ;; Keywords: news
-;; Version: $Id: sb-pocketgames.el,v 1.15 2005-06-01 10:00:14 yamaoka Exp $
-;; Last Modified: $Date: 2005-06-01 10:00:14 $
+;; Version: $Id: sb-pocketgames.el,v 1.16 2005-07-05 23:52:29 yamaoka Exp $
+;; Last Modified: $Date: 2005-07-05 23:52:29 $
 
 ;; This file is a part of shimbun.
 
@@ -22,7 +22,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, you can either send email to this
 ;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; Inc.; 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 ;;; Code:
 

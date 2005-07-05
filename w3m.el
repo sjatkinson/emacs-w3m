@@ -29,7 +29,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, you can either send email to this
 ;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; Inc.; 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
 ;;; Commentary:
@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1148 $"))
+    (let ((rev "$Revision: 1.1149 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))

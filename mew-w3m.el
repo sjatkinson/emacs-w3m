@@ -6,7 +6,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.55 $
+;; Version: $Revision: 1.56 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -24,7 +24,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, you can either send email to this
 ;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 59 Temple Place, Suite 330; Boston, MA 02111-1307, USA.
+;; Inc.; 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 
