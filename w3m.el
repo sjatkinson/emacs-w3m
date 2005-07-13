@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1153 $"))
+    (let ((rev "$Revision: 1.1154 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2720,7 +2720,8 @@ string.  When `w3m-verbose' is non-nil, it behaves identically as
 `message', that displays a given message with logging."
   (if w3m-verbose
       (apply (function message) args)
-    (if (or (minibuffer-prompt) (current-message))
+    (if (or (window-minibuffer-p (selected-window))
+	    (current-message))
 	(apply (function format) args)
       (w3m-static-if (featurep 'xemacs)
 	  (display-message 'no-log (apply (function format) args))
