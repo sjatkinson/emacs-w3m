@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1157 $"))
+    (let ((rev "$Revision: 1.1158 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1018,6 +1018,7 @@ when we implement the mailcap parser to set `w3m-content-type-alist'.")
 			   (list "acroread" 'file))))))
     `(("text/plain" "\\.\\(?:txt\\|tex\\|el\\)\\'" nil nil)
       ("text/html" "\\.s?html?\\'" ,external-browser nil)
+      ("text/sgml" "\\.sgml?\\'" nil "text/plain")
       ("text/xml" "\\.xml\\'" nil "text/plain")
       ("image/jpeg" "\\.jpe?g\\'" ,image-viewer nil)
       ("image/png" "\\.png\\'" ,image-viewer nil)
