@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1159 $"))
+    (let ((rev "$Revision: 1.1160 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -7634,7 +7634,8 @@ If the prefix arg ARG is given, it toggles the visibility of images."
       (w3m-message "Can't redisplay this page")
     (when arg
       (setq w3m-display-inline-images (not w3m-display-inline-images)))
-    (let ((w3m-history-reuse-history-elements
+    (let ((w3m-prefer-cache t)
+	  (w3m-history-reuse-history-elements
 	   ;; Don't move the history position.
 	   'reload))
       (w3m-goto-url w3m-current-url 'redisplay))))
