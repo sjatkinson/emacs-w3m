@@ -177,7 +177,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1163 $"))
+    (let ((rev "$Revision: 1.1164 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5644,6 +5644,7 @@ If Transient Mark mode, deactivate the mark."
 		   (or all
 		       (bolp)))
 	  (push url urls))))
+    (setq urls (nreverse urls))
     (while urls
       (setq url (car urls)
 	    urls (cdr urls))
