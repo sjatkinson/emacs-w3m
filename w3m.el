@@ -1,6 +1,6 @@
 ;;; w3m.el --- an Emacs interface to w3m
 
-;; Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005
+;; Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006
 ;; TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
@@ -178,7 +178,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1168 $"))
+    (let ((rev "$Revision: 1.1169 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
