@@ -178,7 +178,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1175 $"))
+    (let ((rev "$Revision: 1.1176 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4768,7 +4768,7 @@ NO-CACHE specifies whether functions should not use cached contents."
 
 (defun w3m-data-retrieve (url &optional no-decode no-cache)
   "Retrieve contents pointed to by URL prefixed with the data: scheme.
-Note:RFC2397"
+See RFC2397."
   (let ((case-fold-search t) (mime-type "text/plain")
 	(coding nil) (encode nil) (param "")
 	data-string)
