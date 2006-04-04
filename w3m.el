@@ -178,7 +178,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1176 $"))
+    (let ((rev "$Revision: 1.1177 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2893,6 +2893,7 @@ non-nil, control chars will be represented with ^ as `cat -v' does."
     (w3m-static-if (and (featurep 'xemacs)
 			(featurep 'mule))
 	(w3m-decode-coding-string-with-priority str coding)
+      (setq str (string-make-unibyte str))
       (when (listp coding)
 	(setq coding
 	      (with-temp-buffer
