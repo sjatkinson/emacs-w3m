@@ -180,7 +180,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1196 $"))
+    (let ((rev "$Revision: 1.1197 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5972,7 +5972,7 @@ The default name will be the original name of the image."
       (w3m-message "No image at point"))))
 
 (defun w3m-external-view-this-url ()
-  "Lanch the external browser and display the link URL."
+  "Launch the external browser and display the link an point."
   (interactive)
   (let ((url (w3m-url-valid (or (w3m-anchor) (w3m-image)))))
     (if url
@@ -5980,7 +5980,7 @@ The default name will be the original name of the image."
       (w3m-message "No URL at point"))))
 
 (defun w3m-external-view-current-url ()
-  "Lanch the external browser and display the current URL."
+  "Launch the external browser and display the current URL."
   (interactive)
   (if w3m-current-url
       (w3m-external-view w3m-current-url)
