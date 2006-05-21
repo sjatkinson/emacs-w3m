@@ -126,7 +126,7 @@
 (eval-and-compile
   (autoload 'w3m-bookmark-view "w3m-bookmark"
     "Display the bookmark" t)
-  (autoload 'w3m-bookmark-view-new-sessiont "w3m-bookmark"
+  (autoload 'w3m-bookmark-view-new-session "w3m-bookmark"
     "Display the bookmark on a new session" t)
   (autoload 'w3m-bookmark-add-this-url "w3m-bookmark"
     "Add a link under point to the bookmark." t)
@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1200 $"))
+    (let ((rev "$Revision: 1.1201 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
