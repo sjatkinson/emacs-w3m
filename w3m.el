@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1202 $"))
+    (let ((rev "$Revision: 1.1203 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -766,14 +766,12 @@ Don't say HP, which is the abbreviated name of a certain company. ;-)"
   :group 'w3m
   :type '(radio
 	  :convert-widget w3m-widget-type-convert-widget
-	  `(,(if (getenv "HTTP_HOME")
-		 (list 'const
-		       :format "HTTP_HOME: \"%v\"\n"
-		       (getenv "HTTP_HOME")))
-	    ,(if (getenv "WWW_HOME")
-		 (list 'const
-		       :format "WWW_HOME: \"%v\"\n"
-		       (getenv "WWW_HOME")))
+	  `(,@(if (getenv "HTTP_HOME")
+		  `((const :format "HTTP_HOME: \"%v\"\n"
+			   ,(getenv "HTTP_HOME"))))
+	    ,@(if (getenv "WWW_HOME")
+		  `((const :format "WWW_HOME: \"%v\"\n"
+			   (getenv "WWW_HOME"))))
 	    (const :tag "About emacs-w3m" "about:")
 	    (const :tag "Blank page" "about:blank")
 	    (string :format "URL: %v\n" :size 0))))
