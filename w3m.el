@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1203 $"))
+    (let ((rev "$Revision: 1.1204 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5725,7 +5725,7 @@ compatibility which is described in Section 5.2 of RFC 2396.")
     (if new-session
 	(let ((empty
 	       ;; If a new url has the #name portion, we simply copy
-	       ;; the buffer's contents to the new settion, otherwise
+	       ;; the buffer's contents to the new session, otherwise
 	       ;; creating an empty buffer.
 	       (not (and (progn
 			   (w3m-string-match-url-components url)
