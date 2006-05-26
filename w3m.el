@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1204 $"))
+    (let ((rev "$Revision: 1.1205 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -6985,6 +6985,10 @@ closed.  See also `w3m-quit'."
        ,(w3m-make-menu-item "すべてのタブを再読み込み" "Reload All Tabs")
        ,manyp)
       -
+      (w3m-delete-buffer
+       ,(w3m-make-menu-item "このタブを閉じる" "Close This Tab")
+       t)
+      -
       (w3m-delete-other-buffers
        ,(w3m-make-menu-item "他のタブをすべて閉じる" "Close Other Tabs")
        ,manyp)
@@ -7004,11 +7008,7 @@ closed.  See also `w3m-quit'."
       (w3m-bookmark-add-all-urls
        ,(w3m-make-menu-item
 	 "すべてのタブをブックマーク" "Bookmark All Tabs..." )
-       ,manyp)
-      -
-      (w3m-delete-buffer
-       ,(w3m-make-menu-item "タブを閉じる" "Close Tab")
-       t)))
+       ,manyp)))
   "List of commands invoked by the tab button menu.
 Each item is the symbol `-' which is a separator,
 or a list which consists of the following elements:
