@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1211 $"))
+    (let ((rev "$Revision: 1.1212 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1297,6 +1297,7 @@ See the balloon-help.el file for more information."
 (defcustom w3m-show-decoded-url
   '(("\\`http://\\(?:[^./?#]+\\.\\)*wikipedia\\.org/" . utf-8)
     ("\\`http://\\(?:[^./?#]+\\.\\)*hatena\\.ne\\.jp/" . euc-jp)
+    ("\\`http://\\(?:[^./?#]+\\.\\)*ohmynews\\.co\\.jp/" . utf-8)
     (t . t))
   "*Non-nil means show decoded URIs in the echo area, the balloon, etc.
 This variable can take one of the following five kinds of forms:
