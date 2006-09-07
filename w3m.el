@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1215 $"))
+    (let ((rev "$Revision: 1.1216 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -648,7 +648,7 @@ w3m command, edit the file named \"~/.w3m/config\" normally."
 The valid values include a string specifying an existing directory,
 a symbol of which the value specifies an existing directory,
 a function which takes a url as an argument and returns a directory,
-or nil.  If the specified directory does not exist or it is nil,
+and nil.  If the specified directory does not exist or it is nil,
 the value of `w3m-profile-directory' is used.
 
 Note that there is an exception: if a page visits a local file or
