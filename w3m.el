@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1217 $"))
+    (let ((rev "$Revision: 1.1218 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1818,7 +1818,7 @@ Here are some predefined functions which can be used for those ways:
      ,(concat "<a href=" w3m-html-string-regexp ">前のページ</a>")
      nil nil)
     (w3m-relationship-simple-estimate
-     "\\`http://freshmeat\\.net/search/"
+     "\\`http://freshmeat\\.net/\\(search\\|browse\\)/"
      ,(concat "<A HREF=" w3m-html-string-regexp ">\\[&raquo;\\]</A>")
      ,(concat "<A HREF=" w3m-html-string-regexp ">\\[&laquo;\\]</A>")
      nil nil)
