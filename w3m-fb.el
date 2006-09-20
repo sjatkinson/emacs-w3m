@@ -1,9 +1,9 @@
 ;;; w3m-fb.el --- frame-local buffers support for Emacs-w3m
 
-;;; Copyright (C) 2005 Matthew P. Hodges
+;;; Copyright (C) 2005, 2006 Matthew P. Hodges
 
 ;; Author: Matthew P. Hodges <MPHodges@member.fsf.org>
-;; Version: $Id: w3m-fb.el,v 1.3 2005-12-19 10:51:35 yamaoka Exp $
+;; Version: $Id: w3m-fb.el,v 1.4 2006-09-20 09:26:42 yamaoka Exp $
 
 ;; w3m-fb.el is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
@@ -34,14 +34,21 @@
 (defconst w3m-fb-version "1.0.0"
   "Version number of this package.")
 
-(defalias 'w3m-fb-frame-parameter
-  (cond
-   ((fboundp 'frame-parameter)
-    'frame-parameter)
-   ((fboundp 'frame-property)
-    'frame-property)
-   (t
-    (error "No frame parameter/property function"))))
+(eval-when-compile
+  (autoload 'w3m-delete-buffer "w3m" nil t)
+  (autoload 'w3m-list-buffers "w3m-util")
+  (autoload 'w3m-next-buffer "w3m" nil t)
+  (defvar w3m-pop-up-frames))
+
+(eval-and-compile
+  (defalias 'w3m-fb-frame-parameter
+    (cond
+     ((fboundp 'frame-parameter)
+      'frame-parameter)
+     ((fboundp 'frame-property)
+      'frame-property)
+     (t
+      (error "No frame parameter/property function")))))
 
 (defvar w3m-fb-delete-frame-functions
   (cond
