@@ -11,7 +11,8 @@
 ;;          Yuuichi Teranishi  <teranisi@gohome.org>,
 ;;          Akihiro Arisawa    <ari@mbf.sphere.ne.jp>,
 ;;          Katsumi Yamaoka    <yamaoka@jpl.org>,
-;;          Tsuyoshi CHO       <tsuyoshi_cho@ybb.ne.jp>
+;;          Tsuyoshi CHO       <tsuyoshi_cho@ybb.ne.jp>,
+;;          Luca Capello       <luca@pca.it>
 ;; Keywords: w3m, WWW, hypermedia
 
 ;; This file is the main part of emacs-w3m.
@@ -183,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1219 $"))
+    (let ((rev "$Revision: 1.1220 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
