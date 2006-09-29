@@ -187,7 +187,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1224 $"))
+    (let ((rev "$Revision: 1.1225 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2103,6 +2103,7 @@ buffer-local in each emacs-w3m buffer.")
 (defvar w3m-mail-user-agents '(gnus-user-agent
 			       message-user-agent
 			       mew-user-agent
+			       vm-user-agent
 			       wl-user-agent)
   "List of mail user agents that `w3m-mail' supports.
 See also w3m-mail.el.")
