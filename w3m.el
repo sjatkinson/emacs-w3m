@@ -187,7 +187,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1226 $"))
+    (let ((rev "$Revision: 1.1227 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4144,6 +4144,20 @@ This function is imported from mcharset.el."
       (setq charset (intern (downcase charset))))
   (let ((cs (assq charset w3m-charset-coding-system-alist)))
     (w3m-find-coding-system (if cs (cdr cs) charset))))
+
+(defun w3m-coding-system-to-charset (coding-system)
+  "Return the MIME charset corresponding to CODING-SYSTEM."
+  (when coding-system
+    (w3m-static-if (featurep 'xemacs)
+	(when (or (fboundp 'coding-system-to-mime-charset)
+		  (progn
+		    (require 'mcharset)
+		    (fboundp 'coding-system-to-mime-charset)))
+	  (defalias 'w3m-coding-system-to-charset
+	    'coding-system-to-mime-charset)
+	  (w3m-coding-system-to-charset coding-system))
+      (or (coding-system-get coding-system :mime-charset)
+	  (coding-system-get coding-system 'mime-charset)))))
 
 ;; FIXME: we need to investigate the kind of Content-Charsets being
 ;; actually possible.
