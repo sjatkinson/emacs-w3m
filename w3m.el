@@ -187,7 +187,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1227 $"))
+    (let ((rev "$Revision: 1.1228 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4220,7 +4220,10 @@ It supports the encoding types of gzip, bzip2, deflate, etc."
 	    encoding)
 	  "utf-8"))))
 
-(defvar w3m-compatible-encoding-alist '((iso-8859-1 . windows-1252))
+(defvar w3m-compatible-encoding-alist
+  '((iso-8859-1 . windows-1252)
+    (iso-8859-8 . windows-1255)
+    (iso-8859-9 . windows-1254))
   "Alist of encodings and those supersets.
 The cdr of each element is used to decode data if it is available when
 the car is what the data specify as the encoding.  Or, the car is used
