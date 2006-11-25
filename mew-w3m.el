@@ -6,7 +6,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.59 $
+;; Version: $Revision: 1.60 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -287,8 +287,7 @@ This variable is effective only in XEmacs, Emacs 21 and Emacs 22."
     (split-window))
   (select-window (next-window))
   (condition-case nil
-      (unless (and current-prefix-arg
-		   (boundp 'mew-init-p) mew-init-p
+      (unless (and (boundp 'mew-init-p) mew-init-p
 		   (progn
 		     (mew-summary-jump-to-draft-buffer)
 		     (and (eq major-mode 'mew-draft-mode)
