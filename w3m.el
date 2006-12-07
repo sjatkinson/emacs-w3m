@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1230 $"))
+    (let ((rev "$Revision: 1.1231 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -901,6 +901,10 @@ of the original request method."
 
 (defface w3m-bold-face '((t (:bold t)))
   "Face used for displaying bold text."
+  :group 'w3m-face)
+
+(defface w3m-italic-face '((t (:italic t)))
+  "Face used for displaying italic text."
   :group 'w3m-face)
 
 (defface w3m-underline-face '((t (:underline t)))
@@ -3168,6 +3172,17 @@ For example:
 	(w3m-add-face-property start (match-beginning 0)
 				    'w3m-bold-face)))))
 
+(defun w3m-fontify-italic ()
+  "Fontify italic text in the buffer containing halfdump."
+  (goto-char (point-min))
+  (while (search-forward "<i>" nil t)
+    (let ((start (match-beginning 0)))
+      (delete-region start (match-end 0))
+      (when (re-search-forward "</i[ \t\r\f\n]*>" nil t)
+	(delete-region (match-beginning 0) (match-end 0))
+	(w3m-add-face-property start (match-beginning 0)
+			       'w3m-italic-face)))))
+
 (defun w3m-fontify-underline ()
   "Fontify underline text in the buffer containing halfdump."
   (goto-char (point-min))
@@ -3685,6 +3700,7 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
 	   (search-forward "</title>" nil t)
 	   (delete-region start (match-end 0))))
     (w3m-fontify-bold)
+    (w3m-fontify-italic)
     (w3m-fontify-strike-through)
     (w3m-fontify-insert)
     (w3m-fontify-underline)
