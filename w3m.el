@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1231 $"))
+    (let ((rev "$Revision: 1.1232 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5626,14 +5626,19 @@ when the URL of the retrieved page matches the REGEXP."
   (if (null w3m-current-url)
       nil
     (save-match-data
-      (string-match "[a-z]+://?[^/]+/." w3m-current-url))))
+      (string-match "\\`[a-z]+://?[^/]+/." w3m-current-url))))
 
-(defun w3m-view-parent-page ()
+(defun w3m-view-parent-page (&optional top)
   "Attempt to move to the parent directory of the page currently displayed.
-For instance, it will let you visit \"http://foo/\" if you are currently
-viewing \"http://foo/bar/\"."
-  (interactive)
+For instance, it will let you visit \"http://foo/bar/\" if you are currently
+viewing \"http://foo/bar/baz\".
+If TOP is non-nil, you visit the top of this site."
+  (interactive "P")
   (cond
+   ((and top
+	 w3m-current-url
+	 (string-match "\\`[a-z]+:///?[^/]+/" w3m-current-url))
+    (w3m-goto-url (match-string 0 w3m-current-url)))
    (w3m-start-url (w3m-goto-url w3m-start-url))
    (w3m-contents-url (w3m-goto-url w3m-contents-url))
    (w3m-current-url
