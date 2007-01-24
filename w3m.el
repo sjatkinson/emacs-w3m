@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1235 $"))
+    (let ((rev "$Revision: 1.1236 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2460,13 +2460,21 @@ If it is nil, the command specified to `w3m-command' is used.")
 	       "-o" "ucs_conv=1"
 	       '(if (eq w3m-input-coding-system 'binary)
 		    (if charset (list "-I" 'charset))
-		  (list "-I" (if (eq w3m-input-coding-system 'utf-8)
-				 "UTF-8"
-			       "ISO-2022-JP-2")))
+		  (list "-I" (cond
+			      ((eq w3m-input-coding-system 'utf-8)
+			       "UTF-8")
+			      ((eq w3m-input-coding-system 'iso-8859-1)
+			       "ISO-8859-1")
+			      (t
+			       "ISO-2022-JP-2"))))
 	       "-O"
-	       '(if (eq w3m-output-coding-system 'utf-8)
-		    "UTF-8"
-		  "ISO-2022-JP-2")))
+	       '(cond
+		 ((eq w3m-output-coding-system 'utf-8)
+		  "UTF-8")
+		 ((eq w3m-output-coding-system 'iso-8859-1)
+		  "ISO-8859-1")
+		 (t
+		  "ISO-2022-JP-2"))))
 	((eq w3m-input-coding-system 'w3m-euc-japan)
 	 (list "-halfdump" "-I" "e"))
 	(t (list "-halfdump")))
