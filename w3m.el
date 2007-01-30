@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1236 $"))
+    (let ((rev "$Revision: 1.1237 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2889,8 +2889,11 @@ and `w3m-verbose' is nil, it behaves as `format' and simply returns a
 string.  When `w3m-verbose' is non-nil, it behaves identically as
 `message', that displays a given message with logging."
   ;; Always clear previous message in order to shrink the window height
-  ;; for the echo area.  Only Emacs 22 or greater requires it, though.
-  (message nil)
+  ;; for the echo area.
+  (unless (or (featurep 'xemacs)
+	      (< emacs-major-version 22)
+	      (< (string-width (or (current-message) "")) (window-width)))
+    (message nil))
   (if w3m-verbose
       (apply (function message) args)
     (if (when w3m-process-background
