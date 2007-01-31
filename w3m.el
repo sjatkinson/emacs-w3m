@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1237 $"))
+    (let ((rev "$Revision: 1.1238 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -7166,23 +7166,6 @@ or a list which consists of the following elements:
     (setq w3m-tab-button-menu-current-buffer nil)
     (popup-menu w3m-tab-button-menu)))
 
-(defun w3m-clean-hook-options ()
-  "Remove the functions which should be set newly from some hooks."
-  (dolist (elem '((w3m-mode-hook w3m-setup-header-line
-				 w3m-setup-widget-faces
-				 w3m-update-tab-line)
-		  (w3m-fontify-after-hook w3m-header-line-insert
-					  w3m-update-tab-line)
-		  (w3m-display-hook w3m-select-buffer-update
-				    w3m-favicon-setup
-				    w3m-xmas-update-tab-in-gutter)
-		  (w3m-delete-buffer-hook w3m-select-buffer-update
-					  w3m-update-tab-line)))
-    (dolist (func (cdr elem))
-      (when (memq func (symbol-value (car elem)))
-	(message "Remove `%s' from `%s'" func (car elem))
-	(remove-hook (car elem) func)))))
-
 (defun w3m-mode ()
   "Major mode for browsing web.
 
@@ -7337,7 +7320,6 @@ or a list which consists of the following elements:
     (when (boundp 'hscroll-mode)
       (set (make-local-variable 'hscroll-mode) nil)))
   (make-local-variable 'list-buffers-directory)
-  (w3m-clean-hook-options)
   (w3m-setup-toolbar)
   (w3m-setup-menu)
   (run-hooks 'w3m-mode-setup-functions)
