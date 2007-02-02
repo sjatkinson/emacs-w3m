@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1242 $"))
+    (let ((rev "$Revision: 1.1243 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1416,6 +1416,16 @@ This variable can take one of the following five kinds of forms:
   "Non-nil means use Japanese characters for Menu if possible."
   :group 'w3m
   :type 'boolean)
+
+(defcustom w3m-menu-on-forefront nil
+  "Non-nil means place the emacs-w3m menus on the forefront of the menu bar."
+  :group 'w3m
+  :type 'boolean
+  :set (lambda (symbol value)
+	 (prog1
+	     (custom-set-default symbol value)
+	   (unless noninteractive
+	     (w3m-menu-on-forefront value)))))
 
 (defcustom w3m-use-tab t
   "Non-nil means make emacs-w3m a tab browser.
@@ -3386,11 +3396,7 @@ For example:
   (unless (featurep 'xemacs)
     (defun w3m-setup-menu ()
       "Define menubar buttons for Emacsen."
-      (let ((items (mapcar 'car (cdr (lookup-key global-map [menu-bar])))))
-	(when items
-	  ;; Place the W3M menu in the forefront of the menubar.
-	  (set (make-local-variable 'menu-bar-final-items)
-	       (delq 'w3m items))))
+      (w3m-menu-on-forefront w3m-menu-on-forefront t)
       (unless (keymapp (lookup-key w3m-mode-map [menu-bar w3m]))
 	(let ((map (make-sparse-keymap (car w3m-menubar))))
 	  (define-key w3m-mode-map [menu-bar] (make-sparse-keymap))
