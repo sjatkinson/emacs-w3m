@@ -186,7 +186,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1248 $"))
+    (let ((rev "$Revision: 1.1249 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3748,9 +3748,11 @@ If optional RESERVE-PROP is non-nil, text property is reserved."
     ;; Remove other markups.
     (goto-char (point-min))
     (while (re-search-forward "</?[A-Za-z_][^>]*>" nil t)
-      (let ((fid (get-text-property (match-beginning 0) 'w3m-form-field-id)))
-	(unless (and fid (string-match "/type=textarea/" fid))
-	  (delete-region (match-beginning 0) (match-end 0)))))
+      (let* ((start (match-beginning 0))
+	     (fid (get-text-property start 'w3m-form-field-id)))
+	(if (and fid (string-match "/type=text\\(?:area\\)?/" fid))
+	    (goto-char (1+ start))
+	  (delete-region start (match-end 0)))))
     ;; Decode escaped characters (entities).
     (w3m-decode-entities 'reserve-prop)
     (when w3m-use-form
