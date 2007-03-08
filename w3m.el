@@ -191,7 +191,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1255 $"))
+    (let ((rev "$Revision: 1.1256 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1007,6 +1007,17 @@ way of `post-command-hook'."
 	   (and (featurep 'xemacs)
 		(string-match "solaris" system-configuration))))
   "*Value for `process-connection-type' used when communicating with w3m."
+  :group 'w3m
+  :type 'boolean)
+
+(defcustom w3m-async-exec-with-many-urls
+  ;; XEmacs 21.5 tends to freeze when retrieving many urls at a time. :-<
+  (not (and (featurep 'xemacs) (not (featurep 'sxemacs))
+	    (= emacs-major-version 21) (= emacs-minor-version 5)))
+  "Non-nil means allow retrieving many urls asynchronously.
+The value affects how emacs-w3m will work with group:* urls and the
+`w3m-session-select' feature.  If it is nil, the asynchronous operation
+is inhibited in those cases even if `w3m-async-exec' is non-nil."
   :group 'w3m
   :type 'boolean)
 
@@ -7989,7 +8000,9 @@ Cannot run two w3m processes simultaneously \
     ;; Access url group
     (if (string-match "\\`group:" url)
 	(let ((urls (mapcar 'w3m-url-decode-string
-			    (split-string (substring url (match-end 0)) "&"))))
+			    (split-string (substring url (match-end 0)) "&")))
+	      (w3m-async-exec (and w3m-async-exec-with-many-urls
+				   w3m-async-exec)))
 	  (w3m-process-do
 	      (type (prog1
 			(w3m-goto-url (car urls))
