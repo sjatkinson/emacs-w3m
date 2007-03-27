@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1259 $"))
+    (let ((rev "$Revision: 1.1260 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1421,6 +1421,11 @@ This variable can take one of the following five kinds of forms:
 It makes it possible to show all emacs-w3m buffers in a single window
 with the tabs line, and you can choose one by clicking a mouse on it.
 See also `w3m-use-tab-menubar'."
+  :group 'w3m
+  :type 'boolean)
+
+(defcustom w3m-add-tab-number nil
+  "Non-nil means put sequential number to a title on tab."
   :group 'w3m
   :type 'boolean)
 
