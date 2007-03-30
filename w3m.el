@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1262 $"))
+    (let ((rev "$Revision: 1.1263 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8987,14 +8987,12 @@ buffer list.  The following command keys are available:
   (w3m-select-buffer-mode)
   (or nomsg (w3m-message w3m-select-buffer-message)))
 
-(unless (fboundp 'w3m-update-tab-line)
-  (defalias 'w3m-update-tab-line 'ignore))
-
 (defun w3m-select-buffer-update (&rest args)
   (when (get-buffer-window w3m-select-buffer-name)
     (save-selected-window
       (w3m-select-buffer nil 'update)))
-  (w3m-update-tab-line))
+  (when w3m-use-tab
+    (w3m-force-window-update)))
 
 (defun w3m-select-buffer-generate-contents (current-buffer)
   (let ((i 0)
