@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1263 $"))
+    (let ((rev "$Revision: 1.1264 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -6129,13 +6129,14 @@ No method to view `%s' is registered. Use `w3m-edit-this-url'"
 	    (set-process-sentinel
 	     proc
 	     (lambda (proc event)
-	       (and (string-match "^\\(?:finished\\|exited\\)" event)
-		    (buffer-name (process-buffer proc))
-		    (with-current-buffer (process-buffer proc)
-		      (and (stringp file)
-			   (file-exists-p file)
-			   (delete-file file)))
-		    (kill-buffer (process-buffer proc))))))
+	       (let ((buffer (process-buffer proc)))
+		 (when (and (string-match "^\\(?:finished\\|exited\\)" event)
+			    (buffer-name buffer))
+		   (with-current-buffer buffer
+		     (and (stringp file)
+			  (file-exists-p file)
+			  (delete-file file)))
+		   (kill-buffer buffer))))))
 	(and (stringp file)
 	     (file-exists-p file)
 	     (unless (and (processp proc)
