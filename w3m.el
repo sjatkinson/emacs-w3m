@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1268 $"))
+    (let ((rev "$Revision: 1.1269 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4317,7 +4317,8 @@ for decoding when the cdr that the data specify is not available.")
     (unless content-charset
       (setq content-charset
 	    (or (w3m-content-charset url)
-		(when (string= "text/html" content-type)
+		(when (or (string= "text/html" content-type)
+			  (string-match "\\`about://source/" url))
 		  (w3m-detect-meta-charset))
 		(w3m-detect-xml-charset))))
     (cond
