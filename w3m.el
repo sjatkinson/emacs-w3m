@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1272 $"))
+    (let ((rev "$Revision: 1.1273 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8142,7 +8142,11 @@ Cannot run two w3m processes simultaneously \
 				      (list :title (or w3m-current-title
 						       "<no-title>")))
 		    (goto-char (point-min)))
-		(if (and name (w3m-search-name-anchor name))
+		(if (and name
+			 (progn
+			   ;; Redisplay to search an anchor sure.
+			   (sit-for 0)
+			   (w3m-search-name-anchor name)))
 		    (setf (w3m-arrived-time (w3m-url-strip-authinfo orig))
 			  (w3m-arrived-time url))
 		  (goto-char (point-min)))
