@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1278 $"))
+    (let ((rev "$Revision: 1.1279 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5928,10 +5928,17 @@ compatibility which is described in Section 5.2 of RFC 2396.")
 	       (= (match-beginning 9) (length url)))
       (setq url (substring url 0 (match-beginning 8)))
       (w3m-string-match-url-components url))
+    (when (eq ?? (aref url 0))
+      (setq url (concat "./" url))
+      (w3m-string-match-url-components url))
     ;; Remove an empty query part.
     (when (and (match-beginning 6)
-	       (= (match-beginning 7) (length url)))
-      (setq url (substring url 0 (match-beginning 6)))
+	       (= (match-beginning 7) (or (match-beginning 8)
+					  (length url))))
+      (setq url (concat (substring url 0 (match-beginning 6))
+			(if (match-beginning 8)
+			    (substring url (match-beginning 8))
+			  "")))
       (w3m-string-match-url-components url))
     (cond
      ((match-beginning 1)
