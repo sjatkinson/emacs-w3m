@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1282 $"))
+    (let ((rev "$Revision: 1.1283 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4944,12 +4944,13 @@ It will put the retrieved contents into the current buffer.  See
 	      (with-current-buffer current-buffer
 		(insert-buffer-substring temp-buffer))
 	      (goto-char (point-min))
-	      ;; Asahi-shimbun sometimes says gif as jpeg mistakenly, for
-	      ;; example.  So, we cannot help trusting the data itself.
+	      ;; Hatena diary sometimes specifies Content-Type mistakenly,
+	      ;; so we cannot help trusting the data itself.
 	      (if (and (string-match "^image/" (cadr attr))
 		       (prog2
 			   (setq case-fold-search nil)
-			   (looking-at "\\(GIF8\\)\\|\\(\377\330\\)\\|\211PNG\r\n")
+			   (looking-at
+			    "\\(GIF8\\)\\|\\(\377\330\\)\\|\211PNG\r\n")
 			 (setq case-fold-search t)))
 		  (progn
 		    (concat "image/"
