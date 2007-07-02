@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1285 $"))
+    (let ((rev "$Revision: 1.1286 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2904,7 +2904,7 @@ need to know what function will be made, use `macroexpand'."
 	       (w3m-url-readable-string ,str))))
     `(lambda (window object pos)
        (if w3m-track-mouse
-	   (progn
+	   (let ((deactivate-mark nil))
 	     (message nil)	; Clear the echo area.
 	     (w3m-url-readable-string
 	      (get-text-property pos ',property
