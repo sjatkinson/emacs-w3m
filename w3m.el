@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1287 $"))
+    (let ((rev "$Revision: 1.1288 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9514,7 +9514,7 @@ the `w3m-mode', otherwise use an existing emacs-w3m buffer."
   (let ((w3m-pop-up-windows nil)
 	(url (w3m-url-valid (w3m-anchor))))
     (cond
-     (url (or (when (fboundp w3m-goto-article-function)
+     (url (or (when (functionp w3m-goto-article-function)
 		(funcall w3m-goto-article-function url))
 	      (if (and w3m-make-new-session
 		       (not (eq major-mode 'w3m-mode)))
