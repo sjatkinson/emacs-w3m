@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1293 $"))
+    (let ((rev "$Revision: 1.1294 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -7874,6 +7874,7 @@ It makes the ends of upper and lower three lines visible.  If
 					      (concat (car post-data) "\n"))
 					     (concat post-data "\n")))))))))
 	  ;; without rfc2368.el.
+	  (string-match ":\\([^?]+\\)" url)
 	  (funcall comp (match-string 1 url)))))
     (setq buffers (nreverse (buffer-list)))
     (save-current-buffer
