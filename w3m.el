@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1295 $"))
+    (let ((rev "$Revision: 1.1296 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3112,26 +3112,7 @@ non-nil, control chars will be represented with ^ as `cat -v' does."
 	    buf)
       (setq start (match-end 0)))
     (setq str (apply 'concat (nreverse (cons (substring str start) buf))))
-    (w3m-static-cond
-     ((and (featurep 'xemacs)
-	   (fboundp 'find-coding-system)
-	   (subrp (symbol-function 'find-coding-system)))
-      (w3m-decode-coding-string-with-priority str coding))
-     ((featurep 'xemacs)
-      str)
-     (t
-      (setq str (string-make-unibyte str))
-      (when (listp coding)
-	(setq coding
-	      (with-temp-buffer
-		(set-buffer-multibyte nil)
-		(insert str)
-		(w3m-detect-coding-region (point-min) (point-max) coding))))
-      (decode-coding-string str
-			    (or coding
-				w3m-default-coding-system
-				w3m-coding-system
-				'iso-2022-7bit))))))
+    (w3m-decode-coding-string-with-priority str coding)))
 
 (defun w3m-url-readable-string (url)
   "Return a readable string for a give encoded URL.
