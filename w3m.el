@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1297 $"))
+    (let ((rev "$Revision: 1.1298 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9514,8 +9514,7 @@ passed to the `w3m-quit' function (which see)."
 (defun w3m-header-line-insert ()
   "Put the header line into the current buffer."
   (when (and (or (featurep 'xemacs)
-		 (w3m-use-tab-p)
-		 w3m-use-header-line-title)
+		 (w3m-use-tab-p))
 	     w3m-use-header-line
 	     w3m-current-url
 	     (eq 'w3m-mode major-mode))
