@@ -168,7 +168,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1299 $"))
+    (let ((rev "$Revision: 1.1300 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4442,8 +4442,9 @@ Users should never modify the value.  See also `w3m-view-source'.")
   "Return the content type and the content encoding of URL."
   (setq url (or (w3m-url-to-file-name url)
 		(file-name-nondirectory url)))
-  (if (and (file-name-absolute-p url)
-	   (file-directory-p url))
+  (if (or (and (file-name-absolute-p url)
+	       (file-directory-p url))
+	  (string-match "\\`news:" url)) ;; FIXME: isn't this a kludge?
       (cons "text/html" nil)
     (let ((encoding
 	   (catch 'encoding-detected
