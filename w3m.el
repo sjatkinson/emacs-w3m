@@ -91,8 +91,10 @@
    ((>= emacs-major-version 21)
     (require 'w3m-ems))
    (t
-    (error "Emacs-w3m of this version no longer supports Emacs %d"
-	   emacs-major-version))))
+    (error "Emacs-w3m of this version no longer supports Emacs %s"
+	   (mapconcat 'identity
+		      (nbutlast (split-string emacs-version "\\."))
+		      ".")))))
 
 (require 'w3m-fb)
 (require 'w3m-hist)
@@ -168,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1301 $"))
+    (let ((rev "$Revision: 1.1302 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
