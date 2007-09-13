@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1303 $"))
+    (let ((rev "$Revision: 1.1304 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5968,20 +5968,21 @@ COUNT is treated as 1 by default if it is omitted."
 	  ;; cygwin-mount.el destroys `expand-file-name';
 	  ;; (expand-file-name "../index.html" "/foo/bar/")
 	  ;;  => "c:/cygwin/foo/index.html"
-	  (let ((inhibit-file-name-handlers
-		 '(cygwin-mount-name-hook-function
-		   cygwin-mount-map-drive-hook-function))
-		(inhibit-file-name-operation 'expand-file-name)
-		path)
-	    (setq path
-		  (w3m-static-if (featurep 'xemacs)
-		      ;; It is ?\ by default in XEmacs on Windows native.
-		      (let ((directory-sep-char ?/))
-			(expand-file-name name base))
-		    (expand-file-name name base)))
-	    (if (string-match "\\`.:" path)
-		(substring path (match-end 0))
-	      path)))
+	  (save-match-data
+	    (let ((inhibit-file-name-handlers
+		   '(cygwin-mount-name-hook-function
+		     cygwin-mount-map-drive-hook-function))
+		  (inhibit-file-name-operation 'expand-file-name)
+		  path)
+	      (setq path
+		    (w3m-static-if (featurep 'xemacs)
+			;; It is ?\ by default in XEmacs on Windows native.
+			(let ((directory-sep-char ?/))
+			  (expand-file-name name base))
+		      (expand-file-name name base)))
+	      (if (string-match "\\`.:" path)
+		  (substring path (match-end 0))
+		path))))
       (defalias 'w3m-expand-path-name 'expand-file-name))))
 
 (defconst w3m-url-hierarchical-schemes
