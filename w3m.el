@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1310 $"))
+    (let ((rev "$Revision: 1.1311 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8566,9 +8566,10 @@ defaults to the value of `w3m-home-page' or \"about:\"."
 	args)
     (if (and url (not (string-match "\\`-" url)))
 	(setq command-line-args-left (cdr command-line-args-left))
-      (setq args (nthcdr (- (length command-line-args)
-			    (length command-line-args-left)
-			    2)
+      (setq args (nthcdr (max (- (length command-line-args)
+				 (length command-line-args-left)
+				 2)
+			      1)
 			 command-line-args))
       (when (and (equal (cadr args) "w3m")
 		 (member (car args) directives))
