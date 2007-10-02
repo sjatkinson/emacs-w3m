@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1316 $"))
+    (let ((rev "$Revision: 1.1317 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5531,6 +5531,7 @@ called with t as an argument.  Otherwise, it will be called with nil."
 		(string-match "\\`w3m: Can't load " header))
 	    (progn
 	      (erase-buffer)
+	      (setq charset "us-ascii")
 	      (insert
 	       errmsg
 	       (format "<br><br><b>%s</b> could not be found; "
