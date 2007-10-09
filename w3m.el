@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1317 $"))
+    (let ((rev "$Revision: 1.1318 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2963,11 +2963,12 @@ string.  When `w3m-verbose' is non-nil, it behaves identically as
 	      (when (current-message)
 		(not (equal (current-message) w3m-current-message)))))
 	(apply (function format) args)
-      (setq w3m-current-message
-	    (w3m-static-if (featurep 'xemacs)
-		(display-message 'no-log (apply (function format) args))
-	      (let (message-log-max)
-		(apply (function message) args)))))))
+      (w3m-static-if (featurep 'xemacs)
+	  (progn
+	    (setq w3m-current-message (apply (function format) args))
+	    (display-message 'no-log w3m-current-message))
+	(let (message-log-max)
+	  (setq w3m-current-message (apply (function message) args)))))))
 
 (defun w3m-time-parse-string (string)
   "Parse the time-string STRING into a time in the Emacs style."
