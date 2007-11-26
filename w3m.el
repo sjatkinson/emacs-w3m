@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1325 $"))
+    (let ((rev "$Revision: 1.1326 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5455,6 +5455,11 @@ be displayed especially in shimbun articles."
   (w3m-message "Rendering...done")
   (w3m-rendering-extract-title))
 
+(defcustom w3m-confirm-leaving-secure-page t
+  "If non-nil, you'll be asked for confirmation when leaving secure pages."
+  :group 'w3m
+  :type 'boolean)
+
 (defun w3m-retrieve-and-render (url &optional no-cache charset
 				    post-data referer handler)
   "Retrieve contents of URL and render them in the current buffer.
@@ -5464,7 +5469,11 @@ a new content is retrieved in the buffer, the HANDLER function will be
 called with t as an argument.  Otherwise, it will be called with nil."
   (unless (and w3m-current-ssl
 	       (not (string-match "\\`\\(?:ht\\|f\\)tps://" url))
-	       (not (y-or-n-p "You are leaving secure page.  Continue? ")))
+	       (and w3m-confirm-leaving-secure-page
+		    (not
+		     (prog1
+			 (y-or-n-p "You are leaving secure page.  Continue? ")
+		       (message nil)))))
     (lexical-let ((url (w3m-url-strip-fragment url))
 		  (charset charset)
 		  (page-buffer (current-buffer))
