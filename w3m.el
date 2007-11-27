@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1328 $"))
+    (let ((rev "$Revision: 1.1329 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3479,7 +3479,10 @@ If URL is specified, only the image with URL is toggled."
 		     '(w3m-image-dummy t w3m-image "dummy"))
 		    (setq end (point)))
 		(goto-char cur-point)
-		(when (w3m-url-valid iurl)
+		(when (and (w3m-url-valid iurl)
+			   (or (not w3m-current-ssl)
+			       (string-match "\\`\\(?:ht\\|f\\)tps://" iurl)
+			       (y-or-n-p "You are retrieving non-secure image. Continue?")))
 		  (w3m-process-with-null-handler
 		    (lexical-let ((start (set-marker (make-marker) start))
 				  (end (set-marker (make-marker) end))
@@ -3597,7 +3600,10 @@ resizing an image."
 				   (progn (insert image) (point))
 				   '(w3m-image-dummy t
 						     w3m-image "dummy")))
-      (when iurl
+      (when (and iurl
+		 (or (not w3m-current-ssl)
+		     (string-match "\\`\\(?:ht\\|f\\)tps://" iurl)
+		     (y-or-n-p "You are retrieving non-secure image. Continue?")))
 	(w3m-process-with-null-handler
 	  (lexical-let ((start (set-marker (make-marker) start))
 			(end (set-marker (make-marker) end))
