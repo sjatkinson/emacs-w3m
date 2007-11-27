@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1329 $"))
+    (let ((rev "$Revision: 1.1330 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3600,7 +3600,7 @@ resizing an image."
 				   (progn (insert image) (point))
 				   '(w3m-image-dummy t
 						     w3m-image "dummy")))
-      (when (and iurl
+      (when (and (w3m-url-valid iurl)
 		 (or (not w3m-current-ssl)
 		     (string-match "\\`\\(?:ht\\|f\\)tps://" iurl)
 		     (y-or-n-p "You are retrieving non-secure image. Continue?")))
