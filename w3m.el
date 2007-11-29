@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1331 $"))
+    (let ((rev "$Revision: 1.1332 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9561,12 +9561,12 @@ or `w3m-goto-url-new-session' is employed to display the page."
 
 (defun w3m-safe-view-this-url ()
   "View the URL of the link under point.
-This command is quite similar to `w3m-view-this-url' without three
-differences: (1) this command accepts no arguments, (2) this command
-does not handle forms, and (3) this command does not consider URL-like
-strings under the cursor.  When an insecure page which may contain
-vicious forms is viewed, this command should be used instead of
-`w3m-view-this-url'.
+This command is quite similar to `w3m-view-this-url' except for the
+three differences: (1) this command accepts no arguments, (2) this
+command does not handle forms, and (3) this command does not consider
+URL-like strings under the cursor.  When an insecure page which may
+contain vicious forms is viewed, this command should be used instead
+of `w3m-view-this-url'.
 
 Note that this command depends on the value of `w3m-safe-url-regexp'
 \(which see) to consider whether the URL is safe.  You need to keep in
