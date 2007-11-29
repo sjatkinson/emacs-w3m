@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1332 $"))
+    (let ((rev "$Revision: 1.1333 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8396,19 +8396,20 @@ If you invoke this command in the emacs-w3m buffer, the new session
 will be created by copying the current session.  Otherwise, the new
 session will start afresh."
   (interactive
-   (list
-    (w3m-input-url nil
-		   (when (stringp w3m-current-url)
-		     (if (string-match "\\`about://\\(?:header\\|source\\)/"
-				       w3m-current-url)
-			 (substring w3m-current-url (match-end 0))
-		       w3m-current-url))
-		   nil nil 'feeling-lucky)
-    current-prefix-arg
-    (w3m-static-if (fboundp 'universal-coding-system-argument)
-	coding-system-for-read)
-    nil ;; post-data
-    nil)) ;; referer
+   (list (w3m-input-url
+	  nil
+	  (or (w3m-active-region-or-url-at-point)
+	      (when (stringp w3m-current-url)
+		(if (string-match "\\`about://\\(?:header\\|source\\)/"
+				  w3m-current-url)
+		    (substring w3m-current-url (match-end 0))
+		  w3m-current-url)))
+	  nil nil 'feeling-lucky)
+	 current-prefix-arg
+	 (w3m-static-if (fboundp 'universal-coding-system-argument)
+	     coding-system-for-read)
+	 nil ;; post-data
+	 nil)) ;; referer
   (let (buffer)
     (if (or (eq 'w3m-mode major-mode)
 	    (and (setq buffer (w3m-alive-p))
