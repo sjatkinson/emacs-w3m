@@ -170,7 +170,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1341 $"))
+    (let ((rev "$Revision: 1.1342 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3387,7 +3387,8 @@ The database is kept in `w3m-entity-table'."
 					   name)
 					  prenames)))))))
     (when w3m-icon-data
-      (setq w3m-icon-data (cons (w3m-expand-url (car w3m-icon-data))
+      (setq w3m-icon-data (cons (and (car w3m-icon-data)
+				     (w3m-expand-url (car w3m-icon-data)))
 				(or (w3m-image-type (cdr w3m-icon-data))
 				    'ico))))
     (when w3m-next-url
