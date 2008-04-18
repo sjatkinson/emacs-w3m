@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1355 $"))
+    (let ((rev "$Revision: 1.1356 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1913,6 +1913,13 @@ Here are some predefined functions which can be used for those ways:
      ,(concat "<a[^>]+?href=" w3m-html-string-regexp
 	      ">\\(?:\\(?:<img src=[^>]*nav_previous\\.gif\\)"
 	      "\\|\\(?:<span>Previous</span>\\)\\)")
+     nil nil)
+    (w3m-relationship-simple-estimate
+     "\\`http://www\\.google\\.[^/]+/gwt/n\\?u="
+     ,(concat "<a[^>]+?href=" w3m-html-string-regexp
+	      "[ \t\n]+accesskey=\"3\">")
+     ,(concat "<a[^>]+?href=" w3m-html-string-regexp
+	      "[ \t\n]+accesskey=\"1\">")
      nil nil)
     (w3m-relationship-simple-estimate
      "\\`http://beta\\.search\\.yahoo\\.co\\.jp/"
