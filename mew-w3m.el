@@ -6,7 +6,7 @@
 ;; Author: Shun-ichi GOTO  <gotoh@taiyo.co.jp>,
 ;;         Hideyuki SHIRAI <shirai@meadowy.org>
 ;; Created: Wed Feb 28 03:31:00 2001
-;; Version: $Revision: 1.61 $
+;; Version: $Revision: 1.62 $
 ;; Keywords: Mew, mail, w3m, WWW, hypermedia
 
 ;; This file is a part of emacs-w3m.
@@ -119,6 +119,11 @@ This variable is effective only in XEmacs, Emacs 21 and Emacs 22."
     (autoload 'mew-syntax-get-entry-by-cid "mew")
     (defun mew-cache-hit (&rest args) ())))
 
+(defmacro mew-w3m-add-text-properties (props)
+  `(add-text-properties (point-min)
+			(min (1+ (point-min)) (point-max))
+			,props))
+
 (defun mew-w3m-minor-mode-setter ()
   "Check message buffer and activate w3m-minor-mode."
   (w3m-minor-mode (or (and (get-text-property (point-min) 'w3m)
@@ -147,8 +152,7 @@ This variable is effective only in XEmacs, Emacs 21 and Emacs 22."
 				     mew-w3m-safe-url-regexp)))
 	 (w3m-toggle-inline-images)
 	 (mew-elet
-	  (put-text-property (point-min) (1+ (point-min))
-			     'w3m-images (not image))
+	  (mew-w3m-add-text-properties `(w3m-images ,(not image)))
 	  (set-buffer-modified-p nil)))))))
 
 ;; processing Text/Html contents with w3m.
@@ -225,10 +229,7 @@ This variable is effective only in XEmacs, Emacs 21 and Emacs 22."
 		      (progn (insert-buffer-substring cache begin end)
 			     (point))
 		      xref))))
-       (put-text-property (point-min) (1+ (point-min)) 'w3m t)
-       (put-text-property (point-min) (1+ (point-min))
-			  'w3m-images mew-w3m-auto-insert-image)))))
-
+       (mew-w3m-add-text-properties `(w3m t w3m-images ,mew-w3m-auto-insert-image))))))
 
 (defvar w3m-mew-support-cid (and (boundp 'mew-version-number)
 				 (fboundp 'mew-syntax-get-entry-by-cid)))
