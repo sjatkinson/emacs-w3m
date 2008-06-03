@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1365 $"))
+    (let ((rev "$Revision: 1.1366 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3726,7 +3726,11 @@ This image is considered to be unsafe; use the prefix arg to force display"))))
   "Toggle the visibility of all images in the buffer or in the region.
 If FORCE is neither nil nor `turnoff', displaying images is forced.
 The value `turnoff' is special; it turns displaying images off anyway.
-If NO-CACHE is non-nil, cached data will not be used."
+If NO-CACHE is non-nil, cached data will not be used.
+
+Note that the status of whether images are visible is kept hereafter
+even in new sessions if the `w3m-toggle-inline-images-permanently'
+variable is non-nil (default=t)."
   (interactive "P")
   (unless (w3m-display-graphic-p)
     (error "Can't display images in this environment"))
