@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1367 $"))
+    (let ((rev "$Revision: 1.1368 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9575,17 +9575,12 @@ buffer list.  The following command keys are available:
 	  (not w3m-select-buffer-horizontal-window))
     (when (get-buffer-window w3m-select-buffer-name)
       (delete-windows-on w3m-select-buffer-name)))
-  (cond ((eq major-mode 'w3m-mode)
-	 (w3m-delete-frames-and-windows (selected-window))
-	 (unless (get-buffer-window w3m-select-buffer-name)
-	   (delete-other-windows)))
-	((eq major-mode 'w3m-select-buffer-mode))
-	(t
-	 (let ((buffer (w3m-alive-p t)))
-	   (if buffer
-	       (w3m-popup-buffer buffer)
-	     (w3m-goto-url (or w3m-home-page "about:"))))
-	 (delete-other-windows)))
+  (unless (or (eq major-mode 'w3m-mode)
+	      (eq major-mode 'w3m-select-buffer-mode))
+    (let ((buffer (w3m-alive-p t)))
+      (if buffer
+	  (w3m-popup-buffer buffer)
+	(w3m-goto-url (or w3m-home-page "about:")))))
   (let ((selected-window (selected-window))
 	(current-buffer (current-buffer)))
     (set-buffer (w3m-get-buffer-create w3m-select-buffer-name))
