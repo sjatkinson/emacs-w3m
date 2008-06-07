@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1368 $"))
+    (let ((rev "$Revision: 1.1369 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9866,7 +9866,8 @@ passed to the `w3m-quit' function (which see)."
   :type 'boolean)
 
 (defcustom w3m-use-header-line-title nil
-  "Non-nil means display the current title at the header line."
+  "Non-nil means display the current title at the header line.
+This variable is effective only when `w3m-use-tab' is nil."
   :group 'w3m
   :type 'boolean)
 
