@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1369 $"))
+    (let ((rev "$Revision: 1.1370 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8013,10 +8013,11 @@ Otherwise, it defaults to `w3m-horizontal-shift-columns'."
 	     (not (and (eq last-command this-command)
 		       (or (eq (point) (point-min))
 			   (eq (point) (point-max)))))
-	     (markerp (nth 1 w3m-current-position))
-	     (markerp (nth 2 w3m-current-position))
-	     (>= (point) (marker-position (nth 1 w3m-current-position)))
-	     (<= (point) (marker-position (nth 2 w3m-current-position))))
+	     (or (string-match "\\`i?search-" (symbol-name this-command))
+		 (and (markerp (nth 1 w3m-current-position))
+		      (markerp (nth 2 w3m-current-position))
+		      (>= (point) (marker-position (nth 1 w3m-current-position)))
+		      (<= (point) (marker-position (nth 2 w3m-current-position))))))
     (w3m-horizontal-on-screen))
   (setq w3m-horizontal-scroll-done nil))
 
