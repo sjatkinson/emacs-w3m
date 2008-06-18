@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1371 $"))
+    (let ((rev "$Revision: 1.1372 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -6422,7 +6422,7 @@ command instead."
 	     w3m-current-url
 	     (w3m-url-valid w3m-current-url)
 	     (if w3m-submit-form-safety-check
-		 (y-or-n-p "Submit? ")
+		 (prog1 (y-or-n-p "Submit? ") (message nil))
 	       t))
 	(let ((w3m-form-new-session new-session)
 	      (w3m-form-download nil))
