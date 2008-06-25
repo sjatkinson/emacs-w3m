@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1374 $"))
+    (let ((rev "$Revision: 1.1375 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3580,7 +3580,6 @@ The database is kept in `w3m-entity-table'."
 STATUS is current image status.
 If NO-CACHE is non-nil, cache is not used.
 If URL is specified, only the image with URL is toggled."
-  (interactive "P")
   (let ((cur-point (point))
 	(buffer-read-only)
 	(end (or begin-pos (point-min)))
