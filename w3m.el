@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1377 $"))
+    (let ((rev "$Revision: 1.1378 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9280,7 +9280,7 @@ non-ASCII characters."
 	  (case-fold-search t)
 	  header ssl beg)
       (when (or ct charset)
-	(insert "\n\n" separator "\n\nModifer Information\n")
+	(insert "\n\n" separator "\n\nModifier Information\n")
 	(insert "\nDocument Content-Type:  " (or ct ""))
 	(insert "\nDocument Charset:       " (or charset "")))
       (when (and (not (w3m-url-local-p url))
