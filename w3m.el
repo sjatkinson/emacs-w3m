@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1381 $"))
+    (let ((rev "$Revision: 1.1382 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4116,7 +4116,7 @@ be generated.  In that case, Gmane might fail to find the thread since
 it is possible that the root article has been posted to another group.
 
 That it returns an invalid url for the article of the group which is
-not being archived in Gmane cannott be helped."
+not being archived in Gmane cannot be helped."
   (save-excursion
     (let ((fmt "http://news.gmane.org/group/thread=%s/force_load=t")
 	  (start (point))
