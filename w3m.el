@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1385 $"))
+    (let ((rev "$Revision: 1.1386 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -937,8 +937,10 @@ of the original request method."
 ;; backward-compatibility alias
 (put 'w3m-bold-face 'face-alias 'w3m-bold)
 
-(defface w3m-italic '((t (:italic t)))
-  "Face used for displaying italic text."
+(defface w3m-italic '((((type tty)) (:underline t))
+		      (t (:italic t)))
+  "Face used for displaying italic text.
+By default it will be a underline face on a non-window system."
   :group 'w3m-face)
 ;; backward-compatibility alias
 (put 'w3m-italic-face 'face-alias 'w3m-italic)
