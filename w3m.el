@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1387 $"))
+    (let ((rev "$Revision: 1.1388 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4298,16 +4298,14 @@ if it has no scheme part."
 					 "HOME"
 				       default)
 				     "): "))
-			 (if default
-			     (format "URL %s(default %s): "
-				     (if feeling-lucky
-					 "or Keyword "
-				       "")
-				     (if (stringp default)
-					 (if (eq default w3m-home-page)
-					     "HOME" default)
-				       (prin1-to-string default)))
-			   "URL: "))
+			 (if (or initial (not default))
+			     (if feeling-lucky "URL or Keyword: " "URL: ")
+			   (format "URL %s(default %s): "
+				   (if feeling-lucky "or Keyword " "")
+				   (if (stringp default)
+				       (if (eq default w3m-home-page)
+					   "HOME" default)
+				     (prin1-to-string default)))))
 		       'w3m-url-completion nil nil initial
 		       'w3m-input-url-history)
 		    (define-key minibuffer-local-completion-map " " ofunc))))
