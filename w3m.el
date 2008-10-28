@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1389 $"))
+    (let ((rev "$Revision: 1.1390 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -9372,8 +9372,8 @@ non-ASCII characters."
 		   (substring w3m-current-url (match-end 0)))
 		  ((string-match "\\`about://source/" w3m-current-url)
 		   (let ((real-url (substring w3m-current-url (match-end 0))))
-			 (unless (string-match "\\`about:" real-url)
-			   (concat "about://header/" real-url))))
+		     (unless (string-match "\\`about:" real-url)
+		       (concat "about://header/" real-url))))
 		  ((string-match "\\`about:" w3m-current-url)
 		   nil)
 		  (t
