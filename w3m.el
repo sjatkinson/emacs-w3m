@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1390 $"))
+    (let ((rev "$Revision: 1.1391 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4877,9 +4877,9 @@ Return a list which includes:
 			   (match-string 1 type))
 		  type (w3m-remove-redundant-spaces
 			(substring type 0 (match-beginning 0))))
-	  (setq type (w3m-remove-redundant-spaces type))
-	  (when (string-match ";" type)
-	    (setq type (substring type 0 (match-beginning 0)))))
+	  (setq type (w3m-remove-redundant-spaces type)))
+	(when (string-match ";" type)
+	  (setq type (substring type 0 (match-beginning 0))))
 	(setq type (downcase type)))
       (setq w3m-current-ssl (cdr (assoc "w3m-ssl-certificate" headers)))
       (when (string-match "\\`ftps?:" url)
