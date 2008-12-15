@@ -176,7 +176,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1396 $"))
+    (let ((rev "$Revision: 1.1397 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4606,7 +4606,8 @@ It supports the encoding types of gzip, bzip2, deflate, etc."
 	  "utf-8"))))
 
 (defvar w3m-compatible-encoding-alist
-  '((iso-8859-1 . windows-1252)
+  '((gb2312 . gbk)
+    (iso-8859-1 . windows-1252)
     (iso-8859-8 . windows-1255)
     (iso-8859-9 . windows-1254))
   "Alist of encodings and those supersets.
