@@ -179,7 +179,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1402 $"))
+    (let ((rev "$Revision: 1.1403 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -282,7 +282,9 @@ The value of `w3m-user-agent' is used for the field body."
 
 (defcustom w3m-language
   (if (and (boundp 'current-language-environment)
-	   (string= "Japanese" (symbol-value 'current-language-environment)))
+	   ;; In XEmacs 21.5 it may be the one like "Japanese (UTF-8)".
+	   (string-match "\\`Japanese"
+			 (symbol-value 'current-language-environment)))
       "Japanese")
   "*Your preferred language used in emacs-w3m sessions."
   :group 'w3m
