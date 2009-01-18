@@ -181,7 +181,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1407 $"))
+    (let ((rev "$Revision: 1.1408 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -915,10 +915,10 @@ of the original request method."
   '((((class color) (background light)) (:background "light yellow"))
     (((class color) (background dark)) (:background "dark green"))
     (t (:underline t)))
-  "Face used for displaying alternate strings of images."
+  "Face used for displaying alternate strings of images which are in anchors."
   :group 'w3m-face)
 ;; backward-compatibility alias
-(put 'w3m-image-face 'face-alias 'w3m-image)
+(put 'w3m-image-anchor-face 'face-alias 'w3m-image-anchor)
 
 (defface w3m-history-current-url
   ;; The following strange code compounds the attributes of the
