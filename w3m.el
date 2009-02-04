@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1418 $"))
+    (let ((rev "$Revision: 1.1419 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -10229,8 +10229,10 @@ This variable is effective only when `w3m-use-tab' is nil."
 					   (t "")))))
     (w3m-add-face-property (point-min) (point) 'w3m-header-line-location-title)
     (let ((start (point)))
-      (insert (w3m-url-decode-string w3m-current-url
-				     w3m-current-coding-system))
+      (insert (if (string-match "[^\000-\177]" w3m-current-url)
+		  w3m-current-url
+		(w3m-url-decode-string w3m-current-url
+				       w3m-current-coding-system)))
       (w3m-add-face-property start (point) 'w3m-header-line-location-content)
       (w3m-add-text-properties start (point)
 			       `(mouse-face highlight
