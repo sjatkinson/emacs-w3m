@@ -183,7 +183,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1419 $"))
+    (let ((rev "$Revision: 1.1420 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -8647,7 +8647,9 @@ generate a new buffer."
   (w3m-add-local-hook 'post-command-hook 'w3m-check-current-position)
   (w3m-initialize-graphic-icons)
   (setq mode-line-buffer-identification
-	`("%b "
+	`(,@(w3m-static-if (featurep 'xemacs)
+		(list (cons modeline-buffer-id-right-extent "%b") " ")
+	      (nconc (propertized-buffer-identification "%b") '(" ")))
 	  (w3m-current-process
 	   w3m-modeline-process-status-on
 	   (w3m-current-ssl
