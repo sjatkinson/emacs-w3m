@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1433 $"))
+    (let ((rev "$Revision: 1.1434 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2804,18 +2804,7 @@ If SOFT is non-nil, use `intern-soft' instead."
 Optional TITLE, MODIFICATION-TIME, ARRIVAL-TIME, CONTENT-CHARSET and
 CONTENT-TYPE are also be added."
   (unless (string-match w3m-arrived-ignored-regexp url)
-    (let ((ident (w3m-arrived-intern url))
-	  (decoded-url (w3m-url-decode-string
-			url
-			(and content-charset
-			     (w3m-charset-to-coding-system
-			      content-charset)))))
-      (unless (or (string= url decoded-url)
-		  (string-match "[^\000-\177]" url)
-		  (not (string-match "[^\000-\177]" decoded-url)))
-	(w3m-arrived-add decoded-url
-			 title modification-time arrival-time
-			 content-charset content-type))
+    (let ((ident (w3m-arrived-intern url)))
       (if (string-match "\\`\\([^#]+\\)#" url)
 	  (w3m-arrived-add (substring url 0 (match-end 1))
 			   title modification-time arrival-time
