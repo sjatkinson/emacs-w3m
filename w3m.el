@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1436 $"))
+    (let ((rev "$Revision: 1.1437 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1746,7 +1746,8 @@ of the w3m command.  See also `w3m-command'."
 				    (and (w3m-image-type-available-p 'xbm)
 					 '("xbm"))
 				    (and (w3m-image-type-available-p 'xpm)
-					 '("xpm"))))
+					 '("xpm")))
+			    t) ;; with surrounding parens (for old Emacsen).
 		"\\'"))
   "*Cons of two regexps matching and not matching with local file names.
 If a url of the `file:' scheme in which you entered matches the first
