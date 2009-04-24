@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1439 $"))
+    (let ((rev "$Revision: 1.1440 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2743,7 +2743,7 @@ and the net_loc part from URL.  It is meaningless to give an argument
 whose net_loc part is not empty, a null string or the localhost name
 to this function."
   (cond
-   ((string-match "\\`\\(\\(file:/\\{1,2\\}\\)\\|about://dtree\\)/" url)
+   ((string-match "\\`\\(\\(file:/\\{0,2\\}\\)\\|about://dtree\\)/" url)
     (setq url (substring url (match-end 1)))
     ;; Strip the localhost name.
     (when (and (match-beginning 2) ;; file:
