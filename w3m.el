@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1441 $"))
+    (let ((rev "$Revision: 1.1442 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -4695,6 +4695,9 @@ BUFFER is nil, all contents will be inserted in the current buffer."
 	       (setq expire (string-to-number (match-string 1 head))))
 	      (setq time (decode-time time))
 	      (setcar time (+ (car time) expire))
+	      ;; Work around too large integer.
+	      (when (floatp (car time))
+		(setcar time (eval '(lsh -1 -1))))
 	      (setq expire (apply 'encode-time time))
 	      (w3m-time-newer-p expire (current-time)))
 	     ((and
