@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1445 $"))
+    (let ((rev "$Revision: 1.1446 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3492,8 +3492,9 @@ The database is kept in `w3m-entity-table'."
 	(w3m-add-text-properties start (point-max)
 				 (list 'w3m-name-anchor
 				       (cons
-					(w3m-url-transfer-encode-string
-					 id)
+					(w3m-decode-entities-string
+					 (w3m-url-transfer-encode-string
+					  id))
 					prenames)))))
     (goto-char (point-min))
     (while (re-search-forward "<a[ \t\r\f\n]+" nil t)
@@ -3558,15 +3559,17 @@ The database is kept in `w3m-entity-table'."
 	      (w3m-add-text-properties start (point-max)
 				       (list 'w3m-name-anchor2
 					     (cons
-					      (w3m-url-transfer-encode-string
-					       name)
+					      (w3m-decode-entities-string
+					       (w3m-url-transfer-encode-string
+						name))
 					      prenames))))))
 	 (name
 	  (w3m-add-text-properties start (point-max)
 				   (list 'w3m-name-anchor2
 					 (cons
-					  (w3m-url-transfer-encode-string
-					   name)
+					  (w3m-decode-entities-string
+					   (w3m-url-transfer-encode-string
+					    name))
 					  prenames)))))))
     (when w3m-icon-data
       (setq w3m-icon-data (cons (and (car w3m-icon-data)
