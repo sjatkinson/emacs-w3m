@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1447 $"))
+    (let ((rev "$Revision: 1.1448 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -5521,10 +5521,16 @@ It will put the retrieved contents into the current buffer.  See
 	(set-buffer-multibyte nil)))
     "image/gif")
    ((string-match "\\`about://source/" url)
-    (w3m-process-do
-	(type (w3m-retrieve (substring url (match-end 0))
-			    no-uncompress no-cache post-data referer handler))
-      (when type "text/plain")))
+    (lexical-let ((url (substring url (match-end 0))))
+      (w3m-process-do
+	  (type (w3m-retrieve url
+			      no-uncompress no-cache post-data referer handler))
+	(cond
+	 (type "text/plain")
+	 ((w3m-cache-request-contents url)
+	  (w3m-decode-encoded-contents (w3m-content-encoding url))
+	  "text/plain")
+	 (t nil)))))
    ((string-match "\\`about:/*blank/?\\'" url)
     "text/plain")
    (t
