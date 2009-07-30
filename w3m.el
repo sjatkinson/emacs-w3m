@@ -184,7 +184,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1449 $"))
+    (let ((rev "$Revision: 1.1450 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1781,9 +1781,6 @@ variable.  For example:
 
 \(setq w3m-local-find-file-regexps
       '(nil . \"\\\\.\\\\(?:[sx]?html?\\\\|dvi\\\\|ps\\\\|pdf\\\\)\\\\'\"))
-
-See also `w3m-use-doc-view-mode', which you will need to modify for
-such a case.
 
 It is effective only when the `w3m-local-find-file-function' variable
 is set properly."
